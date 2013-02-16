@@ -23,6 +23,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <!-- таблицы стилей -->
     <link rel="STYLESHEET" type="text/css" href="css/<?php echo $css_style; ?>">
     <link rel="stylesheet" media="screen,projection" type="text/css" href="css/slimbox2.css" />	
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css" />	
 	<!-- <link rel="stylesheet" href="description_style.css" type="text/css"> -->
     <script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.slimbox2.js"></script>
@@ -47,5 +48,8 @@ if (isset($attributes[err])) {
 
 
 <?php } else { ?>
-<a href="index.php?<?php echo $urladd; ?>"><img src="images/logo_mob.gif" width="41" height="44" border="0" alt="Онлайн-прайс" align="middle" /></a>&nbsp;<b><a href="index.php?<?php echo $urladd; ?>">Онлайн-прайс</a></b>
+<a href="index.php?<?php echo $urladd; ?>">
+    <img src="images/logo_mob.gif" width="41" height="44" border="0" alt="Онлайн-прайс" align="middle" />
+</a>&nbsp;
+<b><a href="index.php?<?php echo $urladd; ?>">Онлайн-прайс</a></b>
 <?php } ?>

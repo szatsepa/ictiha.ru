@@ -11,8 +11,23 @@ $current_group = '';
 // Сделаем поправку для страницы редактирования
 if ($attributes[act] == 'edit_price') $act_select = 'edit_price';
 
-?><div class="selector">&nbsp;<?php 
-if ($attributes[act] == 'add_cart' or $attributes[act] == 'single_price' or $attributes[act] == 'add_favprice' or $attributes[act] == 'edit_price'){?><span class="selector"><form action="index.php?act=<?php echo $act_select; ?>&amp;pricelist_id=<?php echo $attributes[pricelist_id].$urladd; ?>" method="post"><select name="border"><option value="">Выбор по остатку</option><option value="max" <?php if (isset($attributes[border]) and $attributes[border] == 'max') echo "selected"; ?>>Макс. остаток</option><option value="min" <?php if (isset($attributes[border]) and $attributes[border] == 'min') echo "selected"; ?>>Мин. остаток</option></select><input type='submit' value='&gt;&gt;' class='submit'></form></span><span class="selector"><form action="index.php?act=<?php echo $act_select; ?>&amp;pricelist_id=<?php echo $attributes[pricelist_id].$urladd; ?>" method="post"><select name="group" id="group"><option value="">Выбор по группе</option><?php
+?>
+<div class="selector">&nbsp;
+    <?php 
+if ($attributes[act] == 'add_cart' or $attributes[act] == 'single_price' or $attributes[act] == 'add_favprice' or $attributes[act] == 'edit_price'){?>
+    <span class="selector">
+        <form action="index.php?act=<?php echo $act_select; ?>&amp;pricelist_id=<?php echo $attributes[pricelist_id].$urladd; ?>" method="post">
+            <select name="border">
+                <option value="">Выбор по остатку</option><option value="max" <?php if (isset($attributes[border]) and $attributes[border] == 'max') echo "selected"; ?>>Макс. остаток</option><option value="min" <?php if (isset($attributes[border]) and $attributes[border] == 'min') echo "selected"; ?>>Мин. остаток</option>
+            </select>
+            <input type='submit' value='&gt;&gt;' class='submit'>
+        </form>
+    </span>
+    <span class="selector">
+        <form action="index.php?act=<?php echo $act_select; ?>&amp;pricelist_id=<?php echo $attributes[pricelist_id].$urladd; ?>" method="post">
+            <select name="group" id="group">
+                <option value="">Выбор по группе</option>
+                    <?php
 		$num_group	=	mysql_numrows($qry_group);
 		$counter = 0;
 		//$silver = "style='background-color:ThreedFace;'";
@@ -45,14 +60,22 @@ if ($attributes[act] == 'add_cart' or $attributes[act] == 'single_price' or $att
 				$silver = "style='background-color:ThreedFace;'";
 			}*/
 		}
-		?></select><input type='Submit' value='&gt;&gt;' class='submit'></form></span><?php 
+		?>
+        </select>
+        <input type='Submit' value='&gt;&gt;' class='submit'>
+    </form>
+</span>
+            <?php 
 }
 	
     if (isset($qry_cart) and $attributes[act] != 'step1' and $attributes[act] != 'step2' and  (!in_array("step1",$rights))) {
         $num_cart	=	mysql_numrows($qry_cart);
-        if ($num_cart > 0) {?><span class="selector"><form action="index.php?act=step1&amp;pricelist_id=<?php echo $attributes[pricelist_id].$urladd; ?>" method="post"><input type="hidden" name="pricelist_id" value="<? echo $attributes[pricelist_id]; ?>" />
-        <input type="hidden" name="type" value="1"/>
-        <input type='submit' value='Оформить заказ' class='zakaz' />
+        if ($num_cart > 0) {?>
+    <span class="selector">
+        <form action="index.php?act=step1&amp;pricelist_id=<?php echo $attributes[pricelist_id].$urladd; ?>" method="post">
+            <input type="hidden" name="pricelist_id" value="<? echo $attributes[pricelist_id]; ?>" />
+            <input type="hidden" name="type" value="1"/>
+            <input type='submit' value='Оформить заказ' class='zakaz' />
     </form>
 </span>
         <?php 
