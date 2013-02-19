@@ -37,7 +37,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
     <link rel="STYLESHEET" type="text/css" href="css/style_mob.css" />
     <?php } ?>
 </head>
-
+   
 <?php 
 if (isset($attributes[err])) {
     if ($attributes[err] == 'auth' and $authentication == "no") $javascript = "javascript:alert('Ошибка авторизации. Введите правильный ключ.');";
@@ -53,3 +53,4 @@ if (isset($attributes[err])) {
 </a>&nbsp;
 <b><a href="index.php?<?php echo $urladd; ?>">Онлайн-прайс</a></b>
 <?php } ?>
+<div id="content">

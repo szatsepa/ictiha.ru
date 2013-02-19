@@ -68,7 +68,7 @@ height: 33px;
 margin-right: -30px;
 padding:0;
 border: 0;
-background: transparent url(design/search-white.png) no-repeat center top;
+background: transparent url(http://po-mera.ru/image_db/theme/1931528/search-white.png) no-repeat center top;
 text-indent: -1000em;
 cursor: pointer; 
 cursor: hand; 
@@ -84,7 +84,7 @@ height: 33px;
 margin-right: -30px;
 padding:0;
 border: 0;
-background: transparent url(design/search-dark.png) no-repeat center top;
+background: transparent url(http://po-mera.ru/image_db/theme/1931528/search-dark.png) no-repeat center top;
 text-indent: -1000em;
 cursor: pointer; 
 cursor: hand; 
@@ -95,17 +95,16 @@ left:35px;
 
 
 .searchwindow{
-width:391px;
+width:371px;
 height:68px;
-background: url(design/1pixheadfon.png) repeat-x;
+background: url(http://po-mera.ru/image_db/theme/1931528/1pixheadfon.png) repeat-x;
 float:left;
 }
 
 
 .searchpole{
-width:326px;
+width:306px;
 height:68px;
-
 float:left;
 }
 
@@ -115,4 +114,13 @@ height:68px;
 background: #d00;
 float:left;
 }
-
+/*#main_menu{
+    padding-left: 12px;
+    position: relative;
+    width: 1062px;
+    height: 47px;
+}
+#primaryContentContainer{
+    position: relative;
+    float: left;
+}*/
