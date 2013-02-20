@@ -1,5 +1,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
+            
+        $("#apple").css({'visibility':'visible'});
 	     
          $('.cart').live("click", function() {
               
@@ -130,14 +132,7 @@ if ($authentication == "no" or (in_array("add_cart",$rights))) {
     <a href="index.php?act=company_prices&amp;company_id=<?php echo $company_id.$urladd; ?>"><?php echo $company_name; ?></a>
     &nbsp;/&nbsp;
     <a href="index.php?act=single_price&amp;pricelist_id=<?php echo $attributes[pricelist_id].$urladd; ?>"><?php echo $price_name; ?></a>
-    <div style="position:relative;float: right; font-size: 8px; display: block;">
-         <form  action="" method="get">
-             <input type="hidden" name="act" value="edit_price"/>
-             <input type="hidden" name="search" value="1"/>
-             <input type="hidden" name="pricelist_id" value="<?php echo $attributes[pricelist_id];?>"/>
-             <input type="text"  name="word" value="<?php echo $attributes[word];?>" onclick="this.select();"/>
-             <input type="submit" value="Поиск"/>&nbsp;&nbsp;
-        </form>
+    <div style="position:relative;float: right; font-size: 8px; display: none;">
     </div>
 </div>
 <br/>
@@ -247,7 +242,7 @@ while ($field_count < $num_fields - 1) {
 	++$field_count;
 }
 //print_r ($array_fields);
-
+echo mysql_num_rows($qry_price)." => ROWS <br>";
 // Вывод прайс-листа
 
 if ($attributes[act] <> 'edit_price') {   	
@@ -542,5 +537,4 @@ if ($status == 0 and $attributes[act] != "edit_price") {
 if ($status == 2 and $attributes[act] != "edit_price") {
     echo "<p>&nbsp;&nbsp;<b>Прайс-лист заблокирован и будет доступен через некоторое время.</b></p>";
 }
-
  ?>

@@ -1,7 +1,7 @@
 html, body {
   margin:0;
   padding:0;
-  width:1062px;
+  width:100%;
   height:100%;
    font-family: sans-serif;	
 	font-size: 10pt;
@@ -545,14 +545,16 @@ span.iframe {
 	padding: 10px;
 	
 }
-
+#wrapper{
+  width: 100%; 
+  
+}
+#content{
+    width: 1062px;
+    margin: 0 auto;
+}
 div.wrapper {
-width: 1024px;
-/*margin: 0 auto;
-min-height: 1400px;
- max-height: 1800px;*/ 
-  margin: 0;
- padding: 0;
+width: 100%;
 
     position: relative;
     top: 1px;

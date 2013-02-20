@@ -8,6 +8,7 @@
 .container{
     width: 100%;
     position: relative;
+    margin: 0 auto;
 }
 
 
@@ -24,6 +25,7 @@
    height: 25px;
    padding: 22px 0 0 30px;
    float:left;
+   visibility: hidden;
 }
 
 #apple #search {
@@ -114,13 +116,3 @@ height:68px;
 background: #d00;
 float:left;
 }
-/*#main_menu{
-    padding-left: 12px;
-    position: relative;
-    width: 1062px;
-    height: 47px;
-}
-#primaryContentContainer{
-    position: relative;
-    float: left;
-}*/

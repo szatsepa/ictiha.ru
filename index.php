@@ -8,6 +8,7 @@ if(!isset($attributes) || !is_array($attributes)) {
 
 //print_r($attributes);
 //echo "<br/>";
+include 'main/cp_to_utf.php';
 include ("main/qry_connect.php");
 include ("main/act_quotesmart.php");
 include ("main/act_checkmobile.php");

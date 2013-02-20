@@ -3,10 +3,7 @@
 //$query2 = "SELECT * FROM cart ORDER BY Id";
 //$qry_cart = mysql_query($query2) or die($query2);
 
-// Для демо-режима разрешим только один прайс-лист
-/*if (isset(user["role"]) and user["role"] == 2) {
-	$attributes[pricelist_id] = 1;
-}*/
+//print_r($attributes);
 
 $attributes[pricelist_id] = intval($attributes[pricelist_id]);
 
@@ -103,7 +100,7 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
               ORDER  BY id";
 		
 	}
-        if($attributes[act] == 'edit_price' && $attributes[search]==1){
+        if($attributes[act] == 'edit_price' && $attributes[find]==1){
             
             $query = "SELECT  id,
                      str_code1,
@@ -120,7 +117,29 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
                      pricelist_id
             FROM pricelist
         WHERE MATCH (str_barcode,str_name) 
-        AGAINST ($string)";
+        AGAINST ($string) AND pricelist_id=$attributes[pricelist_id] ";
+
+        }
+        if($attributes[act] != 'edit_price' && $attributes[find]==1){
+            
+            $query = "SELECT id,
+	                     str_code1,
+	                     str_barcode,
+	                     str_code2,
+	                     str_name,
+	                     str_state,
+	                     str_volume,
+	                     str_package,
+	                     num_price_single,
+	                     num_price_pack,
+	                     num_amount,
+	                     pricelist_id 
+	              FROM   pricelist 
+	              WHERE MATCH (str_name) 
+        AGAINST ($string) AND pricelist_id=$attributes[pricelist_id] AND
+				  		 str_code2 <> 'X' AND 
+						 num_amount > 0
+	              ORDER  BY id";        
 
         }
 	

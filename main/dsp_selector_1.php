@@ -24,9 +24,10 @@
         <div class="searchwindow">
             <div class="searchpole">
                 <div id="apple">
-                    <form id="search" action="/searcher/" method="get">
+                    <form id="search" action="#" method="post">
+                        <input type="hidden" name="find" value="1"/>
                         <input class="sendsubmit" type="submit" value="Н">
-                        <input type="text" placeholder="Искать..." value="" name="searcher_substring" maxlength="40" size="40">
+                        <input type="text" placeholder="Искать..." value="" name="word" maxlength="40" size="40">
                     </form>
                 </div>
             </div>

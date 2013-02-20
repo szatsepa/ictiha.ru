@@ -53,4 +53,5 @@ if (isset($attributes[err])) {
 </a>&nbsp;
 <b><a href="index.php?<?php echo $urladd; ?>">Онлайн-прайс</a></b>
 <?php } ?>
+<div id="wrapper">
 <div id="content">

@@ -1,7 +1,9 @@
 <?php
 class Prices{
     
-    
+    private $prices = array();
+
+
     private $artikles = array();
     
     private $str_block;
@@ -10,8 +12,6 @@ class Prices{
     function Prices(){
         
         $rubrikator = array();
-        
-        $prices = array();
         
         $query = "SELECT `id`,`name` AS rubrika FROM `rubrikator`";
         
@@ -23,17 +23,17 @@ class Prices{
         
         foreach ($rubrikator as $key => $value) {
             
-            $query = "SELECT `id` FROM `price` WHERE `rubrika` = '$key' LIMIT 0 , 1";
+            $query = "SELECT p.`id`, p.`tags` FROM `price` AS p LEFT JOIN `companies` AS c ON p.`company_id` = c.`id` WHERE `rubrika` = '$key' LIMIT 0 , 1";
             
             $result = mysql_query($query);
             
             if(mysql_num_rows($result) > 0){
                 $row = mysql_fetch_row($result);
-                array_push($prices, $row[0]);
+                array_push($this->prices, $row[0]);
             }
         }
-// p.`str_code2` = 'v' AND        
-        foreach ($prices as $value) {
+        
+        foreach ($this->prices as $value) {
             
             $query = "SELECT p.`Id`, p.`str_code1`, p.`str_barcode`, p.`str_name` AS name, p.`str_volume`, p.`num_price_single` AS price, CONCAT(gp.`id`,'.',gp.`extention`) AS img FROM `pricelist` AS p LEFT JOIN `goods_pic` AS gp ON p.`str_barcode` = gp.`barcode` WHERE p.`pricelist_id` = '$value' AND gp.`pictype`=1 LIMIT 0,1";
             
@@ -45,6 +45,48 @@ class Prices{
                 array_push($this->artikles, $row);
             }
         }
+    }
+    
+     function _getAlphabet(){
+        
+        $bukvar     = array('А','Б','В','Г','Д','Е','Ж','З','И','К','Л','М','Н','О','П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш','Щ','Э','Ю','Я');
+        
+        $bukvar_act = array();
+        
+        // Обнулим массив, нет компаний с такой буквой
+        foreach ($bukvar as $key) {
+                $bukvar_act[$key] = 0;
+        }
+        
+        $query = "SELECT c.`name` FROM `price` AS p LEFT JOIN `companies` AS c ON p.`company_id` = c.`id`";
+            
+        $result = mysql_query($query);
+        
+        while ($row = mysql_fetch_assoc($result)){
+            
+            $row[name] = utf8_to_cp1251($row[name]);
+            $company_letter = iconv_substr($row[name], 0,1);
+            $company_letter = cp1251_to_utf8($company_letter);
+            
+            // Учитываем только русские буквы
+            if (in_array($company_letter,$bukvar)){
+                $bukvar_act[$company_letter] = 1;
+            }
+        }
+       
+        $str_alphabet = "<table id='abc_table' width='100%'><tbody><tr>";
+        
+        foreach ($bukvar_act as $key => $value) {
+            if ($value == 1) {
+                    $str_alphabet .= "<td><div align='center' class='alphabet'><a href='index.php?act=bukva&amp;id=$key$urladd'>$key</a></div></td>";
+            } else {
+                    $str_alphabet .= "<td><div align='center' class='alphabet_b'>$key</div></td>";
+            }
+        }
+        
+        $str_alphabet .= "</tr></tbody></table>";
+        
+        return $str_alphabet;
     }
     
     function _getArtikles(){
@@ -117,7 +159,7 @@ class Companies{
             }
 //            echo $value[price_id]."<br>";
             
-            $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href='index.php?act=act=company_prices&company_id=$value[id]'>$value[name]</a></td><td>$value[full_about]</td></tr>";
+            $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href='index.php?act=company_prices&company_id=$value[id]'>$value[name]</a></td><td>$value[full_about]</td></tr>";
         }
         
         $this->str_block .= "</tbody></table>";
