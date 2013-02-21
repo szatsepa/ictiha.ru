@@ -42,7 +42,7 @@
     </div>
 </div>
 <div id="main_menu"> 
-    <br><br>
+    <br><br><p style="text-align: center">
         <?php
         if($_SESSION[auth] == 1){
             if (($user["role"] == 1 or $user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { ?>
@@ -70,7 +70,7 @@
             <a href="index.php?act=complist<?php echo $urladd; ?>" title="Обратная связь">Список&nbsp;компаний</a>&nbsp;&nbsp;&nbsp;
             <?php } ?>
             <a href="index.php?act=mailform<?php echo $urladd; ?>" title="Обратная связь">Обратная&nbsp;связь</a>&nbsp;&nbsp;&nbsp;
-        <?php }?>
+        <?php }?></p>
             <br><br>
 <!--    <ul></ul>-->
 </div>

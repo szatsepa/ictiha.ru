@@ -125,12 +125,13 @@ table.dat {
 	font-size:10pt;
 	margin-left: 2px;
 	margin-right: 2px;
+        width: 1062px;
 }
 th.dat{
 		background: #002778;
 		color:White;
 		font-size:9pt;
-		padding: 3px 15px;
+		padding: 1px 7px;
 		
 }
 td.dat {

@@ -242,14 +242,14 @@ while ($field_count < $num_fields - 1) {
 	++$field_count;
 }
 //print_r ($array_fields);
-echo mysql_num_rows($qry_price)." => ROWS <br>";
+//echo mysql_num_rows($qry_price)." => ROWS <br>";
 // Вывод прайс-листа
 
 if ($attributes[act] <> 'edit_price') {   	
 
-    $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток (шт.)","Кол-во (шт.)","Скидка","&nbsp;");
+    $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Кол-во(шт.)","Скидка","&nbsp;");
 } else {
-    $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Группа","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток (шт.)","Действие");
+    $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Группа","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Действие");
 }
 
 // Выводим блокированные только для редактирования
@@ -348,8 +348,8 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
     	}
     	
     	if ($attributes[act] <> 'edit_price') {   	
-        	echo "<td><input type='Text' maxlength='4' size='4' name='amount' value='$ordered' " . $disabled . " $bold></td>";
-        	echo "<td><input type='Text' maxlength='6' size='6' name='discount' value='$skidka' " . $disabled . " $bold></td>";
+        	echo "<td><input type='Text' maxlength='3' size='3' name='amount' value='$ordered' " . $disabled . " $bold></td>";
+        	echo "<td><input type='Text' maxlength='2' size='2' name='discount' value='$skidka' " . $disabled . " $bold></td>";
         	echo "<td><input type='Submit' value='&gt;&gt;' " . $disabled . " $bold></td>";
         	if (isset($attributes[border])) echo "<input type='Hidden' name='border' value='".$attributes[border]."'>";
         	if (isset($attributes[group])) echo "<input type='Hidden' name='group' value='".$attributes[group]."'>";
