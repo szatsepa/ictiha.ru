@@ -31,7 +31,7 @@
             o_am.children().val(amount);
            
             
-            tt = $(this).attr("id") + " " + new_group + " " + cena_ed + " " + cena_kor + " " + amount;
+//            tt = $(this).attr("id") + " " + new_group + " " + cena_ed + " " + cena_kor + " " + amount;
             
 //            alert (tt);
             
@@ -63,7 +63,7 @@
                                                 'num_amount':num_amount,
                                                 'butt_id':$(this).attr("id")}); 
             
-            alert (str_group + ' ' + num_price_single + ' ' + num_price_pack + ' ' + num_amount);
+//            alert (str_group + ' ' + num_price_single + ' ' + num_price_pack + ' ' + num_amount);
             
             return false;
         }); 
@@ -302,6 +302,10 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
             // Артикул?
             if ($field_count == 1) {
                 $artikul = $dat;
+//                print_r($artikul);
+//                echo "<br>";
+//                print_r($cart);
+//                echo "<br>";
 				if (array_key_exists($artikul,$cart)) {
 					$bold    = "style='background-color:#ccffcc;'";
 					$ordered = $cart[$artikul];

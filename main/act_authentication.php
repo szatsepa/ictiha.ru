@@ -7,7 +7,8 @@ $query_str = str_replace ('out=1','',$attributes[query_str]);
 if ($num_rows == 1) {
     $id = mysql_result($qry_userauth,0);
     
-    $_SESSION['auth'] = 1;
+        $_SESSION['auth'] = 1;
+        
 	$_SESSION['id']   = $id;
 	
 	header ("location:index.php?$query_str");

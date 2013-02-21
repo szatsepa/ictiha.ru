@@ -23,8 +23,19 @@ echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 <!-- таблицы стилей -->
     <link rel="STYLESHEET" type="text/css" href="css/<?php echo $css_style; ?>">
     <link rel="stylesheet" media="screen,projection" type="text/css" href="css/slimbox2.css" />	
-    <link rel="stylesheet" type="text/css" href="css/mystyle.css" />	
-	<!-- <link rel="stylesheet" href="description_style.css" type="text/css"> -->
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css" />
+    <script language="JavaScript">
+	
+	if (screen.width < '1024') {
+	 
+	   document.write ('<link href="css/pad.css" rel="stylesheet" type="text/css" />'); 
+	
+	} else {
+	
+		 document.write ('<link href="css/default.css" rel="stylesheet" type="text/css" />');
+	
+	}
+	</script>
     <script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.slimbox2.js"></script>
 	<script type="text/javascript" src="js/jquery.switcher.js"></script>

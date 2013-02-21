@@ -14,30 +14,56 @@
         <a href="http://idea.po-mera.ru/" alt="Идеи">
             <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_07.png">
         </a>
-        <a href="http://shoop.po-mera.ru/" alt="Магазин">
+        <a href="http://shop.po-mera.ru/" alt="Магазин">
             <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_08.png">
         </a>
-        <a href="http://blog.po-mera.ru/" alt="Магазин">
+        <a href="http://blog.po-mera.ru/" alt="Блог">
             <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_06.png">
         </a>
 
         <div class="searchwindow">
             <div class="searchpole">
-                <div id="apple">
+                <div id="apple" <?php if($authentication == 'yes')  echo "style='visibility:hidden'"; ?>>
+                    <?php
+                        if(!isset($attributes[act]) && $authentication == 'no'){
+                            ?>
+                        <form id="search" action="index.php?act=authentication" method="post">
+                            <input type="hidden" name="find" value="1"/>
+                            <input class="sendsubmit" type="submit" value="Н">
+                            <input type="text" placeholder="Войти..." value="" name="code" maxlength="40" size="40">
+                        </form>
+                     <?php   }else{
+                    ?>
                     <form id="search" action="#" method="post">
                         <input type="hidden" name="find" value="1"/>
-                        <input class="sendsubmit" type="submit" value="Н">
+                        <input class="sendsubmit" type="button" value="Н" id="find_btn">
                         <input type="text" placeholder="Искать..." value="" name="word" maxlength="40" size="40">
                     </form>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
             <div class="exitbutton">
-                <a href="#">
+                <a href="index.php?act=logout">
                     <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_10.png">
                 </a>
             </div>
         </div>
-
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#find_button").click(function(){
+                var str = $("#search input:text").val();
+                if(str.length > 0 && str.length < 4){
+                    alert("Слишком короткое слово для поиска!");
+                }else if(str.length == 0){
+                    return false;
+                }else{
+                    $("#search").submit();
+                }
+            });
+        });
+    </script>
 
     </div>
 </div>
