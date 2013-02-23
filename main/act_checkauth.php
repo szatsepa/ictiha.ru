@@ -1,22 +1,11 @@
 <?php
 // Проверка аутентификации
 
-//$authentication = "no";
+$authentication = "no";
 
-//session_cache_expire(5);
-session_start();
-
-
-// Временная заплатка для принудительной авторизации мобильных устройств
-/*if ($mobile == 'true'){
-    $authentication = "yes";
-    $attributes[auth] = 1;
-    $attributes[auth] = 19;
-}*/
-
-
-
-if (isset($_SESSION['auth']) and !isset($attributes[out])) {
+if (isset($_SESSION['auth']) and !isset($attributes['out'])) {
+    
+//    echo "P___________________pizdets<br>";
 	
 	// В мобильной версии запишем куку (неделя) для аутентификации
 	if ($mobile == 'true') setcookie("di", $_SESSION['id'], time()+680400);
@@ -27,9 +16,9 @@ if (isset($_SESSION['auth']) and !isset($attributes[out])) {
     //include ("as/qry_user.php");
     
 	// To do переделать пользователя в объект (ООП)
-	$user = query_user($attributes[user_id]); 
-        
-    $_SESSION[user] = $user;
+	$user = query_user($attributes['user_id']); 
+                
+    $_SESSION['user'] = $user;
     
     // Создаем массив запрещенных страниц
     $rights = explode(",", $user["rights"]);
@@ -47,24 +36,25 @@ if (isset($_SESSION['auth']) and !isset($attributes[out])) {
     
 	// Не пускаем обычных пользователей в административную область
 	if (eregi('/as/',$_SERVER['PHP_SELF'])) {
-		if ($user['role'] == 2 or $user['role'] == 3 or $user['role'] == 4 or $user['role'] == 5) {  
-			header ("location:index.php?act=logout");
+		if ($user['role'] != 1) {  
+//			header ("location:index.php?act=logout");
 		}
 	}
 	
 } else {
+        
 		    // Здесь обрабатывать разрегистрированного пользователя!!!!
 			
 			// Разберемся с мобильным пользователем, у него особые привелегии
-			if ($mobile == 'true' and isset($attributes[di]) and $attributes[di] > 0) {
+			if ($mobile == 'true' and isset($attributes['di']) and $attributes[di] > 0) {
 			
 				
 			    
-			    $attributes[user_id] = $attributes[di];
+			    $attributes[user_id] = $attributes['di'];
 			    //include ("as/qry_user.php");
 			    
 				// To do переделать пользователя в объект (ООП)
-				$user = query_user($attributes[user_id]); 
+				$user = query_user($attributes['user_id']); 
 			    
 				// Пускаем только заказчика!!!
 				if ($user["role"] == 3) {				
@@ -77,7 +67,7 @@ if (isset($_SESSION['auth']) and !isset($attributes[out])) {
 				    }
 					
 				    $_SESSION['auth'] = 1;
-					$_SESSION['id']   = $attributes[user_id];
+					$_SESSION['id']   = $attributes['user_id'];
 					$authentication   = "yes";
 					
 				} else {
@@ -93,9 +83,9 @@ if (isset($_SESSION['auth']) and !isset($attributes[out])) {
 			}
 }
 
-if (in_array($attributes[act],$rights)) {
+if (in_array($attributes['act'],$rights)) {
    //print_r ($rights);
-    header ("location:index.php");
+//    header ("location:index.php");
 }
 
 ?>

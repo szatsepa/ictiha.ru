@@ -1,21 +1,16 @@
 <?php
-  header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-  header('Pragma: no-cache'); 
+//  header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+//  header('Pragma: no-cache'); 
+  
+  if(!isset($_SESSION)){
+    session_start();
+}
 
 if(!isset($attributes) || !is_array($attributes)) {
 	$attributes = array();
 	$attributes = array_merge($_GET,$_POST,$_COOKIE); 
 }
-if(!isset($_SESSION)){
 
-    session_start();
-}
-
-//session_destroy();
-//
-//print_r($_SESSION);
-//echo "<br>";
-//print_r($attributes); 
 
 include("../main/qry_connect.php");
 include("../main/act_quotesmart.php");
@@ -25,15 +20,17 @@ include("qry_user.php");
 
 include("../main/act_checkauth.php");
 
-if ($authentication == "no" and $attributes[act] != "authentication") $attributes[act] = '';
+if ($authentication == "no" and $attributes['act'] != "authentication") $attributes['act'] = '';
 
 // Здесь устанавливаются алерты
 include("act_checkerror.php");
 
-switch ($attributes[act]) {
+
+
+switch ($attributes['act']) {
     
     case "authentication":
-    include("../main/qry_userauth.php");	
+        include("../main/qry_userauth.php");	
 	include("../main/act_authentication.php");	
 	break;
     
@@ -535,7 +532,9 @@ switch ($attributes[act]) {
     break; 
     
 	}
-	
+//	print_r($_SESSION);
+//echo "<br>";
+//print_r($attributes);
         include '../main/dsp_footer.php';
     // Disconnect from db
     include("../main/qry_disconnect.php");

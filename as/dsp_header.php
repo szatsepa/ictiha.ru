@@ -1,7 +1,5 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');  
-//header("Cache-Control: no-store"); 
-//header("Expires: " . date("r")); 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
@@ -41,18 +39,23 @@ if (isset($attributes[error])) {
 ?>
 <!--  -->
 <body onload="<?php if (isset($javascript)) echo $javascript; ?>">
+<div id="wrapper">
+<div id="content">
 <h3>&nbsp;Административная область</h3>
 
 <div class="selector"><table border="0" width="100%"><tr>
 <?php if ($authentication == "no") {?>
-<form action="index.php?act=authentication" method="post">
-    <input type="hidden" name="query_str" value="<? echo $_SERVER["QUERY_STRING"]; ?>"/>
+
+    
     <td width='*' align='right'>
+       <form action="index.php?act=authentication" method="post"> 
+        <input type="hidden" name="query_str" value="<? echo $_SERVER["QUERY_STRING"]; ?>"/>
         <input type="password" name="code" size="10"/>
         <input type="submit" value="&gt;&gt;" />
+      </form>  
     </td>
-</form>
-<?php } else if(isset($user) && $user[role] == 6){?>
+
+<?php } else if(isset($user) && $user[role] == 2){?>
 <td>
 <!--    <a href="index.php?act=companies" class="header2">Компании</a>
     <a href="index.php?act=users" class="header2">Пользователи</a>-->
