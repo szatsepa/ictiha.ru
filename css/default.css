@@ -352,8 +352,9 @@ a:hover
 
 #content table
 {
+        width: 100%;
 	margin-bottom: 1.5em;
-}
+        }
 
 #content table th
 {
@@ -410,7 +411,7 @@ a:hover
 #primaryContent
 {
 /*	margin: 0em 0em 0em 15em;*/
-	padding: 2.5em 2.5em 1.5em 2.5em; 
+/*	padding: 1.5em 0em 0em 0em; */
 }
 
 /* Secondary Content */

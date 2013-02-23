@@ -38,7 +38,7 @@ if (isset($_SESSION['torg']) and $_SESSION['torg'] > 0) {
 //$quer = "SELECT a.str_code1,a.str_code2,a.str_name,a.str_state,a.str_volume,a.str_package,a.num_price_single,a.num_price_pack,b.num_amount,b.num_discount FROM pricelist a, cart b WHERE a.id = b.num_id AND b.user_id=".$current_user." ORDER BY a.id";
 
 $query = "SELECT a.str_code1,
-				a.str_barcode,
+                a.str_barcode,
                 a.str_code2,
                 a.str_name, 
                 a.str_state,
@@ -48,35 +48,36 @@ $query = "SELECT a.str_code1,
                 a.num_price_pack,
                 b.num_amount,
                 b.num_discount,
-				b.user_id,
-				b.torg,
+                b.user_id,
+                b.torg,
                 a.id,
                 a.pricelist_id,
                 p.company_id,
                 c.name AS company_name,
-				b.parent_zakaz,
-				p.type,
-				p.zakaz_limit
-         FROM pricelist a, cart b, price p,companies c
+                b.parent_zakaz,
+                p.type,
+                p.zakaz_limit
+          FROM pricelist a, cart b, price p,companies c
          WHERE a.str_code1 = b.artikul
            AND a.pricelist_id = b.price_id
            AND a.pricelist_id = p.id
-           AND p.company_id=c.id".
-           $curr_condition." 
-		   AND a.pricelist_id=$pricelist_id AND
-		   a.str_code2 <> 'X'
-         ORDER BY a.id";
+           AND p.company_id=c.id
+           $curr_condition
+           AND a.pricelist_id=$pricelist_id AND
+               a.str_code2 <> 'X'
+      ORDER BY a.id";
 
-//echo $query; exit;
+//echo $query; 
+//exit;
 
 $qry_cart = mysql_query($query) or die($query);
 
 
 if (mysql_num_rows($qry_cart) > 0) {
 	
-	//$price_id = mysql_result($qry_cart,0,"pricelist_id");
+	$price_id = mysql_result($qry_cart,0,"pricelist_id");
 	
-	$price_id = $pricelist_id;
+//	$price_id = $pricelist_id;
 	
 	// Id Торгового, который возможно делал заказ
 	$torgovy_id = intval(mysql_result($qry_cart,0,"torg"));

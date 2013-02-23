@@ -473,12 +473,7 @@ switch ($attributes[act]) {
 	// По умолчанию    
     default:
 	$title = "";
-        include 'main/class_prices.php';
-//        include ("main/qry_advert.php");
-        include ("as/qry_companies.php");
-//	include ("as/qry_matrix.php");
-        include ("as/qry_prices.php");    
-//	include ("as/dsp_matrix.php");
+        include 'main/class_prices.php'; 
         include ("main/act_string2html.php");
 	include ("main/dsp_header.php");
         include ("main/dsp_selector_1.php");	

@@ -94,7 +94,21 @@ position:relative;
 left:35px;
 }
 
-
+#entry{
+width:  33px; 
+/*// длина кнопки*/
+height: 33px;
+/*// высота кнопки*/
+margin-right: -30px;
+padding:0;
+border: 0;
+background: transparent url(http://shop.po-mera.ru/design/search-none.png) no-repeat center top;
+text-indent: -1000em;
+cursor: pointer; 
+cursor: hand; 
+position:relative;
+left:35px;
+}
 
 .searchwindow{
 width:371px;

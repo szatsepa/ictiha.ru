@@ -1,3 +1,11 @@
+<script type="text/javascript">
+        $(document).ready(function(){
+            if($("#search").attr('action') != '#'){
+                $("input#entry.sendsubmit input#entry.sendsubmit:hover").css({"background": 'url("http://shop.po-mera.ru/design/search-none.png") no-repeat scroll center top transparent")'});
+            }
+            
+        });
+</script>
 <div class="container">
     <div class="lb-1">
         <a href="http://po-mera.ru/cabinet/">
@@ -29,9 +37,10 @@
                             ?>
                         <form id="search" action="index.php?act=authentication" method="post">
                             <input type="hidden" name="find" value="1"/>
-                            <input class="sendsubmit" type="submit" value="Н">
+                            <input class="sendsubmit" id="entry" type="submit" value="Н">
                             <input type="text" placeholder="Войти..." value="" name="code" maxlength="40" size="40">
                         </form>
+                    
                      <?php   }else{
                     ?>
                     <form id="search" action="#" method="post">

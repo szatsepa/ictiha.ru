@@ -149,7 +149,7 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
 
 $qry_price = mysql_query($query) or die($query);
 
-//$pricelist_id = mysql_result($qry_price,0,'pricelist_id');
+$pricelist_id = mysql_result($qry_price,0,'pricelist_id');
 
 // Выберем группу
 /*if(!isset($attributes[pricelist_id]) or $attributes[pricelist_id] = "") {

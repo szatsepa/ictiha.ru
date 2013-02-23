@@ -88,3 +88,9 @@
     </div>
 </div>
 <?php } ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        $("td.rubrik_link").css({'font-size':'1.0em'});
+    });
+</script>

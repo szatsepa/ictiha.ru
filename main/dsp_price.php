@@ -298,14 +298,11 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
 		
         while ($field_count < $num_fields - 1) {	
     		$dat = mysql_result($qry_price,$row_count,$array_fields[$field_count]);
-//            echo $dat."<br/>";
+                
             // Артикул?
             if ($field_count == 1) {
                 $artikul = $dat;
-//                print_r($artikul);
-//                echo "<br>";
-//                print_r($cart);
-//                echo "<br>";
+                
 				if (array_key_exists($artikul,$cart)) {
 					$bold    = "style='background-color:#ccffcc;'";
 					$ordered = $cart[$artikul];
@@ -357,7 +354,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
         	echo "<td><input type='Submit' value='&gt;&gt;' " . $disabled . " $bold></td>";
         	if (isset($attributes[border])) echo "<input type='Hidden' name='border' value='".$attributes[border]."'>";
         	if (isset($attributes[group])) echo "<input type='Hidden' name='group' value='".$attributes[group]."'>";
-            echo "<input type='Hidden' name='artikul' value=".$artikul.">";
+                echo "<input type='Hidden' name='artikul' value=".$artikul.">";
             
             // Выводим количество шт. в упаковке, чтобы товар принудительно был заказан упаковками 
             if ($str_code2 == '') {
