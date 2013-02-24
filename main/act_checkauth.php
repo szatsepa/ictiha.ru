@@ -17,6 +17,9 @@ if (isset($_SESSION['auth']) and !isset($attributes['out'])) {
     
 	// To do переделать пользователя в объект (ООП)
 	$user = query_user($attributes['user_id']); 
+        
+//        print_r($user);
+//        echo "<br>";
                 
     $_SESSION['user'] = $user;
     

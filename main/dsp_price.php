@@ -113,7 +113,7 @@ if ($mobile == 'true') {
 } else {
     $per_page	=	25;
 }
-
+if($qry_aboutprice){
 $row3         = mysql_fetch_assoc($qry_aboutprice);
 $company_id   = $row3["company_id"];
 $company_name = $row3["company_name"];
@@ -537,5 +537,6 @@ if ($status == 0 and $attributes[act] != "edit_price") {
 
 if ($status == 2 and $attributes[act] != "edit_price") {
     echo "<p>&nbsp;&nbsp;<b>Прайс-лист заблокирован и будет доступен через некоторое время.</b></p>";
+}
 }
  ?>

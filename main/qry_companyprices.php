@@ -5,7 +5,7 @@ if ($authentication == "yes") {
     
     // Список прайсов для поставщика
     if (!isset($attributes[company_id])) {
-        $attributes[company_id] = $user["company_id"];
+        $attributes[company_id] = $_SESSION['user']["company_id"];
     }
     
 } else {

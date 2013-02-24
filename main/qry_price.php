@@ -149,7 +149,7 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
 
 $qry_price = mysql_query($query) or die($query);
 
-if($qry_price){
+if(mysql_num_rows($qry_price)>0){
 
         $pricelist_id = mysql_result($qry_price,0,'pricelist_id');
 

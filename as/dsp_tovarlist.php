@@ -47,6 +47,7 @@ include 'dsp_pager.php';
 ?>
 <br />
 <table class="dat">
+    <thead>
 <th class="dat">Штрих-код</th>
 <th class="dat">Наименование</th>
 <th class="dat">Краткое описание</th>
@@ -55,14 +56,20 @@ include 'dsp_pager.php';
 <th class="dat">Сайт поддержки</th>
 <th class="dat">НДС %</th>
 <th class="dat"></th>
-
+</thead>
+<tbody>
 <?php
 
 $rows = 0;
+//
+//print_r($item_array);
+//    echo "<br>";
 
-for($i=$start;$i<($cnt-1);$i++) {
+for($i=$start;$i<($cnt);$i++) {
     
     $row = $item_array[$i];
+    
+    
 	
 	if (strlen($row["short_description"]) > 32) {
             
@@ -131,6 +138,7 @@ for($i=$start;$i<($cnt-1);$i++) {
 }
 
 ?>
+    </tbody>
 </table>
 <br/>
 <!--<tr></tr>-->

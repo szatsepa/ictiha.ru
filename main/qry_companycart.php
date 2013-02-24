@@ -1,13 +1,13 @@
 <?php
 // Выборка извлекает номера прайсов из корзины для конкретной компании
 
-if (!isset($attributes[company_id])) {
+if (!isset($attributes['company_id'])) {
     
-	$attributes[company_id] = $user["company_id"];
+	$attributes['company_id'] = $_SESSION['user']["company_id"];
 
 	} else {
 
-	$attributes[company_id] = intval($attributes[company_id]);
+	$attributes['company_id'] = intval($attributes['company_id']);
 
 }
 

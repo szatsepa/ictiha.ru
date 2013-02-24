@@ -37,9 +37,9 @@ if ($attributes[act] == 'tovar_edit') {
  ?>
 
  <form enctype="multipart/form-data" action="index.php?act=uploadgoods" method="post">
-	<input type="hidden" name="MAX_FILE_SIZE" value="1048575"/>        
-    <input name="userfile" type="file" size="20" required/>
-    <input type="submit" value="Загрузить инф. о товарах"/>
+     <input type="hidden" name="MAX_FILE_SIZE" value="1048575"/>     
+    <input name="userfile" type="file" size="20" required/>&nbsp;&nbsp;&nbsp;&nbsp;  
+    <input type="submit" value="Загрузить инф. о товарах"/> 
 </form>
 <br />&nbsp;
 <br />
@@ -48,18 +48,20 @@ if ($attributes[act] == 'tovar_edit') {
 <br />
 
 <table border="0" cellpadding="0" cellspaciing="15">
+    <thead></thead>
+    <tbody><form action="index.php?act=<?php echo $act ?>" method="post" name="tovar_add">
 <tr>
-    <form action="index.php?act=<?php echo $act ?>" method="post" name="tovar_add">
+    
 	<td>Штрих-код</td>
 	<td><input required type="text" name="barcode" size="25" maxlength="25" value="<?php echo $barcode; ?>" <?php echo $disabled; ?>/></td>
 </tr>
 <tr>
 	<td>Наименование товара</td>
-	<td><input type="text" name="name" size="105" maxlength="255" value="<?php echo $name; ?>"></td>
+	<td><input type="text" name="name" size="85" maxlength="255" value="<?php echo $name; ?>"></td>
 </tr>
 <tr>
 	<td>Краткое описание</td>
-	<td><input type="text" name="short_description" size="105" maxlength="255" value="<?php echo $short_description; ?>"></td>
+	<td><input type="text" name="short_description" size="85" maxlength="255" value="<?php echo $short_description; ?>"></td>
 </tr>
 <tr>
 	<td>Состав</td>
@@ -79,11 +81,12 @@ if ($attributes[act] == 'tovar_edit') {
 	<td><input type="text" name="nds" size="25" value="<?php echo $nds; ?>"/></td>
 </tr>
 <tr><td></td><td>
+        </form>
 <table>
     <tr>
 	
 	<td align="right"><br /><input type="submit" value="<?php echo $submit; ?>" /></td>
- </form>  
+   
 <?php if ($attributes[act] == 'tovar_edit') { ?>
 <form action="index.php?act=del_item" method="post">
     <input type="hidden" name="page" value="<?php echo $attributes[page];?>"/>
@@ -97,6 +100,7 @@ if ($attributes[act] == 'tovar_edit') {
 </table>
         </td>
 </tr>
+</tbody>
 </table>
        
 

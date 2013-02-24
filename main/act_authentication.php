@@ -1,7 +1,7 @@
 <?php
 $query_str = str_replace ('out=1','',$attributes['query_str']);
 
-if (mysql_num_rows($qry_userauth) == 1) { 
+if (mysql_num_rows($qry_userauth)) { 
     
     $id = mysql_result($qry_userauth,0);
     

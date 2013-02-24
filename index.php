@@ -1,12 +1,15 @@
 <?php
 // update 30.05.2011
 // Просто комменты
+
+session_start();
+
 if(!isset($attributes) || !is_array($attributes)) {
 	$attributes = array();
 	$attributes = array_merge($_GET,$_POST,$_COOKIE); 
 }
 
-//print_r($attributes);
+//print_r($_SESSION);
 //echo "<br/>";
 include 'main/cp_to_utf.php';
 include ("main/qry_connect.php");
