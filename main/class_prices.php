@@ -13,7 +13,7 @@ class Prices{
         
         $rubrikator = array();
         
-        $query = "SELECT `id`,`name` AS rubrika FROM `rubrikator`";
+        $query = "SELECT `id`,`name` AS rubrika FROM `rubrikator` WHERE status = 1";
         
         $result = mysql_query($query);
         
@@ -168,5 +168,36 @@ class Companies{
         
         return $this->str_block;
     }
+}
+
+class Chapters{
+    
+    private $rubrikator = array();
+    
+    function Chapters(){
+        
+        $query = "SELECT * FROM `rubrikator` WHERE status = 1";
+        
+        $result = mysql_query($query);
+        
+        while ($row = mysql_fetch_assoc($result)){
+            array_push($this->rubrikator, $row);
+        }
+        
+    }
+    
+    function _getBlock(){
+        $block = '<fieldset><table border="0" cellpadding="2" cellsapcing="1"><tr>';
+                                        
+        foreach ($this->rubrikator as $key => $value) {
+            
+            $block .= '<td valign="top" class="rubrik_link"><a href="index.php?act=rubrika&amp;id='.$value['id'].'">'.$value['name'].'</a></td>';                                               
+        }
+        
+        $block .= '</tr></table></fieldset>';
+        
+        return $block;
+    }
+    
 }
 ?>

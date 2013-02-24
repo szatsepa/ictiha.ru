@@ -8,39 +8,12 @@
                             <table border="0" cellpadding="0" cellspacing="0">
 			<tr>
 				<td>
-                                <fieldset> 
-                                    <table border="0" cellpadding="2" cellsapcing="1">
-                                        <tr>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=1">Алкоголь и напитки</a>
-                                            </td>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=2">Фрукты и овощи</a>
-                                            </td>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=3">Бакалея</a>&nbsp;&nbsp;
-                                            </td>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=4">Молочная продукция</a>
-                                            </td>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=5">Мясо и рыба</a>
-                                            </td>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=6">Хлеб и кондитерские изделия</a>
-                                            </td>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=7">Посуда оборудование инвентарь</a>
-                                            </td>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=8">Одежда и мебель</a>
-                                            </td>
-                                            <td valign="top" class="rubrik_link">
-                                                <a href="index.php?act=rubrika&amp;id=9">Бытовая химия</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                            </fieldset>
+                                    <?php
+                                    $rubrikator = new Chapters();
+                                    
+                                    echo $rubrikator->_getBlock();
+                                    
+                                    ?>
                                 </td>
 			</tr>
                         <tr>

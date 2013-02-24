@@ -149,38 +149,40 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
 
 $qry_price = mysql_query($query) or die($query);
 
-$pricelist_id = mysql_result($qry_price,0,'pricelist_id');
+if($qry_price){
 
-// Выберем группу
-/*if(!isset($attributes[pricelist_id]) or $attributes[pricelist_id] = "") {
-    $attributes[pricelist_id] = $pricelist_id;
-}*/
+        $pricelist_id = mysql_result($qry_price,0,'pricelist_id');
+
+    // Выберем группу
+    /*if(!isset($attributes[pricelist_id]) or $attributes[pricelist_id] = "") {
+        $attributes[pricelist_id] = $pricelist_id;
+    }*/
 
 
-    $query3 = "SELECT DISTINCT str_group FROM pricelist WHERE pricelist_id=$attributes[pricelist_id] ORDER BY str_group";
-    $qry_group = mysql_query($query3) or die($query3);
-    
-    if ($authentication == "yes") {
-    $user_for_select = $attributes[user_id];
-    } else {
-        $user_for_select = 0;
-    }
-    
-    $query4 = "SELECT user_id FROM kabinet 
-              WHERE price_id=$attributes[pricelist_id] 
-              AND user_id=$user_for_select";
-    $qry_favorite = mysql_query($query4) or die($query4);
-    
-    $query5 = "SELECT p.id,
-                      p.comment price_name,
-                      c.id company_id,
-                      c.name company_name,
-                      p.status,
-					  p.zakaz_limit
-               FROM price AS p, companies AS c
-               WHERE p.company_id = c.id AND
-                     p.id = $attributes[pricelist_id]";
-    
-    $qry_aboutprice = mysql_query($query5) or die($query5);
-    
+        $query3 = "SELECT DISTINCT str_group FROM pricelist WHERE pricelist_id=$attributes[pricelist_id] ORDER BY str_group";
+        $qry_group = mysql_query($query3) or die($query3);
+
+        if ($authentication == "yes") {
+        $user_for_select = $attributes[user_id];
+        } else {
+            $user_for_select = 0;
+        }
+
+        $query4 = "SELECT user_id FROM kabinet 
+                WHERE price_id=$attributes[pricelist_id] 
+                AND user_id=$user_for_select";
+        $qry_favorite = mysql_query($query4) or die($query4);
+
+        $query5 = "SELECT p.id,
+                        p.comment price_name,
+                        c.id company_id,
+                        c.name company_name,
+                        p.status,
+                                            p.zakaz_limit
+                FROM price AS p, companies AS c
+                WHERE p.company_id = c.id AND
+                        p.id = $attributes[pricelist_id]";
+
+        $qry_aboutprice = mysql_query($query5) or die($query5);
+}  
 ?>

@@ -23,6 +23,8 @@ while ($var = mysql_fetch_assoc($qry_companies)){
 
 $is_com = count($companies_array);
 
+if($is_com > 0){
+    
 mysql_data_seek($qry_companies, 0);
 
 ?>
@@ -90,6 +92,7 @@ include("dsp_storefront_select.php");
      
     
    <?php
+   }
    if(isset ($attributes[company_id])){
        
        ?>
