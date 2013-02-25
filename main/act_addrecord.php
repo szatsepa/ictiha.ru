@@ -3,43 +3,44 @@
 
 header('Content-Type: text/html; charset=utf-8'); 
 
-$str_code1 = quote_smart(trim($attributes[str_code1]));
-$str_barcode = quote_smart(trim($attributes[str_barcode]));
+$str_code1 = quote_smart(trim($attributes['str_code1']));
+$str_barcode = quote_smart(trim($attributes['str_barcode']));
 
-$str_name = quote_smart(trim($attributes[str_name]));
-$str_state = quote_smart(trim($attributes[str_state]));
-$str_volume = quote_smart(trim($attributes[str_volume]));
-$str_package = quote_smart(trim($attributes[str_package]));
+$str_name = quote_smart(trim($attributes['str_name']));
+$str_state = quote_smart(trim($attributes['str_state']));
+$str_volume = quote_smart(trim($attributes['str_volume']));
+$str_package = quote_smart(trim($attributes['str_package']));
+$expiration = quote_smart(trim($attributes['expiration']));
 
-$num_price_single = trim($attributes[num_price_single]);
+$num_price_single = trim($attributes['num_price_single']);
 $num_price_single = number_format($num_price_single, 2, '.', '');
 
-$num_price_pack = trim($attributes[num_price_pack]);
+$num_price_pack = trim($attributes['num_price_pack']);
 $num_price_pack = number_format($num_price_pack, 2, '.', '');
 
-$num_amount = intval(trim($attributes[num_amount]));
+$num_amount = intval(trim($attributes['num_amount']));
 
-$pricelist_id = intval($attributes[pricelist_id]);
+$pricelist_id = intval($attributes['pricelist_id']);
 
 //$str_group = quote_smart(trim($attributes[str_group]));
 
 // Определимся с текущей группой
 
-$attributes[str_group1] = trim($attributes[str_group1]);
-$attributes[str_group2] = trim($attributes[str_group2]);
+$attributes['str_group1'] = trim($attributes['str_group1']);
+$attributes['str_group2'] = trim($attributes['str_group2']);
 
 $str_group = 'NULL';
 $new_group = '';
 
-if ($attributes[str_group1] !== '' and $attributes[str_group2] === '') {
+if ($attributes['str_group1'] !== '' and $attributes['str_group2'] === '') {
 
-	$str_group = quote_smart($attributes[str_group1]);
+	$str_group = quote_smart($attributes['str_group1']);
 
 }
 
-if ($attributes[str_group2] !== '') {
+if ($attributes['str_group2'] !== '') {
 
-	$str_group = quote_smart($attributes[str_group2]);
+	$str_group = quote_smart($attributes['str_group2']);
 	$new_group = $str_group;
 
 }
@@ -81,7 +82,8 @@ $query3 = "INSERT INTO pricelist
 						num_price_pack,
 						num_amount,
 						str_group,
-						pricelist_id) 
+						pricelist_id,
+                                                expiration) 
 				VALUES ($str_code1,
 						$str_barcode,
 						'V',
@@ -93,7 +95,8 @@ $query3 = "INSERT INTO pricelist
 						$num_price_pack,
 						$num_amount,
 						$str_group,
-						$pricelist_id)";
+						$pricelist_id
+                                                $expiration)";
 						
 
 $result = mysql_query($query3) or die('<span class="edit4">Ошибка</span>'); 

@@ -1,43 +1,42 @@
 <script type="text/javascript">
 	$(document).ready(function(){
-            
-        $("#apple").css({'visibility':'visible'});
 	     
          $('.cart').live("click", function() {
-              
-            o_group = $(this).parent().prev().prev().prev().prev().prev().prev().prev();
-            o_ced = $(this).parent().prev().prev().prev();
-            o_kor = $(this).parent().prev().prev();
-            o_am  = $(this).parent().prev();
+             
+            var o_ced = $(this).parent().prev().prev().prev().prev().prev();
+            var o_kor = $(this).parent().prev().prev().prev().prev();
+            var o_am  = $(this).parent().prev().prev().prev();
+            var o_ex  = $(this).parent().prev().prev();
             
-            new_group = o_group.text();
-            cena_ed  = o_ced.text();
-            cena_kor = o_kor.text();
-            amount   = o_am.text();
+            var cena_ed  = o_ced.text();
+            var cena_kor = o_kor.text();
+            var amount   = o_am.text();
+            var expiration = o_ex.text();
             
-            o_group.text("");
             o_ced.text("");
             o_kor.text("");
             o_am.text("");
+            o_ex.text("");
             
-            $("<input size='18' type='Text'>").appendTo(o_group);
-            $("<input maxlength='8' size='8' type='Text'>").appendTo(o_ced);
-            $("<input maxlength='8' size='8' type='Text'>").appendTo(o_kor);
-            $("<input maxlength='6' size='6' type='Text'>").appendTo(o_am);
+            $("<input maxlength='8' size='8' id='num_price_single' type='Text'>").appendTo(o_ced);
+            $("<input maxlength='8' size='8' id='num_price_pack' type='Text'>").appendTo(o_kor);
+            $("<input maxlength='6' size='6' id='num_amount' type='Text'>").appendTo(o_am);
+            $("<input maxlength='12' size='12' id='expiration' type='Text'>").appendTo(o_ex);
             
-            o_group.children().val(new_group);
             o_ced.children().val(cena_ed);
             o_kor.children().val(cena_kor);
             o_am.children().val(amount);
+            o_ex.children().val(expiration);
            
-            
-//            tt = $(this).attr("id") + " " + new_group + " " + cena_ed + " " + cena_kor + " " + amount;
-            
-//            alert (tt);
+           
+//          console.log ($(this).attr("id") + " price " + cena_ed + " price box " + cena_kor + " count " + amount+" EXP "+expiration);
             
             $(this).hide();
             $(this).next().show();
             $(this).next().next().hide();
+            $(this).next().next().next().hide();
+            $(this).next().next().next().next().hide();
+            $(this).next().next().next().next().next().hide();
             //$(this).addClass("cart2");
             
             return false;
@@ -45,30 +44,31 @@
         
         
         $('.cart2').live("click", function() {
+
             
-            o_group = $(this).parent().prev().prev().prev().prev().prev().prev().prev();
-            o_ced = $(this).parent().prev().prev().prev();
-            o_kor = $(this).parent().prev().prev();
-            o_am  = $(this).parent().prev();
+            var o_ced = $(this).parent().prev().prev().prev().prev().prev();
+            var o_kor = $(this).parent().prev().prev().prev().prev();
+            var o_am  = $(this).parent().prev().prev().prev();
+            var o_ex  = $(this).parent().prev().prev();
+//            
+            var num_price_single = o_ced.children().val();
+            var num_price_pack   = o_kor.children().val();
+            var num_amount       = o_am.children().val();
+            var expiration       = o_ex.children().val();
             
-            str_group =o_group.children().val();
-            num_price_single = o_ced.children().val();
-            num_price_pack   = o_kor.children().val();
-            num_amount       = o_am.children().val();
+//            console.log($(this).attr("id")+" ps "+num_price_single+" pb "+num_price_pack+" cnt "+num_amount+" EXP "+expiration);
             
              $("#edit").load('index.php',{'act':'updsingleitem',
-                                                'str_group':str_group,
                                                 'num_price_single':num_price_single,
                                                 'num_price_pack':num_price_pack,
                                                 'num_amount':num_amount,
-                                                'butt_id':$(this).attr("id")}); 
-            
-//            alert (str_group + ' ' + num_price_single + ' ' + num_price_pack + ' ' + num_amount);
+                                                'expiration':expiration,'butt_id':$(this).attr("id")
+                                                }); 
             
             return false;
         }); 
 	    
-		 $('.cloud').live("click", function() {
+         $('.cloud').live("click", function() {
             
              if (confirm("Вы уверены, что хотите удалить эту позицию?\nЭто может привести к изменению истории покупок.")) {			
 					           
@@ -78,10 +78,10 @@
 			 }
 			
 			return false;
-        }); 
-		
+        });
+        
     });
- 
+        
 </script>
 
 <?php
@@ -346,13 +346,13 @@ if ($attributes['act'] <> 'edit_price') {
 
     $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Кол-во(шт.)","Скидка","&nbsp;");
 } else {
-    $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Группа","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Действие");
+    $fields = array ("Арт.","Ш-код","&nbsp;","Наим.","Страна","Емк.","Фас.","Цена ед.","Цена кор.","Ост.(шт.)","Срок годности","","Дейст.");
 }
 
 // Выводим блокированные только для редактирования
 if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act'] == 'edit_price'))) {
 
-    echo "<br /><table class='dat' id='ssylki'>";
+    echo "<br><table class='dat' id='ssylki'>";
     $th = 0;
     while ($th < count($fields)) {
     	echo "<th class='dat'>".$fields[$th]."</th>";
@@ -378,8 +378,8 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
     		$silver = "style='background-color:ThreedFace;'";
     	}
     	echo "<tr ".$silver.">";
-    	$id 			= 	mysql_result($qry_price,$row_count,$array_fields[0]);
-    	$field_count 	= 	1;
+    	$id = 	mysql_result($qry_price,$row_count,$array_fields[0]);
+    	$field_count = 1;
         
         if ($attributes['act'] <> 'edit_price') {
         
@@ -469,7 +469,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
 			
 			} else {
 			// Здесь выводятся иконки действий
-            	echo "<td width='100'><button class='cart' id='e".$id."'>Ред.</button><button class='cart2' id='s".$id."' style='display:none;'>Сохранить</button>&nbsp;<a href='#' class='cloud' id='d".$id."' title='Удалить'>x</a></td>";
+            	echo "<td></td><td width='100'><button class='cart' id='e".$id."'>Ред.</button><button class='cart2' id='s".$id."' style='display:none;'>Сохранить</button>&nbsp;<a href='#' class='cloud' id='d".$id."' title='Удалить'>x</a></td>";
 			}
         
         }
