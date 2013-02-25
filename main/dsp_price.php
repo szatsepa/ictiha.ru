@@ -131,14 +131,111 @@ if ($authentication == "no" or (in_array("add_cart",$rights))) {
 <div class="prname">
     <a href="index.php?act=company_prices&amp;company_id=<?php echo $company_id.$urladd; ?>"><?php echo $company_name; ?></a>
     &nbsp;/&nbsp;
-    <a href="index.php?act=single_price&amp;pricelist_id=<?php echo $attributes[pricelist_id].$urladd; ?>"><?php echo $price_name; ?></a>
+    <a href="index.php?act=single_price&amp;pricelist_id=<?php echo $attributes['pricelist_id'].$urladd; ?>"><?php echo $price_name; ?></a>
     <div style="position:relative;float: right; font-size: 8px; display: none;">
     </div>
 </div>
 <br/>
+<div>
+    <?php 
 
+// Панель выбора параметров для отображения прайса
+
+
+$act_select = 'single_price';
+
+// Текущая выбранная группа
+$current_group = '';
+
+// Сделаем поправку для страницы редактирования
+if ($attributes['act'] == 'edit_price') $act_select = 'edit_price';
+
+if ($attributes['act'] == 'add_cart' or $attributes['act'] == 'single_price' or $attributes['act'] == 'add_favprice' or $attributes['act'] == 'edit_price'){?>
+<form action="index.php?act=<?php echo $act_select; ?>&amp;pricelist_id=<?php echo $attributes['pricelist_id'].$urladd; ?>" method="post">
+	<select name="border" class="common">
+		<option value="">Выбор по остатку</option>
+		<option value="max" <?php if (isset($attributes['border']) and $attributes['border'] == 'max') echo "selected"; ?>>Макс. остаток</option>
+		<option value="min" <?php if (isset($attributes['border']) and $attributes['border'] == 'min') echo "selected"; ?>>Мин. остаток</option>
+	</select>
+	<input type='submit' value='&gt;&gt;' class='button'></form>&nbsp;
+
+	<form action="index.php?act=<?php echo $act_select; ?>&amp;pricelist_id=<?php echo $attributes['pricelist_id'].$urladd; ?>" method="post">
+		<select name="group" id="group" class="common">
+			<option value="">Выбор по группе</option><?php
+				$num_group	=	mysql_numrows($qry_group);
+				$counter = 0;
+				//$silver = "style='background-color:ThreedFace;'";
+				while ($counter < $num_group) {
+					$dat = mysql_result($qry_group,$counter,$str_group);
+					$selected = '';
+					if (isset($attributes['group']) and $attributes['group'] == $dat){
+					
+						$selected = 'selected';
+						$current_group = $dat;
+					}
+		            
+		            // Подрежем названия групп для селектора
+		            $show_dat = $dat;
+		            $output_lengts = 40;
+		            if ($mobile == 'true') $output_lengts = 20;              
+		            if (strlen($show_dat) > $output_lengts) {
+		                $show_dat = substr($show_dat,0,$output_lengts)."...";
+		            }
+		            
+		            // Выводим группы
+					echo "<option value='".$dat."' ".$selected.">".$show_dat."</option>";	
+					++$counter;
+					
+		            /* To do Раскраска селектора временно вырублена, переделать на стили!!!
+					if ($silver == "style='background-color:ThreedFace;'") {
+						$silver = "";
+					} else {
+						$silver = "style='background-color:ThreedFace;'";
+					}*/
+				}
+		?>
+		</select>
+		<input type='Submit' value='&gt;&gt;' class='button'>
+	</form>&nbsp;
+<?php } // if ($attributes['act'] == 'add_cart' or $attributes['act'] == 'single_price' or $attributes['act'] == 'add_favprice')
+	
+    if (isset($qry_cart) and $attributes['act'] != 'step1' and $attributes['act'] != 'step2' and  (!in_array("step1",$rights))) {
+        $num_cart	=	mysql_numrows($qry_cart);
+    	if ($num_cart > 0) {
+		
+			$row = mysql_fetch_assoc($qry_cart);
+			
+			// Найдем id заказа, из которого мог быть сформирован текущий заказ (для контактных данных)
+			$parent_zakaz = $row["parent_zakaz"];
+			
+			if ($parent_zakaz > 0) {
+			
+				$parent_zakaz_id = "&amp;id=".$parent_zakaz;
+			
+			} else {
+			
+				$parent_zakaz_id = "";
+			
+			}
+			
+		?>
+	<form action="index.php?act=step1&amp;pricelist_id=<?php echo $attributes['pricelist_id'].$parent_zakaz_id.$urladd; ?>" method="post">
+		<input type="hidden" name="pricelist_id" value="<? echo $attributes['pricelist_id']; ?>" />
+		<input type='submit' value='Оформить заказ' class='button' />
+	</form>&nbsp;
+<?php }
+    }
+
+// Кнопка добавления прайса "В избранное"
+if (isset($attributes['pricelist_id']) and $authentication == "yes" and (mysql_numrows($qry_favorite) == 0) and $mobile == 'false' and $attributes['act'] != 'step1' and $attributes['act'] != 'step2' and $attributes['act'] != 'single_item') { ?>
+	<form action="index.php?act=add_favprice<?php echo $urladd; ?>" method="post">
+		<input type="hidden" name="pricelist_id" value="<? echo $attributes['pricelist_id']; ?>" />
+		<input type='submit' value='В избранное' class='button' />
+	</form>
+<?php } ?>
+</div>
 <?php
-if ($attributes[act] == 'single_item') {
+if ($attributes['act'] == 'single_item') {
 	$barcode        = mysql_result($qry_price,0,"str_barcode");
 	$item_name_head = mysql_result($qry_price,0,"str_name");
 	echo "<h2>$item_name_head<br />$attributes[artikul]#$barcode</h2>";
@@ -157,9 +254,9 @@ if (isset($attributes[next_page]) and $attributes[next_page] > 0) {
 }
 
 $current_page = $attributes[page];
-$act = "act=".$attributes[act]."&amp;pricelist_id=".$attributes[pricelist_id]."&amp;";
-/*if (isset($attributes[act])) {
-	$act = "act=".$attributes[act]."&";
+$act = "act=".$attributes['act']."&amp;pricelist_id=".$attributes['pricelist_id']."&amp;";
+/*if (isset($attributes['act'])) {
+	$act = "act=".$attributes['act']."&";
 }*/
 
 // Устанавливаем границы вывода страниц
@@ -181,7 +278,7 @@ if ($pages_end >= $num_pages) {
 
 $border = "";
 $pages_display = '';
-if (isset($attributes[border])) $border = "&amp;border=".$attributes[border];
+if (isset($attributes['border'])) $border = "&amp;border=".$attributes['border'];
 
 if ($num_rows > $per_page){
 	$pages_display .= "<div align='right'>Стр. ".$left_dots;    
@@ -196,15 +293,15 @@ if ($num_rows > $per_page){
 	$pages_display .= $right_dots;
     $pages_display .= "&nbsp;<form action='index.php?".$urladd."' method='get'>";  
     
-    if (isset($attributes[border])){
-        $pages_display .= "<input type='hidden' name='border' value='$attributes[border]'>";
+    if (isset($attributes['border'])){
+        $pages_display .= "<input type='hidden' name='border' value='{$attributes['border']}'>";
     }
     if(isset ($attributes[search])){
         $pages_display .= "<input type='hidden' name='search' value='1'>";
-        $pages_display .= "<input type='hidden' name='word' value='$attributes[word]'>";
+        $pages_display .= "<input type='hidden' name='word' value='{$attributes['word']}'>";
     }
-    $pages_display .= "<input type='hidden' name='act' value='$attributes[act]'>";
-    $pages_display .= "<input type='hidden' name='pricelist_id' value='$attributes[pricelist_id]'>";
+    $pages_display .= "<input type='hidden' name='act' value='{$attributes['act']}'>";
+    $pages_display .= "<input type='hidden' name='pricelist_id' value='{$attributes['pricelist_id']}'>";
     
     
     $pages_display .= "<select name='page' class='common' onchange='javascript:this.form.submit();'>";
@@ -245,7 +342,7 @@ while ($field_count < $num_fields - 1) {
 //echo mysql_num_rows($qry_price)." => ROWS <br>";
 // Вывод прайс-листа
 
-if ($attributes[act] <> 'edit_price') {   	
+if ($attributes['act'] <> 'edit_price') {   	
 
     $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Кол-во(шт.)","Скидка","&nbsp;");
 } else {
@@ -253,7 +350,7 @@ if ($attributes[act] <> 'edit_price') {
 }
 
 // Выводим блокированные только для редактирования
-if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] == 'edit_price'))) {
+if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act'] == 'edit_price'))) {
 
     echo "<br /><table class='dat' id='ssylki'>";
     $th = 0;
@@ -268,7 +365,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
         $ostatok = mysql_result($qry_price,$row_count,$array_fields[10]);
         
         // Отображаем нулевые остатки только в редактировании прайса
-        if ($attributes[act] <> 'edit_price') {         
+        if ($attributes['act'] <> 'edit_price') {         
             if ($ostatok == 0) {
                 ++$row_count;
                 continue; 
@@ -284,11 +381,11 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
     	$id 			= 	mysql_result($qry_price,$row_count,$array_fields[0]);
     	$field_count 	= 	1;
         
-        if ($attributes[act] <> 'edit_price') {
+        if ($attributes['act'] <> 'edit_price') {
         
         	echo "<form action=index.php?act=add_cart&amp;page=".$current_page.$urladd." method=post>";
         	echo "<input type='Hidden' name='id' value=".$id.">";
-            echo "<input type='Hidden' name='pricelist_id' value=".$attributes[pricelist_id].">";
+            echo "<input type='Hidden' name='pricelist_id' value=".$attributes['pricelist_id'].">";
     		
         }
         
@@ -332,7 +429,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
                 } else {
                     $pic_name = "no_pic.jpg";
                 }
-                ?><td <?php echo $bold; ?>><a href="index.php?act=single_item&amp;pricelist_id=<?php echo $attributes[pricelist_id];?>&amp;artikul=<?php echo $artikul.$urladd; ?>" id="<?php echo $artikul; ?>"><?php echo $dat."</a></td>";
+                ?><td <?php echo $bold; ?>><a href="index.php?act=single_item&amp;pricelist_id=<?php echo $attributes['pricelist_id'];?>&amp;artikul=<?php echo $artikul.$urladd; ?>" id="<?php echo $artikul; ?>"><?php echo $dat."</a></td>";
     		} else {	
                 // Не показываем остаток незалогиненым пользователям	
     			if ($authentication == "no" and $field_count == 10) {
@@ -348,12 +445,12 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
     		++$field_count;
     	}
     	
-    	if ($attributes[act] <> 'edit_price') {   	
+    	if ($attributes['act'] <> 'edit_price') {   	
         	echo "<td><input type='Text' maxlength='3' size='3' name='amount' value='$ordered' " . $disabled . " $bold></td>";
         	echo "<td><input type='Text' maxlength='2' size='2' name='discount' value='$skidka' " . $disabled . " $bold></td>";
         	echo "<td><input type='Submit' value='&gt;&gt;' " . $disabled . " $bold></td>";
-        	if (isset($attributes[border])) echo "<input type='Hidden' name='border' value='".$attributes[border]."'>";
-        	if (isset($attributes[group])) echo "<input type='Hidden' name='group' value='".$attributes[group]."'>";
+        	if (isset($attributes['border'])) echo "<input type='Hidden' name='border' value='".$attributes['border']."'>";
+        	if (isset($attributes['group'])) echo "<input type='Hidden' name='group' value='".$attributes['group']."'>";
                 echo "<input type='Hidden' name='artikul' value=".$artikul.">";
             
             // Выводим количество шт. в упаковке, чтобы товар принудительно был заказан упаковками 
@@ -391,12 +488,12 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes[act] =
 ?>  
 
 <?php // Специфическая информация для одиночного товара
-if ($attributes[act] == "single_item") {
+if ($attributes['act'] == "single_item") {
 
 	// Показывем котировку зарегистрированному пользовтелю
     if ($authentication == "yes") {
     
-        //kotirovka($barcode,$user[id],$attributes[pricelist_id],'button');
+        //kotirovka($barcode,$user[id],$attributes['pricelist_id'],'button');
     
     }
 	
@@ -406,7 +503,7 @@ if ($attributes[act] == "single_item") {
 	tovar_pic($barcode,"");
 	
 
- } // End if ($attributes[act] == "single_item") 
+ } // End if ($attributes['act'] == "single_item") 
  ?>     
     <!-- br />&nbsp;&nbsp;<a href='flash/index.html'>Галерея товаров</a -->
 
@@ -418,14 +515,14 @@ if ($attributes[act] == "single_item") {
 // To do сделать обработку str_code2 для мобильной версии
 
 // Выводим список товаров в мобильном прайсе
-if ($mobile == 'true' and ($attributes[act] == 'single_price' or $attributes[act] == 'add_cart')  and $status == 1) {
+if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['act'] == 'add_cart')  and $status == 1) {
     
     echo "<br><table border='1' cellspacing='0' cellpadding='2' width='100%'>";
     echo "<th>Товар</th><th>Скид.</th><th>Кол.</th>";
     echo "<form action='index.php?act=add_cart&amp;page=".$current_page.$urladd."' method='post'>";	
-    echo "<input type='hidden' name='pricelist_id' value='".$attributes[pricelist_id]."'>";
-    if (isset($attributes[border])) echo "<input type='hidden' name='border' value='".$attributes[border]."'>";
-  	if (isset($attributes[group])) echo "<input type='hidden' name='group' value='".$attributes[group]."'>";
+    echo "<input type='hidden' name='pricelist_id' value='".$attributes['pricelist_id']."'>";
+    if (isset($attributes['border'])) echo "<input type='hidden' name='border' value='".$attributes['border']."'>";
+  	if (isset($attributes['group'])) echo "<input type='hidden' name='group' value='".$attributes['group']."'>";
     
    $amount = '';
     
@@ -486,21 +583,21 @@ if ($mobile == 'true' and ($attributes[act] == 'single_price' or $attributes[act
     
     echo $pages_display;
     
-} // End if ($mobile == 'true' and $attributes[act] == 'single_price')
+} // End if ($mobile == 'true' and $attributes['act'] == 'single_price')
 
 
 
 
 // Выводим единичный товар для мобилки
 
-if ($mobile == 'true' and $attributes[act] == 'single_item'  and  $status == 1) {
+if ($mobile == 'true' and $attributes['act'] == 'single_item'  and  $status == 1) {
     while ($row_count < $row_end) {
     	
     	$id 			= 	mysql_result($qry_price,$row_count,$array_fields[0]);
     	$field_count 	= 	1;
     	echo "<form action=index.php?act=add_cart&page=".$current_page.$urladd." method=post>";
     	echo "<input type='Hidden' name='id' value=".$id.">";
-        echo "<input type='Hidden' name='pricelist_id' value=".$attributes[pricelist_id].">";
+        echo "<input type='Hidden' name='pricelist_id' value=".$attributes['pricelist_id'].">";
         while ($field_count < $num_fields - 1) {	
     		$dat = mysql_result($qry_price,$row_count,$array_fields[$field_count]);
             
@@ -521,8 +618,8 @@ if ($mobile == 'true' and $attributes[act] == 'single_item'  and  $status == 1) 
     	echo "<table border=0><tr><td>Кол-во(шт.)</td><td><input type='Text' maxlength='4' size='4' name='amount' value='1' " . $disabled . " ><td/></tr>";
     	echo "<tr><td>Скидка</td><td><input type='Text' maxlength='2' size='2' name='discount' value='0' " . $disabled . " ><td/></tr></table>";
     	echo "<input type='Submit' value='Заказать' " . $disabled . " ><br />";
-    	if (isset($attributes[border])) echo "<input type='Hidden' name='border' value='".$attributes[border]."'>";
-    	if (isset($attributes[group])) echo "<input type='Hidden' name='group' value='".$attributes[group]."'>";
+    	if (isset($attributes['border'])) echo "<input type='Hidden' name='border' value='".$attributes['border']."'>";
+    	if (isset($attributes['group'])) echo "<input type='Hidden' name='group' value='".$attributes['group']."'>";
     	echo "</tr></form>";
     
     	++$row_count;
@@ -531,11 +628,11 @@ if ($mobile == 'true' and $attributes[act] == 'single_item'  and  $status == 1) 
 }
 
 
-if ($status == 0 and $attributes[act] != "edit_price") {
+if ($status == 0 and $attributes['act'] != "edit_price") {
     echo "<p>&nbsp;&nbsp;<b>Прайс-лист удален.</b></p>";
 }
 
-if ($status == 2 and $attributes[act] != "edit_price") {
+if ($status == 2 and $attributes['act'] != "edit_price") {
     echo "<p>&nbsp;&nbsp;<b>Прайс-лист заблокирован и будет доступен через некоторое время.</b></p>";
 }
 }

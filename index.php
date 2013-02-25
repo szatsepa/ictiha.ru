@@ -43,35 +43,51 @@ switch ($attributes[act]) {
 	break;
 	
 	// 4.06.2011 
+//    case "step1":
+//	$title = "Оформление заказа";
+//	if(isset($attributes[action]) and $attributes[action]=="add"){
+//		include ("main/act_add_cart.php");
+//	}
+//	include ("main/qry_cart.php");
+//        include ("main/qry_price.php");
+//        include ("main/qry_archzakaz.php");
+//	include ("main/dsp_header.php");
+//	if(isset($attributes[type]) and $attributes[type]==0){
+//		include ("main/dsp_cart_plus.php");
+//	}else if(isset($attributes[type]) and $attributes[type]==2){
+//		include ("main/dsp_pay_header.php");
+//		include ("main/dsp_step1.php");
+//		include ("main/dsp_pay_footer.php");
+//	}else if(isset($attributes[type]) and $attributes[type]==1){
+//		include ("main/dsp_selector_1.php");
+//		include ("main/dsp_backtoprice.php");
+//		include ("main/dsp_cart.php");
+//		include ("main/dsp_step1.php");
+//		include ("main/dsp_footer.php");
+//	}
+//	include ("main/qry_disconnect.php");
+//	break;
+    
     case "step1":
 	$title = "Оформление заказа";
-	if(isset($attributes[action]) and $attributes[action]=="add"){
-		include ("main/act_add_cart.php");
-	}
 	include ("main/qry_cart.php");
-        include ("main/qry_price.php");
+//        include ("main/qry_price.php");
         include ("main/qry_archzakaz.php");
 	include ("main/dsp_header.php");
-	if(isset($attributes[type]) and $attributes[type]==0){
-		include ("main/dsp_cart_plus.php");
-	}else if(isset($attributes[type]) and $attributes[type]==2){
-		include ("main/dsp_pay_header.php");
-		include ("main/dsp_step1.php");
-		include ("main/dsp_pay_footer.php");
-	}else if(isset($attributes[type]) and $attributes[type]==1){
-		include ("main/dsp_selector_1.php");
-		include ("main/dsp_backtoprice.php");
-		include ("main/dsp_cart.php");
-		include ("main/dsp_step1.php");
-		include ("main/dsp_footer.php");
-	}
+        include ("main/dsp_selector_1.php");
+//	include ("main/dsp_prim_cont_start.php");
+	include ("main/dsp_backtoprice.php");
+        include ("main/dsp_cart.php"); 
+	include ("main/dsp_step1.php");
+//	include ("main/dsp_prim_cont_end.php");
+	include ("main/dsp_footer.php");
 	include ("main/qry_disconnect.php");
 	break;
 	
     case "step2":
 	$title = "Бланк заказа";	
 	include ("main/qry_cart.php");
-        include ("main/qry_price.php");
+//        include ("main/qry_price.php");
 	include ("main/qry_supplemail.php");
 	include ("main/qry_check_tags.php");
         include ("main/act_addzakaz.php");

@@ -45,7 +45,9 @@
 </script>
 
 <p id="addrecord_msg">&nbsp;</p>
-<table class='dat' id='addrecord_tbl'>
+<table class='dat' id='addrecord_tbl' width="100%">
+    <thead>
+        <tr>
 <?php 
 
 $fields2 = array ("Артикул","Штрих-код","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток (шт.)"," ");
@@ -57,21 +59,23 @@ while ($th < count($fields2)) {
 }    
 
 ?>
+            </tr>
+        </thead>
 <form action="#" name="add_record" id="add_record">
 <tr>
-    <td><input type="text" name="str_code1" id="str_code1" value="" size="10" maxlength="10" class="required"></td>
+    <td><input type="text" name="str_code1" id="str_code1" value="" size="8" maxlength="10" class="required"></td>
     <td><input type="text" name="str_barcode" id="str_barcode" value="" size="8" maxlength="30"></td>
-    <td><input type="text" name="str_name" id="str_name" value="" size="30" maxlength="255"></td>
+    <td><input type="text" name="str_name" id="str_name" value="" size="24" maxlength="255"></td>
     <td><input type="text" name="str_state" id="str_state" value="" size="10" maxlength="255"></td>
-    <td><input type="text" name="str_volume" id="str_volume" value="" size="9" maxlength="10"></td>
-    <td><input type="text" name="str_package" id="str_package" value="" size="9" maxlength="255"></td>
-    <td><input type="text" name="num_price_single" id="num_price_single" value="" size="8" maxlength="8" class="required"></td>
-    <td><input type="text" name="num_price_pack" id="num_price_pack" value="" size="8" maxlength="8" class="required"></td>
-    <td><input type="text" name="num_amount" id="num_amount" value="" size="6" maxlength="6" class="digits required"></td>
+    <td><input type="text" name="str_volume" id="str_volume" value="" size="6" maxlength="10"></td>
+    <td><input type="text" name="str_package" id="str_package" value="" size="7" maxlength="255"></td>
+    <td><input type="text" name="num_price_single" id="num_price_single" value="" size="6" maxlength="8" class="required"></td>
+    <td><input type="text" name="num_price_pack" id="num_price_pack" value="" size="6" maxlength="8" class="required"></td>
+    <td><input type="text" name="num_amount" id="num_amount" value="" size="7" maxlength="6" class="digits required"></td>
  </tr>
  <tr>
  	<td colspan="2" style="text-align:right">Текущая группа:</td>
-	<td id="current_group" style="font-size: 16px;font-weight: bold;font-style: italic;color: #630f9f;"><?php 
+	<td id="current_group" style="font-size: 1em;font-weight: bold;font-style: italic;color: #630f9f;"><?php 
 				// Определимся с текущей группой
 				if ($current_group == '') {
 					
@@ -86,7 +90,7 @@ while ($th < count($fields2)) {
 	?></td>
 	<input type="hidden" name="str_group1" id="str_group1" value="<?php echo $current_group; ?>">
 	<td style="text-align:right" colspan="2">Или введите новую группу:</td>
-	<td colspan="2"><input type="text" name="str_group2" id="str_group2" value="<?php echo $current_group;?>" size="27" maxlength="255"></td>
+	<td colspan="2"><input type="text" name="str_group2" id="str_group2" value="<?php echo $current_group;?>" size="19" maxlength="255"></td>
  	
 	<td colspan="2" style="text-align:right"><button id="addrecord_btn">Добавить позицию</button></td>
  </tr>  
@@ -96,8 +100,8 @@ while ($th < count($fields2)) {
 	<td colspan="6">&nbsp;</td>
  </tr>
  <tr>
-	<td>&nbsp;</td>
-	<td><div align="right">&nbsp;Мин.&nbsp;заказ&nbsp;для&nbsp;прайса:</div></td>
+	
+	<td colspan="2" ><div align="right">&nbsp;Мин.&nbsp;заказ&nbsp;для&nbsp;прайса:</div></td>
 	<td><div align="left"><input type="text" name="zakaz_limit" id="zakaz_limit" value="<?php echo $zakaz_limit;?>" size="5" maxlength="5">&nbsp;<button id="addlimit_btn">Сохранить</button></div></td>
 	<td><small>0 - нет ограничений</small></td>
 	<td colspan="2">&nbsp;</td>

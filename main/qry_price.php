@@ -5,60 +5,60 @@
 
 //print_r($attributes);
 
-$attributes[pricelist_id] = intval($attributes[pricelist_id]);
+$attributes['pricelist_id'] = intval($attributes['pricelist_id']);
 
-$string = quote_smart(trim($attributes[word]));
+$string = quote_smart(trim($attributes['word']));
 
-if($attributes[act] == 'step1' or $attributes[act] == 'step2'){
-  // $attributes[pricelist_id] = 0;
+if($attributes['act'] == 'step1' or $attributes['act'] == 'step2'){
+   $attributes['pricelist_id'] = 0;
 }
 
-if(isset($attributes[border]) and $attributes[border] == "max") {
+if(isset($attributes['border']) and $attributes['border'] == "max") {
 	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id 
 FROM pricelist 
-WHERE pricelist_id=$attributes[pricelist_id] AND num_amount > 0 order by num_amount desc";
+WHERE pricelist_id={$attributes['pricelist_id']} AND num_amount > 0 order by num_amount desc";
 }
 
-if(isset($attributes[border]) and $attributes[border] == "min") {
+if(isset($attributes['border']) and $attributes['border'] == "min") {
 	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id 
 FROM pricelist 
-WHERE pricelist_id=$attributes[pricelist_id] AND num_amount > 0 order by num_amount";
+WHERE pricelist_id={$attributes['pricelist_id']} AND num_amount > 0 order by num_amount";
 }
 
-if(isset($attributes[group]) and $attributes[group] != "") {
+if(isset($attributes['group']) and $attributes['group'] != "") {
 
-	$attributes[group] = quote_smart($attributes[group]);
+	$attributes['group'] = quote_smart($attributes['group']);
 
 	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_group,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id 
 FROM pricelist 
-WHERE pricelist_id=$attributes[pricelist_id] AND str_group = $attributes[group] and  num_amount > 0";
+WHERE pricelist_id={$attributes['pricelist_id']} AND str_group = {$attributes['group']} and  num_amount > 0";
 }
 
-if(isset($attributes[pricelist_id]) and isset($attributes[artikul]) and $attributes[act] !='add_cart'){
+if(isset($attributes['pricelist_id']) and isset($attributes['artikul']) and $attributes['act'] !='add_cart'){
 
-	$attributes[artikul] = quote_smart($attributes[artikul]);
+	$attributes['artikul'] = quote_smart($attributes['artikul']);
 
 	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id 
 FROM pricelist 
-WHERE pricelist_id=$attributes[pricelist_id] AND str_code1=$attributes[artikul] and  num_amount > 0";
+WHERE pricelist_id={$attributes['pricelist_id']} AND str_code1={$attributes['artikul']} and  num_amount > 0";
 }
 
 
-if (isset($attributes[group]) and $attributes[group] == ''){
-    unset($attributes[group]);
-    unset($attributes[border]);
+if (isset($attributes['group']) and $attributes['group'] == ''){
+    unset($attributes['group']);
+    unset($attributes['border']);
 }
 
-if (isset($attributes[border]) and $attributes[border] == ''){
-    unset($attributes[group]);
-    unset($attributes[border]);
+if (isset($attributes['border']) and $attributes['border'] == ''){
+    unset($attributes['group']);
+    unset($attributes['border']);
 }
 
 // Выборка по умолчанию
 // --Здесь убрано num_amount > 0
-if(!isset($attributes[group]) and !isset($attributes[border])) {
+if(!isset($attributes['group']) and !isset($attributes['border'])) {
 
-	if ($attributes[act] =='single_price' or $attributes[act] =='add_cart' or $attributes[act] == 'add_favprice' ) {
+	if ($attributes['act'] =='single_price' or $attributes['act'] =='add_cart' or $attributes['act'] == 'add_favprice' ) {
    
 		$query = "SELECT id,
 	                     str_code1,
@@ -73,13 +73,13 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
 	                     num_amount,
 	                     pricelist_id 
 	              FROM   pricelist 
-	              WHERE  pricelist_id=$attributes[pricelist_id] AND
+	              WHERE  pricelist_id={$attributes['pricelist_id']} AND
 				  		 str_code2 <> 'X' AND 
 						 num_amount > 0
 	              ORDER  BY id";
 	}
 	
-	if($attributes[act] == 'edit_price') {
+	if($attributes['act'] == 'edit_price') {
 	
 		$query = "SELECT id,
                      str_code1,
@@ -95,12 +95,12 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
                      num_amount,
                      pricelist_id
               FROM   pricelist 
-              WHERE  pricelist_id=$attributes[pricelist_id] AND
+              WHERE  pricelist_id={$attributes['pricelist_id']} AND
 					 str_code2 <> 'X'
               ORDER  BY id";
 		
 	}
-        if($attributes[act] == 'edit_price' && $attributes[find]==1){
+        if($attributes['act'] == 'edit_price' && $attributes['find']==1){
             
             $query = "SELECT  id,
                      str_code1,
@@ -117,10 +117,10 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
                      pricelist_id
             FROM pricelist
         WHERE MATCH (str_barcode,str_name) 
-        AGAINST ($string) AND pricelist_id=$attributes[pricelist_id] ";
+        AGAINST ($string) AND pricelist_id={$attributes['pricelist_id']} ";
 
         }
-        if($attributes[act] != 'edit_price' && $attributes[find]==1){
+        if($attributes['act'] != 'edit_price' && $attributes['find']==1){
             
             $query = "SELECT id,
 	                     str_code1,
@@ -136,7 +136,7 @@ if(!isset($attributes[group]) and !isset($attributes[border])) {
 	                     pricelist_id 
 	              FROM   pricelist 
 	              WHERE MATCH (str_name) 
-        AGAINST ($string) AND pricelist_id=$attributes[pricelist_id] AND
+        AGAINST ($string) AND pricelist_id={$attributes['pricelist_id']} AND
 				  		 str_code2 <> 'X' AND 
 						 num_amount > 0
 	              ORDER  BY id";        
@@ -154,22 +154,22 @@ if(mysql_num_rows($qry_price)>0){
         $pricelist_id = mysql_result($qry_price,0,'pricelist_id');
 
     // Выберем группу
-    /*if(!isset($attributes[pricelist_id]) or $attributes[pricelist_id] = "") {
-        $attributes[pricelist_id] = $pricelist_id;
+    /*if(!isset($attributes['pricelist_id']) or $attributes['pricelist_id'] = "") {
+        $attributes['pricelist_id'] = $pricelist_id;
     }*/
 
 
-        $query3 = "SELECT DISTINCT str_group FROM pricelist WHERE pricelist_id=$attributes[pricelist_id] ORDER BY str_group";
+        $query3 = "SELECT DISTINCT str_group FROM pricelist WHERE pricelist_id={$attributes['pricelist_id']} ORDER BY str_group";
         $qry_group = mysql_query($query3) or die($query3);
 
         if ($authentication == "yes") {
-        $user_for_select = $attributes[user_id];
+        $user_for_select = $attributes['user_id'];
         } else {
             $user_for_select = 0;
         }
 
         $query4 = "SELECT user_id FROM kabinet 
-                WHERE price_id=$attributes[pricelist_id] 
+                WHERE price_id={$attributes['pricelist_id']} 
                 AND user_id=$user_for_select";
         $qry_favorite = mysql_query($query4) or die($query4);
 
@@ -181,7 +181,7 @@ if(mysql_num_rows($qry_price)>0){
                                             p.zakaz_limit
                 FROM price AS p, companies AS c
                 WHERE p.company_id = c.id AND
-                        p.id = $attributes[pricelist_id]";
+                        p.id = {$attributes['pricelist_id']}";
 
         $qry_aboutprice = mysql_query($query5) or die($query5);
 }  
