@@ -36,11 +36,12 @@ if (isset($_SESSION['auth']) and !isset($attributes['out'])) {
     }
     
     // To do сделать невозможным вход на запрещенную страницу по прямой ссылке из строки URL браузера
-    
+// echo "{$_SERVER['PHP_SELF']}<br>";   
 	// Не пускаем обычных пользователей в административную область
 	if (eregi('/as/',$_SERVER['PHP_SELF'])) {
-		if ($user['role'] != 1) {  
-//			header ("location:index.php?act=logout");
+//            echo "{$_SERVER['PHP_SELF']}<br>";
+		if ($user['role'] == 2 OR $user['role'] == 3 OR $user['role'] == 4 OR $user['role'] == 5 OR $user['role'] > 6) {  
+			header ("location:index.php?act=logout");
 		}
 	}
 	

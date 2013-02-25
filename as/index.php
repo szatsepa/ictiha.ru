@@ -25,7 +25,7 @@ if ($authentication == "no" and $attributes['act'] != "authentication") $attribu
 // Здесь устанавливаются алерты
 include("act_checkerror.php");
 
-
+//echo "{$_SERVER['PHP_SELF']}<br>";
 
 switch ($attributes['act']) {
     

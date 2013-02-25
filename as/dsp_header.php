@@ -55,7 +55,7 @@ if (isset($attributes[error])) {
       </form>  
     </td>
 
-<?php } else if(isset($user) && $user[role] == 2){?>
+<?php } else if(isset($user) && $user[role] == 6){?>
 <td>
 <!--    <a href="index.php?act=companies" class="header2">Компании</a>
     <a href="index.php?act=users" class="header2">Пользователи</a>-->

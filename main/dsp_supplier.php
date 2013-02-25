@@ -19,7 +19,7 @@ if (min==0 && sec==0)
   {
     clearInterval(timerid); /* останавливаем таймер */
 
-document.location.href = "http://shop.animals-food.ru/index.php?act=supplier";
+document.location.href = "index.php?act=supplier";
 
    
   }
@@ -214,7 +214,7 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
                                         <span class="edit"><a href="##" onclick="javascript:showCode('code<?php echo $row["id"]."a";?>');">Получить код</a>
                                         </span>
                                         <span id='code<?php echo $row["id"]."a";?>' class='iframe'>Код для отображения прайса на сторонних сайтах:<br /><br />
-                                        <code>&lt;IFRAME NAME="content_frame" width="850" height="700" SRC="http://w.animals-food.ru/index.php?act=single_price&pricelist_id=<?php echo $row["id"];?>&st=1" &gt;Этот сайт использует фреймы&lt;/IFRAME&gt;</code>
+                                        <code>&lt;IFRAME NAME="content_frame" width="850" height="700" SRC="http://<?php echo $_SERVER['SERVER_NAME']; ?>/index.php?act=single_price&pricelist_id=<?php echo $row["id"];?>&st=1" &gt;Этот сайт использует фреймы&lt;/IFRAME&gt;</code>
                                         </span>
 
 
@@ -228,15 +228,23 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
             <br />
             <br />
             <span class="edit">&nbsp;&nbsp;<a href="#" onclick="javascript:showCode('newprice');">Создать прайс-лист</a>&nbsp;&nbsp;</span>
-			<span id='newprice' class='iframe'>Название прайс-листа:<br /><form action="index.php?act=add_price&amp;company_id=<?php echo $user["company_id"].$urladd; ?>" method="post"><input type="text" name="comment" size="50">
+			<span id='newprice' class='iframe'>Название прайс-листа:<br />
+                            <form action="index.php?act=add_price&amp;company_id=<?php echo $user["company_id"].$urladd; ?>" method="post">
+                                <input type="text" name="comment" size="37">
 			<p align="right"><input type="submit" value="Создать"></p>			
-			</form></span>            
+			</form>
+                        </span>            
             </td></tr>                 
             </table></td>        
 </tr>
 </table>
 <br />
 <br />
+<?php 
+$storefront = query_storefront($attributes[company_id]);
+
+if(mysql_num_rows($storefront)>0){
+?>
 <p align="left">
 <form action="index.php?act=customers_list<?php echo $urladd; ?>" method="post">
     <div class="kab">Выберите витрину    <?php include 'main/dsp_priceselect.php';?>
@@ -244,6 +252,10 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
      <input type="submit" name="open" value="Выбрать"/>
  </div>  
 </form></p>
+
+<?php
+}
+?>
 <!--<p align="right"><a href="index.php?act=customers_list<?php //echo $urladd; ?>" class="help" style="text-decoration:underline;">Пользователи витрины</a>&nbsp;&nbsp;</p>
 -->
 <p align="right"><a href="index.php?act=arch_done<?php echo $urladd; ?>" class="help" style="text-decoration: underline;">Архив поставок</a>&nbsp;&nbsp;</p>

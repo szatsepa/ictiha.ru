@@ -2,7 +2,10 @@
 // update 30.05.2011
 // Просто комменты
 
-session_start();
+if(!isset($_SESSION)){
+
+    session_start();
+}
 
 if(!isset($attributes) || !is_array($attributes)) {
 	$attributes = array();
