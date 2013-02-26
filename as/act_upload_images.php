@@ -81,6 +81,7 @@ if ($size < 512000) {
     <script language="javascript">
     document.write ('<input name="company_select" type="hidden" value="select"><input name="st_select" type="hidden" value="select"><input name="price_select" type="hidden" value="select"><input type="hidden" name="company_id" value="<?php echo $attributes[company_id];?>"/><input type="hidden" name="price_id" value="<?php echo $attributes[price_id];?>"/><input type="hidden" name="stid" value="<?php echo $attributes[stid];?>"/></form>');
     document.forms[0].submit();
-    </script> <?php
+    </script> 
+        <?php
     }
 ?>

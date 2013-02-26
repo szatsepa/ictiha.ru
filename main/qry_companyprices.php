@@ -24,7 +24,9 @@ ORDER BY p.creation";
 
 $qry_companyprices = mysql_query($query) or die($query);
 
-$query = "SELECT * FROM `storefront` AS st, `storefront_data` AS std WHERE st.id = std.storefront_id AND std.company_id = $company_id GROUP BY st.id";
+$query = "SELECT st.id AS storefront_id, st.name, st.domen, st.where_res, std.company_id, std.price_id 
+            FROM `storefront` AS st, `storefront_data` AS std 
+            WHERE st.id = std.storefront_id AND std.company_id = $company_id GROUP BY st.id";
 
 $result = mysql_query($query) or die($query);
 

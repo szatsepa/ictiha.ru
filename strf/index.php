@@ -32,8 +32,8 @@ if(!isset($_SESSION)){
      } 
 
 
-//print_r($attributes); 
-//echo "<br>";
+print_r($attributes); 
+echo "<br>";
 
 include 'main/cnt_classes.php';
 include ("main/qry_connect.php");

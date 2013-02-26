@@ -21,21 +21,22 @@ if($_SESSION[auth] == 1){
 $qry_ismark = mysql_query("SELECT * FROM favorites WHERE $who = $user_id AND storefront_id = $st_id");
    
 
+if($qry_ismark){
+    $num_rows = mysql_num_rows($qry_ismark);
 
-$num_rows = mysql_num_rows($qry_ismark);
+    //echo "$num_rows<br/>";
 
-//echo "$num_rows<br/>";
+    if($num_rows == 0){
 
-if($num_rows == 0){
+    $query = "SELECT * FROM storefront_data WHERE storefront_id = $st_id";
 
-$query = "SELECT * FROM storefront_data WHERE storefront_id = $st_id";
+    $result = mysql_query($query) or die($query);
 
-$result = mysql_query($query) or die($query);
+    while ($row = mysql_fetch_assoc($result)){
 
-while ($row = mysql_fetch_assoc($result)){
-        
-        mysql_query("INSERT INTO favorites ($who, storefront_id, price_id) VALUES ($user_id, $st_id, $row[price_id])");
-       
+            mysql_query("INSERT INTO favorites ($who, storefront_id, price_id) VALUES ($user_id, $st_id, $row[price_id])");
+
+        }
     }
 }
 

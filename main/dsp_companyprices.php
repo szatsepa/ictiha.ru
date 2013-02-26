@@ -65,7 +65,7 @@
                  
     foreach ($store_arr as $key => $value) {
                                          
-                        echo (1+$key).".<a href='http://".$value[where_res]."/index.php' target='_blank'>".$value[name]."</a>";
+                        echo (1+$key).".<a href='http://".$value['where_res']."/index.php?stid={$value['storefront_id']}' target='_blank'>".$value['name']."</a>";
 
                       echo "<br /><br />";
                             ++$rowcount;
