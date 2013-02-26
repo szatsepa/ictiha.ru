@@ -8,14 +8,13 @@
 // Просто комменты
 if(!isset($attributes) || !is_array($attributes)) {
         $attributes = array();
-        $attributes = array_merge($_GET,$_POST,$_COOKIE);  
+        $attributes = array_merge($_GET,$_POST,$_COOKIE); 
 }
 if(!isset($_SESSION)){
 
     session_start();  
 }
-//print_r($_SESSION);
-//echo "<br/>";
+
  if(isset ($attributes[user_id]) && !isset ($_SESSION[auth])){
      
      $_SESSION[id] = $attributes[user_id];
@@ -31,6 +30,7 @@ if(!isset($_SESSION)){
         unset($_SESSION[auth]);
      } 
 
+//print_r($_SESSION);  
 
 //print_r($attributes); 
 //echo "<br>";
@@ -44,16 +44,13 @@ include 'main/qry_advert.php';
 include 'main/dsp_advert_img.php';
 include 'main/qry_storefront_info.php';
 
-//if(!isset ($attributes[stid])){
-//
-//    session_unset();
-//    session_destroy();
-//}
+if(!isset ($attributes[stid])){
 
- $_SESSION[stid] = 26; 
+    session_unset();
+    session_destroy();
+}
 
-//if(isset($attributes[act]))
-include 'main/qry_domen.php';
+if(isset($attributes[act]))include 'main/qry_domen.php';
 include ("main/qry_good_img.php");
 include ("main/qry_customer.php");
 
@@ -64,10 +61,8 @@ if(isset ($_SESSION[auth]) && $_SESSION[auth] > 0){
 }
 
 
-$storefront = new Storefront(); 
+$storefront = new Storefront();
 
-if($attributes[group]=='default')$_SESSION[rubrika] = 0; 
-   
 switch ($attributes[act]) {  
     
     case 'look': 
@@ -79,10 +74,10 @@ switch ($attributes[act]) {
         include 'main/dsp_footer.php';
         break;
     
-    case 'item_description': 
-        $title = "Описание товара"; 
+    case 'item_description':
+        $title = "Описание товара";
         include 'main/qry_images.php';
-        include 'main/dsp_header.php'; 
+        include 'main/dsp_header.php';
         include 'main/qry_check_artikul.php';
         include 'main/cnt_description.php';
         include 'main/dsp_description.php'; 

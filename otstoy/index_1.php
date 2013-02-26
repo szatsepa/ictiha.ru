@@ -42,7 +42,7 @@ switch ($attributes[act]) {
 	include ("main/qry_disconnect.php");
 	break;
 	
-	// 4.06.2011 
+	// 4.06.2011 razobratsja pojjee
 //    case "step1":
 //	$title = "Оформление заказа";
 //	if(isset($attributes[action]) and $attributes[action]=="add"){
