@@ -1,7 +1,7 @@
 <!--content -->
 	<div class="cont">
             
- <?php $artikul = $attributes[artikul];?>           
+ <?php $artikul = $attributes['artikul'];?>           
 	
 <!--left_side модуль изображения товара -->
 		<div class="left_side">
@@ -9,13 +9,13 @@
 
                         <form action="index.php?act=item_description" method="post">
                             <p align="center">
-                             <?php if(isset ($attributes[cod])){ ?>
-                                <input type="hidden" name="cod" values="<?php echo $attributes[cod];?>"/>
+                             <?php if(isset ($attributes['cod'])){ ?>
+                                <input type="hidden" name="cod" values="<?php echo $attributes['cod'];?>"/>
                             <?php  } ?>
-                                <input type="hidden" name="artikul" value="<?php echo $attributes[artikul];?>"/>
-                                <input type="hidden" name="stid" value="<?php echo $attributes[stid];?>"/>
-                                <input type="hidden" name="price_id" value="<?php echo $attributes[price_id];?>"/>
-                                <input type="image" src="http://shop.po-mera.ru/images/storefront/back_btn.jpg" <?php echo $btn[status];?> />
+                                <input type="hidden" name="artikul" value="<?php echo $attributes['artikul'];?>"/>
+                                <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
+                                <input type="hidden" name="price_id" value="<?php echo $attributes['price_id'];?>"/>
+                                <input type="image" src="http://shop.po-mera.ru/images/storefront/back_btn.jpg" <?php echo $btn['status'];?> />
                             </p>
                         </form>
                     </div>
@@ -26,14 +26,14 @@
 
                         <form action="index.php?act=item_description" method="post">
                             <p align="center">
-                             <?php if(isset ($attributes[cod])){ ?>
-                                <input type="hidden" name="cod" values="<?php echo $attributes[cod];?>"/>
+                             <?php if(isset ($attributes['cod'])){ ?>
+                                <input type="hidden" name="cod" values="<?php echo $attributes['cod'];?>"/>
                             <?php   } ?>
-                                <input type="hidden" name="stid" value="<?php echo $attributes[stid];?>"/>
-                                <input type="hidden" name="artikul" value="<?php echo $attributes[artikul];?>"/>
+                                <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
+                                <input type="hidden" name="artikul" value="<?php echo $attributes['artikul'];?>"/>
                                 <input type="hidden" name="img" value="<?php echo ($img + 1);?>"/>
-                                <input type="hidden" name="price_id" value="<?php echo $attributes[price_id];?>"/>
-                               <input type="image" src="http://shop.po-mera.ru/images/storefront/next_btn.jpg" <?php echo $btn[status];?>/>
+                                <input type="hidden" name="price_id" value="<?php echo $attributes['price_id'];?>"/>
+                               <input type="image" src="http://shop.po-mera.ru/images/storefront/next_btn.jpg" <?php echo $btn['status'];?>/>
                            </p>
                         </form>
                     </div>
@@ -53,24 +53,24 @@ if(strlen($name_item) > 42)$go=1;
                         <div><p>&nbsp;<br/></p></div>
 			<div id = "prise_txt">цена (руб):</div>
 			<div id = "obem_txt">объем:</div>
-			<div id = "price_center"><?php echo $name_artikul->volume[0][num_price_single];?> р.</div> 
+			<div id = "price_center"><?php echo $name_artikul->volume[0]['num_price_single'];?> р.</div> 
 			
                         <div id = "obem_blok"> 
                             
                             <?php 
 foreach ($name_artikul->volume as $value) {
     ?>
-   <div id="value"><p align="center" onclick="javascript:go_Artikul('<?php echo $value[str_code1];?>','<?php echo $attributes[price_id];?>','<?php echo $attributes[stid];?>','<?php echo $attributes[cod];?>');" onmouseover="this.style.color='#CCCCCC'" onmouseout="this.style.color='#BB0D72'"><?php if($artikul == $value[str_code1])echo "<strong>"; echo $value[str_volume];echo "<small>".$name_artikul->unit."</small>";  if($artikul == $value[str_code1])echo "</strong>";?></p></div>
+   <div id="value"><p align="center" onclick="javascript:go_Artikul('<?php echo $value['str_code1'];?>','<?php echo $attributes['price_id'];?>','<?php echo $attributes['stid'];?>','<?php echo $attributes['cod'];?>');" onmouseover="this.style.color='#CCCCCC'" onmouseout="this.style.color='#BB0D72'"><?php if($artikul == $value['str_code1'])echo "<strong>"; echo $value['str_volume'];echo "<small>".$name_artikul->unit."</small>";  if($artikul == $value['str_code1'])echo "</strong>";?></p></div>
 <?php
 }?>
              </div>
                          
                 <!-- END -->
                 <div id = "v_korzinu">
-                    <a href="index.php?act=to_order&amp;stid=<?php echo $attributes[stid];?>&amp;artikul=<?php echo $attributes[artikul];?>&amp;pricelist_id=<?php echo $name_artikul->pricelist;?>&amp;amount=1&amp;type=1&cod=<?php echo $attributes[cod];?>&amp;up=1">В корзину</a>
+                    <a href="index.php?act=to_order&amp;stid=<?php echo $attributes['stid'];?>&amp;artikul=<?php echo $attributes['artikul'];?>&amp;pricelist_id=<?php echo $name_artikul->pricelist;?>&amp;amount=1&amp;type=1&cod=<?php echo $attributes['cod'];?>&amp;up=1">В корзину</a>
                 </div>
                 <div id = "otlozit">
-                    <a href="index.php?act=to_reserved&amp;stid=<?php echo $attributes[stid];?>&amp;artikul=<?php echo $attributes[artikul];?>&amp;pricelist_id=<?php echo $name_artikul->pricelist;?>&amp;amount=1&amp;type=1&amp;cod=<?php echo $attributes[cod];?>&amp;up=1">Отложить</a>
+                    <a href="index.php?act=to_reserved&amp;stid=<?php echo $attributes['stid'];?>&amp;artikul=<?php echo $attributes['artikul'];?>&amp;pricelist_id=<?php echo $name_artikul->pricelist;?>&amp;amount=1&amp;type=1&amp;cod=<?php echo $attributes['cod'];?>&amp;up=1">Отложить</a>
                 </div>
 			<div id = "opisanie_center">
                             <br/><br/>
@@ -83,7 +83,7 @@ foreach ($name_artikul->volume as $value) {
                             echo $description[short_description];
                             ?>
                                <br/>
-                               <a href='index.php?act=view_descr&amp;artikul=<?php echo $attributes[artikul];?>&amp;stid=<?php echo $attributes[stid];if(isset ($attributes[cod]))echo "&cod=".$attributes[cod];?>&price_id=<?php echo $attributes[price_id];?>' target='_blank' style="font-family: Arial;font-size: 12px;color: #990033;" onmouseover="this.style.color='#878787'" onmouseout="this.style.color='#990033'" > &nbsp;Подробно...</a>
+                               <a href='index.php?act=view_descr&amp;artikul=<?php echo $attributes['artikul'];?>&amp;stid=<?php echo $attributes['stid'];if(isset ($attributes['cod']))echo "&cod=".$attributes['cod'];?>&price_id=<?php echo $attributes['price_id'];?>' target='_blank' style="font-family: Arial;font-size: 12px;color: #990033;" onmouseover="this.style.color='#878787'" onmouseout="this.style.color='#990033'" > &nbsp;Подробно...</a>
                                 <?php 
                         }
                          ?>
@@ -95,12 +95,12 @@ foreach ($name_artikul->volume as $value) {
 			if(!$description[ingridients]){
                             echo "Информация отсутствует.";	
                         }else{
-                            echo $description[ingridients];
+                            echo $description['ingridients'];
                         }
 
                     ?></div>
                         <div id = "vopros_txt">
-                            <a href="http://<?php echo $description[gost];?>" target="_blank"><?php echo $description[gost];?></a>
+                            <a href="http://<?php echo $description['gost'];?>" target="_blank"><?php echo $description['gost'];?></a>
                         </div>
 		</div>
 		
@@ -125,6 +125,7 @@ foreach ($name_artikul->volume as $value) {
 		<div class = "smotrjat_sche">
                     
                     <?php 
+//                     print_r($rnd_arr);echo "<br>";
                     $tmp_arr = array();
 //                    print_r($rnd_arr);
                     for($i=0;$i<5;$i++){
@@ -135,15 +136,17 @@ foreach ($name_artikul->volume as $value) {
                    
                         <div class = "small_kard_2">
                             <div id = "imag_right" align="center">
-                                <a href="index.php?act=item_description&amp;artikul=<?php echo $rnd_arr[$pos][str_code1];?>&amp;stid=<?php echo $attributes[stid]; echo $str_code;?>&amp;price_id=<?php echo $rnd_arr[$pos][price_id];?>"/>
-                                <img src="http://shop.po-mera.ru/images/goods/"<?php echo $rnd_arr[$pos][id].".jpg";?> width="80" title="<?php echo $tmp_arr[$i][str_name];?>"/>
+                                <a href="index.php?act=item_description&amp;artikul=<?php echo $tmp_arr[$i]['str_code1'];?>&amp;stid=<?php echo $attributes['stid']; echo $str_code;?>&amp;price_id=<?php echo $tmp_arr[$i]['price_id'];?>"/>
+                                <img src="http://shop.po-mera.ru/images/goods/<?php echo $tmp_arr[$i]['img'];?>" width="80" title="<?php echo $tmp_arr[$i]['str_name'];?>"/>
                                 </a>
                             </div>
                         </div>
                     
                                           
                     
-                   <?php } ?>
+                   <?php } 
+
+                   ?>
                 
  <div class = "smotrjat_sche_1">                 
                       <?php 

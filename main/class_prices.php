@@ -145,21 +145,18 @@ class Companies{
         
         for($i=0;$i<4;$i++){
             
-            $rand = rand(0, (count($this->companies)));
+            $rand = rand(0, (count($this->companies)-1));
             array_push($tmp, $this->companies[$rand]);
+            if((count($this->companies)-1)==$i){
+                break;
+            }
         }
         
-        $this->str_block = "<table id='art_block'><tbody>";
+        $this->str_block = "<table id='art_block'><tbody><tr>";
         
-        foreach ($tmp as $value){
-            if($value[img]){
-                $image = $value[img];
-            }else{
-                $image = "no_pic.jpg";
-            }
-//            echo $value[price_id]."<br>";
-            
-            $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href='index.php?act=company_prices&company_id=$value[id]'>$value[name]</a></td><td>$value[full_about]</td></tr>";
+        for($i=0;$i<count($tmp);$i++){
+                      
+             $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$tmp[$i]['id']}'>{$tmp[$i]['name']}</a></td>";
         }
         
         $this->str_block .= "</tbody></table>";
@@ -191,7 +188,7 @@ class Chapters{
                                         
         foreach ($this->rubrikator as $key => $value) {
             
-            $block .= '<td valign="top" class="rubrik_link"><a href="index.php?act=rubrika&amp;id='.$value['id'].'">'.$value['name'].'</a></td>';                                               
+            $block .= '<td valign="top" class="rubrik_link"><a href="index.php?act=rubrika&amp;id='.$value['id'].'"><img src="../images/'.$value['sinonim'].'.jpg" width="60"/></a><a href="index.php?act=rubrika&amp;id='.$value['id'].'">'.$value['name'].'</a></td>';                                               
         }
         
         $block .= '</tr></table></fieldset>';

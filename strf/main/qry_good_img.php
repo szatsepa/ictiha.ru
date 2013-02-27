@@ -196,7 +196,8 @@ function goods_rnd($storefront_id, $artikul){
                         gp.id, pl.str_name, 
                         p.comment, pl.str_volume, 
                         pl.num_price_single,
-                        p.id AS price_id
+                        p.id AS price_id,
+                        Concat(gp.id,'.',gp.extention) AS img
                     FROM pricelist AS pl, 
                         goods_pic AS gp, 
                         price AS p 
@@ -210,9 +211,10 @@ function goods_rnd($storefront_id, $artikul){
 
 
 	while($pr_list = mysql_fetch_assoc($qry_list)){
-
+                if($pr_list['img']){
 		array_push($list_arr,$pr_list);
-	}
+                }
+            }
             
         }
 

@@ -110,6 +110,14 @@ position:relative;
 left:35px;
 }
 
+button.btn_main{
+
+}
+
+button.btn_main:hover{
+ color: brown;   
+}
+
 .searchwindow{
 width:371px;
 height:68px;
@@ -129,4 +137,8 @@ width:65px;
 height:68px;
 background: #d00;
 float:left;
+}
+
+#art_block tbody tr td{
+    text-align: center;
 }

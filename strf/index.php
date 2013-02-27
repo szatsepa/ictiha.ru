@@ -16,24 +16,25 @@ if(!isset($_SESSION)){
 }
 //print_r($_SESSION);
 //echo "<br/>";
- if(isset ($attributes[user_id]) && !isset ($_SESSION[auth])){
+ if(isset ($attributes['user_id']) && !isset ($_SESSION['auth'])){
      
-     $_SESSION[id] = $attributes[user_id];
-     $_SESSION[auth] = 1; 
+     $_SESSION['id'] = $attributes['user_id'];
+     $_SESSION['auth'] = 1; 
      
-     }else if(isset($attributes[user_id]) && isset ($_SESSION[auth])){
+     }else if(isset($attributes['user_id']) && isset ($_SESSION['auth'])){
          
-         $_SESSION[id] = $attributes[user_id];
+         $_SESSION['id'] = $attributes['user_id'];
          
-     }else if(!$_SESSION[id]){
+     }else if(!$_SESSION['id']){
          
-        unset ($_SESSION[id]);
-        unset($_SESSION[auth]);
+        unset ($_SESSION['id']);
+        unset($_SESSION['auth']);
      } 
 
 
-print_r($attributes); 
-echo "<br>";
+//print_r($attributes);
+//            print_r($_SESSION); 
+//echo "<br>";
 
 include 'main/cnt_classes.php';
 include ("main/qry_connect.php");
@@ -50,7 +51,7 @@ include 'main/qry_storefront_info.php';
 //    session_destroy();
 //}
 
- $_SESSION[stid] = 26; 
+ $_SESSION['stid'] = $attributes['stid']; 
 
 //if(isset($attributes[act]))
 include 'main/qry_domen.php';
@@ -58,7 +59,7 @@ include ("main/qry_good_img.php");
 include ("main/qry_customer.php");
 
 
-if(isset ($_SESSION[auth]) && $_SESSION[auth] > 0){
+if(isset ($_SESSION['auth']) && $_SESSION['auth'] > 0){
    
     include 'main/act_checkauth.php';
 }
@@ -66,9 +67,9 @@ if(isset ($_SESSION[auth]) && $_SESSION[auth] > 0){
 
 $storefront = new Storefront(); 
 
-if($attributes[group]=='default')$_SESSION[rubrika] = 0; 
+if($attributes['group']=='default')$_SESSION['rubrika'] = 0; 
    
-switch ($attributes[act]) {  
+switch ($attributes['act']) {  
     
     case 'look': 
         include 'main/qry_rubrikas.php';
@@ -176,7 +177,7 @@ switch ($attributes[act]) {
         include ("main/qry_cart.php");
        
         if(!isset ($attributes[type])){
-
+        
             include 'main/act_to_ofice.php';
                 
             }else{

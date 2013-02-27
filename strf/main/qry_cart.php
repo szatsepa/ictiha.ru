@@ -1,12 +1,12 @@
 <?php 
 
-$user_id = $_SESSION[user]->data[id];
+$user_id = $_SESSION['user']->data['id'];
 
-if(isset ($_SESSION[user]) && $_SESSION[auth] == 1){
+if(isset ($_SESSION['user']) && $_SESSION['auth'] == 1){
     
     $field = "user_id";
     
-}else if(isset ($_SESSION[user]) && $_SESSION[auth] == 2){
+}else if(isset ($_SESSION['user']) && $_SESSION['auth'] == 2){
     
     $field = "customer";
     
@@ -17,11 +17,11 @@ $prices_arr = array();
 
 $cart_list_arr = array();
 
-$secret_key = quote_smart($attributes[cod]);
+$secret_key = quote_smart($attributes['cod']);
 
 $ip = quote_smart($_SERVER["REMOTE_ADDR"]);
 
-if(!isset ($_SESSION[user])){
+if(!isset ($_SESSION['user'])){
 
 $query = "SELECT a.str_code1,
                     a.str_name, 
@@ -39,7 +39,7 @@ $query = "SELECT a.str_code1,
              WHERE a.str_code1 = b.artikul
                AND a.pricelist_id = b.price_id
     AND a.pricelist_id = p.id 
-    AND std.price_id =p.id AND std.storefront_id = $_SESSION[stid]
+    AND std.price_id =p.id AND std.storefront_id = {$_SESSION['stid']}
                AND p.company_id=c.id
                AND gp.barcode = a.str_barcode
     AND gp.pictype = 1
@@ -64,7 +64,7 @@ $query = "SELECT a.str_code1,
          FROM pricelist a, cart b, price p,companies c, goods_pic gp,storefront_data std
          WHERE a.str_code1 = b.artikul
            AND a.pricelist_id = b.price_id
-    AND std.price_id =p.id AND std.storefront_id = $_SESSION[stid]
+    AND std.price_id =p.id AND std.storefront_id = {$_SESSION['stid']}
            AND a.pricelist_id = p.id
     AND p.company_id=c.id
            AND gp.barcode = a.str_barcode
@@ -87,7 +87,7 @@ $query = "SELECT a.str_code1,
     
     mysql_free_result($qry_cart);
     
-if(!isset ($_SESSION[user])){
+if(!isset ($_SESSION['user'])){
 
 $query = "SELECT a.str_code1,
                     a.str_name, 
@@ -105,7 +105,7 @@ $query = "SELECT a.str_code1,
              WHERE a.str_code1 = b.artikul
                AND a.pricelist_id = b.price_id
      AND a.pricelist_id = p.id
-    AND std.price_id =p.id AND std.storefront_id = $_SESSION[stid]
+    AND std.price_id =p.id AND std.storefront_id = {$_SESSION['stid']}
                AND p.company_id=c.id
                AND gp.barcode = a.str_barcode
     AND gp.pictype = 1
@@ -131,7 +131,7 @@ $query = "SELECT a.str_code1,
          WHERE a.str_code1 = b.artikul
            AND a.pricelist_id = b.price_id
            AND a.pricelist_id = p.id
-    AND std.price_id =p.id AND std.storefront_id = $_SESSION[stid]
+    AND std.price_id =p.id AND std.storefront_id = {$_SESSION['stid']}
     AND p.company_id=c.id
            AND gp.barcode = a.str_barcode
     AND gp.pictype = 1
@@ -139,7 +139,7 @@ $query = "SELECT a.str_code1,
            AND a.str_code2 <> 'X'
          ORDER BY b.id";
     
-}  
+} 
 
 $qry_cart = mysql_query($query) or die($query);
     

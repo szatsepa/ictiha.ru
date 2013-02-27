@@ -1,8 +1,28 @@
 <script type="text/javascript">
         $(document).ready(function(){
+            
             if($("#search").attr('action') != '#'){
                 $("input#entry.sendsubmit input#entry.sendsubmit:hover").css({"background": 'url("http://shop.po-mera.ru/design/search-none.png") no-repeat scroll center top transparent")'});
             }
+            
+            $("#main_menu input:image").css({'top':'8px'});
+            
+            $("#find_button").click(function(){
+                var str = $("#search input:text").val();
+                if(str.length > 0 && str.length < 4){
+                    alert("Слишком короткое слово для поиска!");
+                }else if(str.length == 0){
+                    return false;
+                }else{
+                    $("#search").submit();
+                }
+            });
+            
+            $("button.btn_main").click(function(){
+                var query = this.id;
+                query = query.substr(4);
+                document.location = "index.php?act="+query+"<?php echo $urladd; ?>";
+            });
             
         });
 </script>
@@ -59,53 +79,36 @@
                 </a>
             </div>
         </div>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#find_button").click(function(){
-                var str = $("#search input:text").val();
-                if(str.length > 0 && str.length < 4){
-                    alert("Слишком короткое слово для поиска!");
-                }else if(str.length == 0){
-                    return false;
-                }else{
-                    $("#search").submit();
-                }
-            });
-        });
-    </script>
-
     </div>
 </div>
 <div id="main_menu"> 
-    <br><br><p style="text-align: center">
+    <br><br><p style="text-align: center"><button class="btn_main" id="first_btn">Кнопка 1</button>&nbsp;<button class="btn_main" id="second_btn">Кнопка 2</button>&nbsp;
         <?php
         if($_SESSION[auth] == 1){
             if (($user["role"] == 1 or $user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { ?>
-            <a href="index.php?act=kabinet<?php echo $urladd; ?>" title="Личный кабинет">Личный&nbsp;кабинет</a>&nbsp;&nbsp;&nbsp;
+            <button class="btn_main" id="btn_kabinet">Личный&nbsp;кабинет</button>&nbsp;
             <?php } 
                     if (($user["role"] == 1 or $user["role"] == 2) and $attributes[act] != 'supplier' and (!in_array("supplier",$rights)) and $mobile == 'false') {?>
-            <a href="index.php?act=supplier<?php echo $urladd; ?>" title="Кабинет&nbsp;поставщика">Кабинет поставщика</a>&nbsp;&nbsp;&nbsp;
+            <button class="btn_main" id="btn_supplier">Кабинет&nbsp;поставщика</button>&nbsp;
             <?php }
-            if (($user["role"] == 1 or $user["role"] == 5) and $attributes[act] != 'torg' and (!in_array("torg",$rights)) and $mobile == 'false') {?>	
-            <a href="index.php?act=torg<?php echo $urladd; ?>" title="Кабинет торгового">Кабинет&nbsp;торгового</a>&nbsp;&nbsp;&nbsp;	
+            if (($user["role"] == 1 or $user["role"] == 5) and $attributes[act] != 'torg' and (!in_array("torg",$rights)) and $mobile == 'false') {?>
+            <button class="btn_main" id="btn_torg">Кабинет&nbsp;торгового</button>&nbsp;
             <?php } 
-            if ($attributes[act] == 'kabinet') { ?> 					
-                    <a href="index.php?act=kotirovka<?php echo $urladd; ?>" title="Сравнительные котировки">Сравнительные котировки</a>&nbsp;&nbsp;&nbsp;
-                    <a href="index.php?act=arch_zakazuser<?php echo $urladd; ?>" title="Архив заказов">Архив&nbsp;заказов</a>&nbsp;&nbsp;&nbsp;
-                    <a href="index.php?act=otchet<?php echo $urladd; ?>" title="Отчеты">Отчеты</a>&nbsp;&nbsp;&nbsp;
+            if ($attributes[act] == 'kabinet') { ?> 
+            <button class="btn_main" id="btn_rch_zakazuser">Архив&nbsp;заказов</button>&nbsp;
+            <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
             <?php } 						
-            if ($attributes[act] == 'supplier') { ?> 					
-                    <a href="index.php?act=arch_done<?php echo $urladd; ?>" title="Архив поставок">Архив&nbsp;поставок</a>&nbsp;&nbsp;&nbsp;
-                    <a href="index.php?act=arch_decline<?php echo $urladd; ?>" title="Отменённые заказы">Отменённые&nbsp;заказы</a>&nbsp;&nbsp;&nbsp;
-                    <a href="index.php?act=otchet<?php echo $urladd; ?>" title="Отчеты">Отчеты</a>&nbsp;&nbsp;&nbsp;
+            if ($attributes[act] == 'supplier') { ?> 
+            <button class="btn_main" id="btn_arch_done">Архив&nbsp;поставок</button>&nbsp;
+            <button class="btn_main" id="btn_arch_decline">Отменённые&nbsp;заказы</button>&nbsp;
+            <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
             <?php } 
 
             if (isset($attributes[act])) {
             ?>
-            <a href="index.php?act=complist<?php echo $urladd; ?>" title="Обратная связь">Список&nbsp;компаний</a>&nbsp;&nbsp;&nbsp;
+            <button class="btn_main" id="btn_complist">Список&nbsp;компаний</button>&nbsp;
             <?php } ?>
-            <a href="index.php?act=mailform<?php echo $urladd; ?>" title="Обратная связь">Обратная&nbsp;связь</a>&nbsp;&nbsp;&nbsp;
+            <button class="btn_main" id="btn_mailform">Обратная&nbsp;связь</button>&nbsp;
         <?php }?></p>
             <br><br>
-<!--    <ul></ul>-->
 </div>
