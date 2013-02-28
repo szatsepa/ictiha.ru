@@ -18,11 +18,13 @@
                 }
             });
             
+            
+            
             $("button.btn_main").click(function(){
                 var query = this.id;
                 query = query.substr(4);
                 document.location = "index.php?act="+query+"<?php echo $urladd; ?>";
-            });
+            }).css({'border':'none','padding-left':'12px'});
             
         });
 </script>
@@ -82,7 +84,7 @@
     </div>
 </div>
 <div id="main_menu"> 
-    <br><br><p style="text-align: center"><button class="btn_main" id="first_btn">Кнопка 1</button>&nbsp;<button class="btn_main" id="second_btn">Кнопка 2</button>&nbsp;
+    <br><br><p style="text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn_main" id="first_btn">Кнопка 1</button>&nbsp;&nbsp;<button class="btn_main" id="second_btn">Кнопка 2</button>&nbsp;
         <?php
         if($_SESSION[auth] == 1){
             if (($user["role"] == 1 or $user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { ?>

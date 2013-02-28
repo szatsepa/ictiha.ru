@@ -97,16 +97,29 @@ class Prices{
         
         $this->str_block = "<table id='art_block'><tbody>";
         
-        foreach ($this->artikles as $value){
-            if($value[img]){
-                $image = $value[img];
-            }else{
-                $image = "no_pic.jpg";
-            }
-//            echo $value[price_id]."<br>";
+        for($i=1;$i<count($this->artikles);($i+=2)){
             
-            $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href='index.php?act=single_price&amp;pricelist_id=$value[price_id]'><img src='images/goods/$image' alt='$value[name]' width='128'></a></td><td><a href='index.php?act=single_price&pricelist_id=$value[price_id]'>$value[name] - $value[price] руб.</a></td></tr>";
+            $image = $this->artikles[($i-1)]['img'];
+            
+            if(!$image)$image="no_pic.jpg";
+            
+            $image1 = $this->artikles[($i)]['img'];
+            
+            if(!$image1)$image1="no_pic.jpg";
+            
+            $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i-1)]['price_id']}'><img src='images/goods/$image' alt='{$this->artikles[($i-1)]['name']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i-1)]['price_id']}'>{$this->artikles[($i-1)]['name']} - {$this->artikles[($i-1)]['price']} руб.</a></p></td><td><p><a href='index.php?act=single_price&amp;pricelist_id={$this->artikles[($i)]['price_id']}'><img src='images/goods/$image1' alt='{$this->artikles[($i)]['name']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i)]['price_id']}'>{$this->artikles[($i)]['name']} - {$this->artikles[($i)]['price']} руб.</a></p></td></tr>";            
         }
+        
+//        foreach ($this->artikles as $value){
+//            if($value[img]){
+//                $image = $value[img];
+//            }else{
+//                $image = "no_pic.jpg";
+//            }
+////            echo $value[price_id]."<br>";
+//            
+//            $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href='index.php?act=single_price&amp;pricelist_id=$value[price_id]'><img src='images/goods/$image' alt='$value[name]' width='128'></a></td><td><a href='index.php?act=single_price&pricelist_id=$value[price_id]'>$value[name] - $value[price] руб.</a></td></tr>";
+//        }
         
         $this->str_block .= "</tbody></table>";
         

@@ -8,50 +8,62 @@
  ?>
 <script type="text/javascript">
 	$(document).ready(function(){
+            
+            
+        
+            
+        $("#addrecord_tbl").css({'width':'1062px'});
+        
+        $("input.required").focus(function(){
+            
+            var input_obj = {'str_code1':'6','str_barcode':'8','str_name':'24','str_state':'8','expiration':'12','str_volume':'4','str_package':'6','num_price_single':'5','num_price_pack':'5','num_amount':'5'};
+            var id = this.id;
+//            console.log(input_obj[id]);
+            $(this).attr('size', input_obj[id]);
+        }).blur(function(){
+            $(this).attr('size', 1);
+        });
+            
 		$('#addrecord_btn').click(function() {
             
-			$("#addrecord_msg").append("");
-			
-//            $("#addrecord_msg").text(" Идет запись информации...");
+                    $("#addrecord_msg").append("");
             
-            $("#addrecord_msg").load('index.php',{'act':'addrecord',
-                                                'str_code1':$("#str_code1").val(),
-                                                'str_barcode':$("#str_barcode").val(),
-                                                'str_name':$("#str_name").val(),
-                                                'str_state':$("#str_state").val(),
-                                                'str_volume':$("#str_volume").val(),
-                                                'str_package':$("#str_package").val(),
-                                                'num_price_single':$("#num_price_single").val(),
-                                                'num_price_pack':$("#num_price_pack").val(),
-                                                'num_amount':$("#num_amount").val(),
-                                                'str_group1':$("#str_group1").val(),
-                                                'str_group2':$("#str_group2").val(),
-                                                'expiration':$("#expiration").val(),
-                                                'pricelist_id':<?php echo $attributes[pricelist_id];?>
-                                            }); 
-            
-            return false;
-        }); 
-            
-            return false;
-        }); 
+                    $("#addrecord_msg").load('index.php',{'act':'addrecord',
+                                                        'str_code1':$("#str_code1").val(),
+                                                        'str_barcode':$("#str_barcode").val(),
+                                                        'str_name':$("#str_name").val(),
+                                                        'str_state':$("#str_state").val(),
+                                                        'str_volume':$("#str_volume").val(),
+                                                        'str_package':$("#str_package").val(),
+                                                        'num_price_single':$("#num_price_single").val(),
+                                                        'num_price_pack':$("#num_price_pack").val(),
+                                                        'num_amount':$("#num_amount").val(),
+                                                        'str_group1':$("#str_group1").val(),
+                                                        'str_group2':$("#str_group2").val(),
+                                                        'expiration':$("#expiration").val(),
+                                                        'pricelist_id':<?php echo $attributes[pricelist_id];?>
+                                                    }); 
+
+                    return false;
+                }); 
+
 		
 		$('#addlimit_btn').click(function() {
             
-			$("#addrecord_msg").append("");
-			
-            $("#addrecord_msg").load('index.php',{'act':'addlimit',
-                                                'zakaz_limit':$("#zakaz_limit").val(),
-                                                'pricelist_id':<?php echo $attributes[pricelist_id];?>}); 
-            
-            return false;
-        });
+                    $("#addrecord_msg").append("");
+                    
+                    $("#addrecord_msg").load('index.php',{'act':'addlimit',
+                                                        'zakaz_limit':$("#zakaz_limit").val(),
+                                                        'pricelist_id':<?php echo $attributes[pricelist_id];?>}); 
+
+                    return false;
+                });
      });
     
 </script>
 
 <p id="addrecord_msg">&nbsp;</p>
-<table class='dat' id='addrecord_tbl' width="100%">
+<table class='dat' id='addrecord_tbl' width="1062">
     <thead>
         <tr>
 <?php 
@@ -69,17 +81,16 @@ while ($th < count($fields2)) {
         </thead>
 <form action="#" name="add_record" id="add_record">
 			<tr>
-				<td><input type="text" name="str_code1" id="str_code1" value="" size="6" maxlength="10" class="required"></td>
-				<td><input type="text" name="str_barcode" id="str_barcode" value="" size="7" maxlength="30"></td>
-				<td><input type="text" name="str_name" id="str_name" value="" size="22" maxlength="255"></td>
-				<td><input type="text" name="str_state" id="str_state" value="" size="8" maxlength="255"></td>
-                                <td><input type="text" name="num_price_pack" id="expiration" value="" size="10" maxlength="12" class="required"></td>
-				<td><input type="text" name="str_volume" id="str_volume" value="" size="4" maxlength="10"></td>
-				<td><input type="text" name="str_package" id="str_package" value="" size="6" maxlength="255"></td>
-				<td><input type="text" name="num_price_single" id="num_price_single" value="" size="5" maxlength="8" class="required"></td>
-				<td><input type="text" name="num_price_pack" id="num_price_pack" value="" size="5" maxlength="8" class="required"></td>
-                                <td><input type="text" name="num_amount" id="num_amount" value="" size="5" maxlength="6" class="digits required"></td>
-<!--				<td><input type="text" name="num_price_pack" id="expiration" value="" size="5" maxlength="8" class="required"></td>-->
+				<td><input type="text" name="str_code1" id="str_code1" value="" size="1" maxlength="10" class="required"></td>
+				<td><input type="text" name="str_barcode" id="str_barcode" value="" size="1" maxlength="30" class="required"></td>
+				<td><input type="text" name="str_name" id="str_name" value="" size="1" maxlength="255" class="required"></td>
+				<td><input type="text" name="str_state" id="str_state" value="" size="1" maxlength="255" class="required"></td>
+                                <td><input type="text" name="num_price_pack" id="expiration" value="" size="1" maxlength="12" class="required"></td>
+				<td><input type="text" name="str_volume" id="str_volume" value="" size="1" maxlength="10" class="required"></td>
+				<td><input type="text" name="str_package" id="str_package" value="" size="1" maxlength="255" class="required"></td>
+				<td><input type="text" name="num_price_single" id="num_price_single" value="" size="1" maxlength="8" class="required"></td>
+				<td><input type="text" name="num_price_pack" id="num_price_pack" value="" size="1" maxlength="8" class="required"></td>
+                                <td><input type="text" name="num_amount" id="num_amount" value="" size="1" maxlength="6" class="digits required"></td>
 			 </tr>
                          <tr><td colspan="10">&nbsp;</td></tr>
 			 <tr>
