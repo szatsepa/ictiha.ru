@@ -1,23 +1,27 @@
 <?php
-// Îáíîâëåíèå èíôîðìàöèè î ïðàéñå
+// ÐžÐ±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸ Ð¾ Ð¿Ñ€Ð°Ð¹ÑÐµ
 
-$price_id 					= intval($attributes[price_id]);
-$comment	  				= quote_smart(trim($attributes[comment]));
-$tags			 			= quote_smart(trim($attributes[tags]));
-$rubrika				 	= intval($attributes[rubrika_id]);
-$zakaz_limit				= intval($attributes[zakaz_limit]);
+$price_id 					= intval($attributes['price_id']);
+$comment	  				= quote_smart(trim($attributes['comment']));
+$tags			 			= quote_smart(trim($attributes['tags']));
+$rubrika				 	= intval($attributes['rubrika_id']);
+$zakaz_limit				= intval($attributes['zakaz_limit']);
+$expiration                             = quote_smart($attributes['expiration']);
 
 $query = "UPDATE price 
 			 SET comment 	 = $comment,
 				 tags	 	 = $tags,
 				 rubrika 	 = $rubrika,
-				 zakaz_limit = $zakaz_limit
+				 zakaz_limit = $zakaz_limit,
+                                 expiration = $expiration
 		   WHERE id=$price_id";
 		   
 $qry_price_info_update = mysql_query($query) or die($query);
 
-// Çäåñü óñòàíîâèì ñîîáùåíèå îá óñïåøíîì îáíîâëåíèè èíôîðìàöèè
-$eid = 2;
+// Ð—Ð´ÐµÑÑŒ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ð¼ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð¾Ð± ÑƒÑÐ¿ÐµÑˆÐ½Ð¾Ð¼ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ð¸ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ð¸
 
-
+if(mysql_affected_rows()>0){
+    $eid = 2;
+}
 ?>
+

@@ -56,7 +56,8 @@ $query = "SELECT a.str_code1,
                 c.name AS company_name,
                 b.parent_zakaz,
                 p.type,
-                p.zakaz_limit
+                p.zakaz_limit,
+                IF(a.expiration < Now(), '#E3F5BF', '#F5BFE6') AS exp
           FROM pricelist a, cart b, price p,companies c
          WHERE a.str_code1 = b.artikul
            AND a.pricelist_id = b.price_id

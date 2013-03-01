@@ -8,7 +8,8 @@ $query = "SELECT p.id,
 				 p.creation,
 				 p.rubrika,
 				 p.tags,
-				 p.zakaz_limit
+				 p.zakaz_limit,
+                                 p.expiration
 		  FROM price p, companies c
 		  WHERE p.company_id=c.id
                   AND c.id = $company_id

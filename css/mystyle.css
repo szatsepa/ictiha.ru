@@ -142,3 +142,7 @@ float:left;
 #art_block tbody tr td{
     text-align: center;
 }
+
+#color_msg{
+  width: 330px;background-color: #F5BFE6;text-align: left;margin-left: 127px;height: 47px
+}

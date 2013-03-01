@@ -47,19 +47,23 @@ while ($row = mysql_fetch_assoc($qry_zakazweek)) {
 </div>
 <div style="margin-left:5px;">
 Заказы по дням недели:<br />
-<table class='cart'>
+<table class='cart'><thead><tr>
 <?php
 foreach ($days as $day) {
 ?>
 <th  class='cart' style="width:10em;"><?php echo $day;?></th>
 <?php } ?>
-<tr>
+
+   </tr> </thead>
+<tbody>
+    <tr>
 <?php
 foreach ($zakaz as $dat) {
 ?>
 <td class='cart' style="text-align:left;" valign="top"><?php echo $dat;?><br/>&nbsp;</td>
 <?php } ?>
 </tr>
+</tbody>
 </table>
 <p align="right"><a href="index.php?act=arch_zakazuser" class="help" style="text-decoration:underline;">Архив заказов</a>&nbsp;&nbsp;</p>
 
