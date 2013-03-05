@@ -109,56 +109,57 @@ switch ($attributes['act']) {
 	break;
     
     case "user_edit":
-    include("qry_users.php");
-    include("qry_roles.php");
-    include("qry_companies.php");
-    include("dsp_header.php");
-    include("dsp_userlist.php");
-    include("dsp_user.php");    
+        include("qry_users.php");
+        include("qry_roles.php");
+        include("qry_companies.php");
+        include("dsp_header.php");
+        include("dsp_userlist.php");
+        include("dsp_user.php");    
 	break;
     
     case "user_update":
-    include("qry_userupdate.php");
-    include("act_tousers.php");    
+        include("qry_userupdate.php");
+        include("act_tousers.php");    
 	break;
 	
 	// Товары (штрих-коды)
     case "goods":
-    include("qry_goods.php");
-    include("dsp_header.php");
-    include("dsp_tovar.php");
-    include("dsp_tovarlist.php");    
+        include("qry_goods.php");
+        include("dsp_header.php");
+        include("dsp_tovar.php");
+        include("dsp_tovarlist.php");    
 	break;
     
-	case "tovar_edit":
-    include("qry_goods.php");    
+    case "tovar_edit":
+        include("qry_goods.php");    
 	include("../main/dsp_fn_tovar_pic.php");	
 	include("../main/dsp_fn_pic.php");
 	include("dsp_fn_option.php");	
-    include("dsp_header.php");
-    include("dsp_tovar.php");
+        include("dsp_header.php");
+        include("dsp_tovar.php");
 	break;
     
     case "del_item":
         include 'act_del_item.php';
         break;
+    
     case "tovar_update":
         include 'act_update_item.php';
         break;
 	
-	case "upload_tovarpic":
-    include("act_uploadzip.php");
-    include("act_totovaredit.php");
+    case "upload_tovarpic":
+        include("act_uploadzip.php");
+        include("act_totovaredit.php");
 	break;
 	
-	case "tovar_add":
-    include("qry_tovaradd.php");
-    include("act_togoods.php");    
+    case "tovar_add":
+        include("qry_tovaradd.php");
+        include("act_togoods.php");    
 	break;
     
-	case "uploadgoods":
-      include("dsp_header.php");       
-    include("act_uploadgoods.php");
+    case "uploadgoods":
+        include("dsp_header.php");       
+        include("act_uploadgoods.php");
 //	include("act_to.php"); 
 	break;
 	

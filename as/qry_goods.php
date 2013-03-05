@@ -1,26 +1,38 @@
 <?php 
 // Список товаров (штрих-коды)
 
-if (isset($attributes[barcode])) {
+if (isset($attributes['barcode'])) {
 
-	$condition = "WHERE barcode=".$attributes[barcode];
+	$condition = "WHERE barcode='{$attributes['barcode']}'";
 
 } else {
 
 	$condition = "";
 
 }
-
-$query = "SELECT barcode, 
+if(!isset($attributes['search'])){
+    $query = "SELECT barcode, 
 				 name,
 				 short_description,
 				 ingridients, 
 				 specification, 
-				 gost,
-                                 nds
+				 gost 
 			FROM goods ".
 			$condition.
-	"	ORDER BY barcode";
+	"	ORDER BY up_date";
+}else{
+    $query = "SELECT barcode, 
+				 name,
+				 short_description,
+				 ingridients, 
+				 specification, 
+				 gost
+                            FROM `goods`
+                            WHERE MATCH (`name`, `short_description`) 
+                            AGAINST ('{$attributes['search']}') ORDER BY up_date DESC";
+}
+
+//echo $query; 
 
 $qry_goods = mysql_query($query) or die($query);
 

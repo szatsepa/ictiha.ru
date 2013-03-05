@@ -1,5 +1,7 @@
 <?php
 
+if(!isset($search_form))$search_form = 0;
+
 if($pages > 1){
 ?>
 <!--<table class="dat" border="1">
@@ -46,5 +48,37 @@ for($i=($page);$i<($page+4);$i++){
             
 <?php
     }
+if($search_form === 0){
+?>
+<div id="goods_search">
+    <p style="text-align: right;">
+        <input type="text" id="search_string" value="" size="32"/>
+        <input type="button" id="go_search" value="Поиск товаров"/>
+    </p>    
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#go_search").mousedown(function(){
+            _search();
+        }).keyup(function(e){
+            if(e.whith == 13){
+              _search();  
+            }
+        });
+        
+    });
+    function _search(){
+        var search = $("#search_string").val();
+        if(search.lenght < 5 || !search){
+            alert("Слишком короткая строка поиска!");
+        }else{
+            document.location = "index.php?act=goods&search="+search;
+        }
+        return false;
+    }
+</script>
+<?php 
+}
 
+$search_form++;
 ?>
