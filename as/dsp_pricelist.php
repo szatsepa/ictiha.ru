@@ -101,11 +101,11 @@ while ($row = mysql_fetch_assoc($qry_prices)) {
             </tr>
             <tr>
                     <td>Минимальный заказ:</td>
-                    <td><input type="text" name="zakaz_limit" maxlength="5" size="5" value="<?php echo $zakaz_limit; ?>"></td>
+                    <td><input type="text" name="zakaz_limit" maxlength="5" size="15" value="<?php echo $zakaz_limit; ?>"></td>
             </tr>
             <tr>
                     <td>Срок годности:</td>
-                    <td><input type="text" name="expiration" maxlength="12" size="5" value="<?php echo $expiration; ?>"></td>
+                    <td><input type="text" name="expiration" maxlength="12" size="15" value="<?php echo $expiration; ?>"></td>
             </tr>
             <tr>
                     <td colspan="2"><div align="center"><input type="submit" value="Сохранить изменения"></a></td>
@@ -121,3 +121,8 @@ while ($row = mysql_fetch_assoc($qry_prices)) {
 </div>
 
 <?php } ?>
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $("#s_rubrika").css('font-size', '1.2em');
+                            });
+                        </script>

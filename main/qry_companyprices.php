@@ -13,12 +13,14 @@ if ($authentication == "yes") {
 }
 $company_id = quote_smart($attributes[company_id]);
 
-$query = "SELECT p.id,p.comment,k.price_id,k.user_id,p.status
+$query = "SELECT p.id,p.comment,k.price_id,k.user_id,p.status, p.expiration
 FROM price p
 LEFT OUTER JOIN kabinet k
 ON p.id = k.price_id AND k.user_id = $user_for_select
 WHERE p.company_id=$company_id AND p.creation IS NOT NULL
 ORDER BY p.creation";
+
+//echo "$query<br>";
 
 //$query = "SELECT id,comment FROM price WHERE company_id=$attributes[company_id] AND creation IS NOT NULL ORDER BY creation";
 

@@ -244,6 +244,7 @@ switch ($attributes['act']) {
         break;
     
     case "img_menu":
+        include 'qry_rubrikator.php';
         include("qry_companies.php");
 	include("qry_prices.php");
         include("dsp_header.php");
@@ -252,6 +253,7 @@ switch ($attributes['act']) {
     
     case "upload_zipimg":
         include("qry_companies.php");
+        include 'qry_rubrikator.php';
 	include("qry_prices.php");
         include("act_md5name.php");
         include("act_uploadzip.php");
@@ -260,19 +262,24 @@ switch ($attributes['act']) {
 	break;
     
     case "logo_delete":
-    include("act_logodel.php");
+        include("act_logodel.php");
 	include("act_toimg.php");
 	break;
 	
-	case "img_delete":
+    case "img_delete":
 	include("act_md5name.php");
-    include("act_imgdel.php");
+        include("act_imgdel.php");
 	include("act_toimg.php");
 	break;
 	
-	case "tagimg_delete":
+    case "tagimg_delete":
 	include("act_md5name.php");
-    include("act_tagimgdel.php");
+        include("act_tagimgdel.php");
+	include("act_toimg.php");
+	break;
+    
+    case "rubimg_delete":
+        include("act_rubrikaimgdel.php");
 	include("act_toimg.php");
 	break;
 	

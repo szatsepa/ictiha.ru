@@ -1,6 +1,6 @@
 <?php 
 
-$query = "SELECT id,name,status 
+$query = "SELECT id,name,status,sinonim 
 			FROM rubrikator 
 			WHERE status=1
 			ORDER BY id";

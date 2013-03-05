@@ -236,6 +236,7 @@ if (isset($attributes['pricelist_id']) and $authentication == "yes" and (mysql_n
 </div>
 <?php
 if ($attributes['act'] == 'single_item') {
+    if(mysql_num_rows($qry_price)==0) exit (); 
 	$barcode        = mysql_result($qry_price,0,"str_barcode");
 	$item_name_head = mysql_result($qry_price,0,"str_name");
 	echo "<h2>$item_name_head<br />$attributes[artikul]#$barcode</h2>";

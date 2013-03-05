@@ -4,6 +4,7 @@
 // TO DO сделать проверку на удаление предыдущего логотипа!!! 
 
 $uploadfile_zip   = $document_root . '/images/goods/' . basename($_FILES['userfile']['name']);
+$uploadfile_rubrika   = $document_root . '/images/' . basename($_FILES['userfile']['name']);
 $uploadfile_logos = $document_root . '/images/logos/' . basename($_FILES['userfile']['name']);
 $uploadfile_tags  = $document_root . '/images/tags/' . basename($_FILES['userfile']['name']);
 $uploadfile_tmp   = $document_root . '/images/tmp/' . basename($_FILES['userfile']['name']);
@@ -96,12 +97,12 @@ if (($_FILES['userfile_t']['type'] == 'image/jpeg' or  $_FILES['userfile_b']['ty
 
 }
 	
-   if (($_FILES['userfile']['type'] == 'image/jpeg' or $_FILES['userfile']['type'] == 'image/pjpeg') and $_FILES['userfile']['size'] < 512000) {
+   if (($_FILES['userfile']['type'] == 'image/jpeg' or $_FILES['userfile']['type'] == 'image/pjpeg') and $_FILES['userfile']['size'] < 512000 and !isset($attributes['r'])) {
 
 		// Картинка тега?
 		if (isset($attributes[tag])) {
 		
-			$newname = md5name($attributes[tag]);
+                $newname = md5name($attributes[tag]);
 	        $newname .= $ext;
 	        $fullname = $document_root . '/images/tags/' . $newname;
 	        
@@ -110,7 +111,7 @@ if (($_FILES['userfile_t']['type'] == 'image/jpeg' or  $_FILES['userfile_b']['ty
 	            unlink ($fullname);
 	         }
 					
-		   	if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile_tags)) {
+                if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile_tags)) {
 	           $javascript = "javascript:alert('Ошибка при копировании файла');";
 	        } else { 
 				rename ($uploadfile_tags,$fullname);
@@ -171,6 +172,35 @@ if (($_FILES['userfile_t']['type'] == 'image/jpeg' or  $_FILES['userfile_b']['ty
 			
 		} // isset($attributes[barcode])
    }
+   
+    if (($_FILES['userfile']['type'] == 'image/jpeg' or $_FILES['userfile']['type'] == 'image/pjpeg') and $_FILES['userfile']['size'] < 512000 and isset($attributes['r']) and $attributes['r'] == 1) {
+        
+        $rubrika_id = intval($attributes['rubrika_id']);
+        
+        $query = "SELECT `sinonim` FROM `rubrikator` WHERE `id` = $rubrika_id";
+        
+        $result = mysql_query($query);
+        
+        $sinonim = mysql_result($result, 0);
+        
+        $newname = $sinonim.'.jpg';
+                
+        $fullname = $document_root . '/images/'. $newname;
+        
+        echo "$uploadfile_rubrika maet buty $fullname";
+
+        // Убьем старый файл
+        if (file_exists($fullname)) {
+            unlink ($fullname);
+        }
+
+        if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile_rubrika)) {
+            $javascript = "javascript:alert('Ошибка при копировании файла');";
+        } else { 
+                        rename ($uploadfile_rubrika,$fullname);
+            $javascript = "javascript:alert('Изображение тэга успешно загружено');";
+        }
+    }
 
 
    if (isset($attributes[filetype]) and $attributes[filetype] == "zip") {

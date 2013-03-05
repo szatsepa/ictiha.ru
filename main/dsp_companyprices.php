@@ -31,6 +31,7 @@
                                
                     echo $rowcount.".<a href='index.php?act=single_price&pricelist_id=".$row["id"].$urladd."'>".$row["comment"]."</a>";
                                 if ($row["id"] == $row["price_id"]) echo "<img src='images/heart.gif' width='12' height='12' border='0' hspace='3' alt='Любимый прайс'>";
+                   if($row['expiration'] != '0000-00-00') echo "&nbsp;&nbsp;Актуален до - {$row['expiration']}";
                                 echo "<br /><br />";
                                
                                array_push($price_arr, $row);

@@ -21,7 +21,7 @@ $query = "UPDATE pricelist
              SET num_price_single = $ced,
                  num_price_pack   = $kor,
                  num_amount       = $am,
-                 expiration       = $ex
+                 expiration       = '$ex'
            WHERE id=$id";
         
         

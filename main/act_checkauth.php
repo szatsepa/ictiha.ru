@@ -4,20 +4,17 @@
 $authentication = "no";
 
 if (isset($_SESSION['auth']) and !isset($attributes['out'])) {
-    
-//    echo "P___________________pizdets<br>";
 	
 	// В мобильной версии запишем куку (неделя) для аутентификации
 	if ($mobile == 'true') setcookie("di", $_SESSION['id'], time()+680400);
     
 	$authentication = "yes";
     
-    $attributes[user_id] = $_SESSION['id'];
-    //include ("as/qry_user.php");
+        $attributes[user_id] = $_SESSION['id'];
     
 	// To do переделать пользователя в объект (ООП)
 	$user = query_user($attributes['user_id']); 
-        
+
 //        print_r($user);
 //        echo "<br>";
                 
@@ -36,10 +33,9 @@ if (isset($_SESSION['auth']) and !isset($attributes['out'])) {
     }
     
     // To do сделать невозможным вход на запрещенную страницу по прямой ссылке из строки URL браузера
-// echo "{$_SERVER['PHP_SELF']}<br>";   
+    //   
 	// Не пускаем обычных пользователей в административную область
 	if (eregi('/as/',$_SERVER['PHP_SELF'])) {
-//            echo "{$_SERVER['PHP_SELF']}<br>";
 		if ($user['role'] == 2 OR $user['role'] == 3 OR $user['role'] == 4 OR $user['role'] == 5 OR $user['role'] > 6) {  
 			header ("location:index.php?act=logout");
 		}
@@ -88,8 +84,7 @@ if (isset($_SESSION['auth']) and !isset($attributes['out'])) {
 }
 
 if (in_array($attributes['act'],$rights)) {
-   //print_r ($rights);
-//    header ("location:index.php");
+    header ("location:index.php");
 }
 
 ?>

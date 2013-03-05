@@ -69,3 +69,30 @@
     </tr>
        
 </table>
+<br>
+<br>
+<table class="dat" width="99%">
+    <tr>
+        <td align="left" valign="top"><strong>Загрузка изображения рубрики</strong><br><br></td><td width="50%" align="left" valign="top"><strong>Удаление изображения рубрики</strong></td>
+    </tr>
+    <form enctype="multipart/form-data" action="index.php?act=upload_zipimg&r=1" method="post">
+        <tr>
+            <td>
+                <?php include("../as/dsp_selectrubrika.php"); ?>
+            </td>
+        </tr>
+        <tr>
+	    <td>
+                <input type="hidden" name="MAX_FILE_SIZE" value="512000"> 
+                <input type="hidden" name="filetype" value="jpg">        
+                <input name="userfile" type="file" size="20"><input type="submit" value="Загрузить"><br /><br />		
+		<small>Максимальный объем загружаемого файла не должен превышать 500 килобайт, формат изображения - JPG.</small>
+            </td>
+    </form>
+    
+		<form action="index.php?act=rubimg_delete" method="post">    
+	    <td><?php include("../as/dsp_selectrubrika.php"); ?><input type="Submit" value="Удалить" ></td>		    
+    </form>
+    </tr>
+       
+</table>

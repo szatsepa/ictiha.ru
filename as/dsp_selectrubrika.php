@@ -1,4 +1,4 @@
-<select name="rubrika_id"><?php 
+<select id="s_rubrika" name="rubrika_id"><?php 
     while ($row = mysql_fetch_assoc($qry_rubrikator)) {
         $selected = "";
         if ($row["id"] == $rubrika_id) $selected = "selected";        

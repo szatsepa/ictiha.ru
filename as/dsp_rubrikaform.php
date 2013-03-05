@@ -7,6 +7,7 @@ if ($attributes[act]=='rubrika_edit') {
     $act        = "rubrika_update&id=".$row["id"];
     $submit     = "Изменить наименование";
     $name       = $row["name"];
+    $sinonim    = $row['sinonim'];
     
 } else {
     $act        = "rubrika_add";
@@ -19,18 +20,22 @@ if ($attributes[act]=='rubrika_edit') {
 <br>
 <br>
 <form action="index.php?act=<?php echo $act ?>" method="post" name="rubrika_add">
-<table>
-<tr>
-	<td valign="top">Наименование<br>рубрики</td>
-	<td valign="top"><input type="text" name="name" size="105" maxlength="255" value="<?php echo $name; ?>"></td>
-</tr>
-<tr>
-	<td></td>
-	<td align="right"><input type="submit" value="<?php echo $submit; ?>"></td>
-</tr>
-<tr>
-	<td></td>
-	<td></td>
-</tr>
-</table>
+    <table>
+        <tr>
+            <td valign="top">Наименование<br>рубрики</td>
+            <td valign="top"><input type="text" name="name" size="105" maxlength="255" value="<?php echo $name; ?>"></td>
+        </tr>
+        <tr>
+            <td valign="top">Синоним<br>рубрики<small>&nbsp;(латиницей)</small></td>
+            <td valign="top"><input type="text" name="sinonim" size="105" maxlength="255" value="<?php echo $sinonim; ?>"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="right"><input type="submit" value="<?php echo $submit; ?>"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
 </form>

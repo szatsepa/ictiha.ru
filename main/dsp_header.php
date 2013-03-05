@@ -14,7 +14,9 @@ echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
     <meta http-equiv="Last-Modified" value="<?php echo date("r",(time() - 60));?>" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <?php   $title_header = $title;
-            if ($attributes[act] == "single_item") $title_header = mysql_result($qry_price,0,"str_name");?>
+//   print_r(mysql_num_rows($qry_price));
+//      echo "<br>";
+            if ($attributes[act] == "single_item" AND mysql_num_rows($qry_price)>0) $title_header = mysql_result($qry_price,0,"str_name");?>
     <title><?php echo $title_header; ?></title>
 	<!-- если не мобила -->
 	<?php if ($mobile == 'false') {?>
