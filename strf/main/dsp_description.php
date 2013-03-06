@@ -102,6 +102,9 @@ foreach ($name_artikul->volume as $value) {
                         <div id = "vopros_txt">
                             <a href="http://<?php echo $description['gost'];?>" target="_blank"><?php echo $description['gost'];?></a>
                         </div>
+                        <div id="expiration">
+                            <p>Годен до <?php echo $name_artikul->expiration;?></p>
+                        </div>
 		</div>
 		
 		

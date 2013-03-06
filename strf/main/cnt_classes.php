@@ -102,6 +102,7 @@ class Name_artikul{
     var $volume = array();
     var $barcode;
     var $artikles = array();
+    var $expiration;
     
     function Name_artikul(){
         
@@ -121,7 +122,8 @@ class Name_artikul{
                             p.id AS pricelist_id,
                             pl.num_price_single,
                             pl.id AS goods_id,
-                            pl.str_barcode AS barcode
+                            pl.str_barcode AS barcode,
+                            pl.expiration
                         FROM pricelist AS pl, 
                             goods_pic AS gp, 
                             price AS p
@@ -135,15 +137,16 @@ class Name_artikul{
     $qry_name = mysql_query($query) or die($query);
     
         while($row = mysql_fetch_assoc($qry_name)){
-            $this->name = $row[str_name];
-            $this->state = $row[str_state];
-            $this->pakage = $row[str_pakage];
-            $this->group = $row[str_group];
-            $this->unit = $row[str_unit];
-            $this->pricelist = $row[pricelist_id];
-            $this->img = $row[good_picture];
-            $this->p_name = $row[comment];
-            $this->barcode = $row[barcode];
+            $this->name = $row['str_name'];
+            $this->state = $row['str_state'];
+            $this->pakage = $row['str_pakage'];
+            $this->group = $row['str_group'];
+            $this->unit = $row['str_unit'];
+            $this->pricelist = $row['pricelist_id'];
+            $this->img = $row['good_picture'];
+            $this->p_name = $row['comment'];
+            $this->barcode = $row['barcode'];
+            $this->expiration = $row['expiration'];
         }
         
               
@@ -153,7 +156,8 @@ class Name_artikul{
                         pl.str_volume, 
                         pl.num_price_single, 
                         pl.num_price_pack,
-                        pl.num_amount
+                        pl.num_amount,
+                        pl.expiration
                   FROM pricelist AS pl, 
                          price AS p 
                 WHERE p.id = pl.pricelist_id 

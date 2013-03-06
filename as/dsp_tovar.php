@@ -81,11 +81,12 @@ if ($attributes[act] == 'tovar_edit') {
 	<td><input type="text" name="nds" size="25" value="<?php echo $nds; ?>"/></td>
 </tr>
 <tr><td></td><td>
-        </form>
+        
 <table>
     <tr>
 	
 	<td align="right"><br /><input type="submit" value="<?php echo $submit; ?>" /></td>
+        </form>
    
 <?php if ($attributes[act] == 'tovar_edit') { ?>
 <form action="index.php?act=del_item" method="post">

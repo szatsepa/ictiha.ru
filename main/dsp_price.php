@@ -80,6 +80,23 @@
 			return false;
         });
         
+        $.ajax({
+            url:'main/qry_whot_isrubrika.php',
+            type:'post',
+            dataType:'json',
+            data:{'pid':$("#pid").val()},
+            success:function(data){
+                var first = data['data'].substr(0,1);
+                var second = data['data'].substr(1);
+                first = first.toUpperCase();
+                $("#rubrika").text(first+second).css({'font-size':'1.4em','font-weight':'bold'});
+            },
+            error:function(data){
+                console.log(data['responseText']);
+            }
+        });
+        
+        
     });
         
 </script>
@@ -128,10 +145,17 @@ if ($authentication == "no" or (in_array("add_cart",$rights))) {
 }
 
 ?>
+<div>
+    <input type="hidden" id="pid" value="<? echo $attributes['pricelist_id']; ?>" />
+    
+</div>
 <div class="prname">
-    <a href="index.php?act=company_prices&amp;company_id=<?php echo $company_id.$urladd; ?>"><?php echo $company_name; ?></a>
-    &nbsp;/&nbsp;
-    <a href="index.php?act=single_price&amp;pricelist_id=<?php echo $attributes['pricelist_id'].$urladd; ?>"><?php echo $price_name; ?></a>
+    <p id="rubrika"></p>    
+    <p>
+        <a href="index.php?act=company_prices&amp;company_id=<?php echo $company_id.$urladd; ?>"><?php echo $company_name; ?></a>
+        &nbsp;/&nbsp;
+        <a href="index.php?act=single_price&amp;pricelist_id=<?php echo $attributes['pricelist_id'].$urladd; ?>"><?php echo $price_name; ?></a>
+    </p>
     <div style="position:relative;float: right; font-size: 8px; display: none;">
     </div>
 </div>
@@ -345,7 +369,7 @@ while ($field_count < $num_fields - 1) {
 
 if ($attributes['act'] <> 'edit_price') {   	
 
-    $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Кол-во(шт.)","Скидка","&nbsp;");
+    $fields = array ("Артикул","&nbsp;","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Кол-во(шт.)","Скидка","&nbsp;");
 } else {
     $fields = array ("Арт.","Ш-код","&nbsp;","Наим.","Страна","Емк.","Фас.","Цена ед.","Цена кор.","Ост.(шт.)","Срок годности","","Дейст.");
 }
@@ -353,13 +377,13 @@ if ($attributes['act'] <> 'edit_price') {
 // Выводим блокированные только для редактирования
 if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act'] == 'edit_price'))) {
 
-    echo "<br><table class='dat' id='ssylki'>";
+    echo "<br><table class='dat' id='ssylki'><thead>";
     $th = 0;
     while ($th < count($fields)) {
     	echo "<th class='dat'>".$fields[$th]."</th>";
     	++$th;
     }
-    echo "<tbody>";
+    echo "</thead><tbody>";
     $silver = "style='background-color:ThreedFace;'";
     while ($row_count < $row_end) {
         
@@ -384,9 +408,9 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
         
         if ($attributes['act'] <> 'edit_price') {
         
-        	echo "<form action=index.php?act=add_cart&amp;page=".$current_page.$urladd." method=post>";
+        	echo "<form action='index.php?act=add_cart&amp;page=".$current_page.$urladd."' method=post>";
         	echo "<input type='Hidden' name='id' value=".$id.">";
-            echo "<input type='Hidden' name='pricelist_id' value=".$attributes['pricelist_id'].">";
+                echo "<input type='Hidden' name='pricelist_id' value=".$attributes['pricelist_id'].">";
     		
         }
         
@@ -401,13 +425,23 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
             if ($field_count == 1) {
                 $artikul = $dat;
                 
-				if (array_key_exists($artikul,$cart)) {
-					$bold    = "style='background-color:#ccffcc;'";
-					$ordered = $cart[$artikul];
-					$skidka  = '';
-				} else {
-					$ordered = 1;
-				}
+                if (array_key_exists($artikul,$cart)) {
+                        $bold    = "style='background-color:#ccffcc;'";
+                        $ordered = $cart[$artikul];
+                        $skidka  = '';
+                } else {
+                        $ordered = 1;
+                }
+            }
+            
+            if($field_count == 2){
+                // Разберемся, какую картинку выводить
+                $picture = $images_root.$dat;
+                if (file_exists($picture)) {
+                    $pic_name = $dat;
+                } else {
+                    $pic_name = "no_pic.jpg";
+                }
             }
             
             // Служебное поле str_code2?
@@ -421,28 +455,30 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
             }
             
             // Наименование товара?
-    		if ($field_count == 4) {
-                // Разберемся, какую картинку выводить
-                $md5name_1 = md5name_1($artikul);
-                $picture = $images_root.$md5name_1.".jpg";
-                if (file_exists($picture)) {
-                    $pic_name = $md5name_1.".jpg";
-                } else {
-                    $pic_name = "no_pic.jpg";
-                }
-                ?><td <?php echo $bold; ?>><a href="index.php?act=single_item&amp;pricelist_id=<?php echo $attributes['pricelist_id'];?>&amp;artikul=<?php echo $artikul.$urladd; ?>" id="<?php echo $artikul; ?>"><?php echo $dat."</a></td>";
-    		} else {	
+            if ($field_count == 4) {
+            
+                ?>
+    <td <?php echo $bold; ?>>
+        <a href="index.php?act=single_item&amp;pricelist_id=<?php echo $attributes['pricelist_id'];?>&amp;artikul=<?php echo $artikul.$urladd; ?>" id="<?php echo $artikul; ?>">
+        <?php echo $dat."</a></td>";
+    		} else if($field_count == 2){	
+//               	выводим иконку товара
+                   
+                            echo "<td $bold><img src='../images/goods/$pic_name' alt='$pic_name' width='37'></td>";
+                       
+    		}else {	
                 // Не показываем остаток незалогиненым пользователям	
-    			if ($authentication == "no" and $field_count == 10) {
-                    echo "<td $bold>&nbsp;</td>";
-                } else {
-                    if ($dat == 999999999){
-                        echo "<td style='text-align:center;' $bold>&amp;</td>";
-                    } else {
-                        echo "<td $bold>".$dat."</td>";
-                    }
-                }
+                    if ($authentication == "no" and $field_count == 10) {
+                            echo "<td $bold>&nbsp;</td>";
+                        } else {
+                            if ($dat == 999999999){
+                                echo "<td style='text-align:center;' $bold>&amp;</td>";
+                            } else {
+                                echo "<td $bold>".$dat."</td>";
+                            }
+                        }
     		}
+                
     		++$field_count;
     	}
     	

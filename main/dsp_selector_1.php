@@ -67,7 +67,7 @@
                     ?>
                     <form id="search" action="#" method="post">
                         <input type="hidden" name="find" value="1"/>
-                        <input class="sendsubmit" type="button" value="Н" id="find_btn">
+                        <input class="sendsubmit" id="find_btn" type="button" value="Н">
                         <input type="text" placeholder="Искать..." value="" name="word" maxlength="40" size="40">
                     </form>
                     <?php

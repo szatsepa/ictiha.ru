@@ -2,20 +2,20 @@
 
 // Соберем статистику о пользователе
 $ip         = $_SERVER["REMOTE_ADDR"];
-$resolution = quote_smart($attributes[scr_width]."x".$attributes[scr_height]);
+$resolution = quote_smart($attributes['scr_width']."x".$attributes['scr_height']);
 $agent      = quote_smart($_SERVER["HTTP_USER_AGENT"]);
 
 // Время отсроченного заказа
 // Проверок здесь нет из-за демонстрационных целей
 $exe_time = '';
 
-if ($attributes[day] != '' and $attributes[mon] != '' and $attributes[year] != '') {
+if ($attributes['day'] != '' and $attributes['mon'] != '' and $attributes['year'] != '') {
 
-	$exe_time = $attributes[year]."-".$attributes[mon]."-".$attributes[day];
+	$exe_time = $attributes['year']."-".$attributes['mon']."-".$attributes['day'];
 	
-	if ($attributes[hh] != '' and $attributes[mm] != '') {
+	if ($attributes['hh'] != '' and $attributes['mm'] != '') {
 	
-		$exe_time .= " ".$attributes[hh].":".$attributes[mm].":00"; 
+		$exe_time .= " ".$attributes['hh'].":".$attributes['mm'].":00"; 
 	
 	} else {
 	
@@ -40,6 +40,7 @@ $query = "INSERT INTO arch_zakaz
            contragent_id,
            contragent_name,
            email,
+           phone,
            shipment,
            comments,
            status,
@@ -51,16 +52,17 @@ $query = "INSERT INTO arch_zakaz
           ($user[id],
            now(),
 		   NULLIF('$exe_time',''),
-          '$attributes[contragent_id]',
-          '$attributes[contragent_name]',
-          '$attributes[email]',
-          '$attributes[shipment]',
-          '$attributes[comments]',
-          $status,
-		  '$ip',
-		  $resolution,
-		  $agent,
-		  '$attributes[tags]')";
+          '{$attributes['contragent_id']}',
+          '{$attributes['contragent_name']}',
+          '{$attributes['email']}',
+          '{$attributes['phone']}',
+          '{$attributes['shipment']}',
+          '{$attributes['comments']}',
+           $status,
+          '$ip',
+           $resolution,
+           $agent,
+          '{$attributes['tags']}')";
 
 $qry_add = mysql_query($query) or die($query);
 
@@ -76,7 +78,7 @@ $query = "INSERT INTO arch_goods
            name,
            price_single) 
           SELECT $zakaz,
-                 $user[id],
+                 {$user['id']},
                  c.artikul,
                  c.price_id,
                  c.num_amount,
@@ -87,7 +89,7 @@ $query = "INSERT INTO arch_goods
           WHERE p.str_code1    = c.artikul 
             AND p.pricelist_id = c.price_id 
             AND c.price_id     = $pricelist_id  
-            AND c.user_id      = $user[id] AND 
+            AND c.user_id      = {$user['id']} AND 
 			p.str_code2 <> 'X'";
 
 $qry_add = mysql_query($query) or die($query);
@@ -103,7 +105,7 @@ $query2 = "INSERT INTO zakaz_history
 	                    ($zakaz,
                          now(),
                          $status,
-                         $user[id])";
+                         {$user['id']})";
                              
 $qry_zakazhistory = mysql_query($query2) or die($query2);
 

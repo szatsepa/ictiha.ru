@@ -33,12 +33,13 @@
 	
 	
 	if (isset ($attributes['id'])) {
-	    $row             = mysql_fetch_assoc($qry_archzakaz);
+	    $row             = mysql_result($qry_archzakaz, 0);
 	    $contragent_id   = $row["contragent_id"];
 	    $contragent_name = $row["contragent_name"];
 	    $shipment        = $row["shipment"];
 	    $comments        = $row["comments"];
-		$tags	     = $row["tags"]; 
+            $tags	     = $row["tags"]; 
+            $mphone          = $row['phone'];
 	}
     
     if (isset($demo)) {
@@ -75,6 +76,10 @@
                 <tr>
                         <td>Условия доставки:</td>
                         <td><input type="text" maxlength="500" size="24" name="shipment" class="step1" value="<?php echo $shipment; ?>"></td>
+                </tr>
+                <tr>
+                        <td>Номер контактного телефона:</td>
+                        <td><input type="text" maxlength="24" size="24" name="phone" class="step1" value="<?php echo $mphone; ?>"></td>
                 </tr>
                 <tr>
                         <td>Примечания:</td>
