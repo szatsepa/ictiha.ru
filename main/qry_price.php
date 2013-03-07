@@ -13,27 +13,27 @@ if($attributes['act'] == 'step1' or $attributes['act'] == 'step2'){
 }
 
 if(isset($attributes['border']) and $attributes['border'] == "max") {
-	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id ,expiration
+	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id
 FROM pricelist 
 WHERE pricelist_id=$attributes[pricelist_id] AND num_amount > 0 AND (expiration > Now() OR  expiration = '0000-00-00') order by num_amount desc";
 }
 
 if(isset($attributes['border']) and $attributes['border'] == "min") {
-	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id ,expiration
+	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id
 FROM pricelist 
 WHERE pricelist_id=$attributes[pricelist_id] AND num_amount > 0 AND (expiration > Now() OR  expiration = '0000-00-00') order by num_amount";
 }
 
 if(isset($attributes['group']) and $attributes['group'] != "") {
-	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id ,expiration
-FROM pricelist 
-WHERE pricelist_id=$attributes[pricelist_id] AND str_group = '{$attributes['group']}' and  num_amount > 0 AND (expiration > Now() OR  expiration = '0000-00-00')";
+	$query = "SELECT p.id,p.str_code1,p.str_barcode,CONCAT(g.id,'.',g.extention) AS img,p.str_name,p.str_state,p.str_volume,p.str_package,p.num_price_single,p.num_price_pack,p.num_amount,p.pricelist_id
+FROM pricelist AS p, goods_pic AS g 
+WHERE p.str_barcode = g.barcode AND pricelist_id=$attributes[pricelist_id] AND str_group = '{$attributes['group']}' and  num_amount > 0 AND (expiration > Now() OR  expiration = '0000-00-00')";
 }
 
 if(isset($attributes['pricelist_id']) and isset($attributes[artikul]) and $attributes[act] !='add_cart'){
-	$query = "SELECT id,str_code1,str_barcode,str_code2,str_name,str_state,str_volume,str_package,num_price_single,num_price_pack,num_amount,pricelist_id ,expiration
-FROM pricelist 
-WHERE pricelist_id={$attributes['pricelist_id']} AND str_code1='{$attributes['artikul']}' and  num_amount > 0 AND (expiration > Now() OR  expiration = '0000-00-00')";
+	$query = "SELECT p.id,p.str_code1,p.str_barcode,CONCAT(g.id,'.',g.extention) AS img,p.str_name,p.str_state,p.str_volume,p.str_package,p.num_price_single,p.num_price_pack,p.num_amount,p.pricelist_id
+FROM pricelist AS p, goods_pic AS g 
+WHERE p.str_barcode = g.barcode AND p.pricelist_id=$attributes[pricelist_id] AND p.str_code1='{$attributes['artikul']}' AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00')";
 }
 
 
@@ -55,8 +55,8 @@ if(!isset($attributes['group']) and !isset($attributes['border'])) {
    
 		$query = "SELECT p.id,
                                 p.str_code1,
+                                p.str_barcode,
                                 CONCAT(g.id,'.',g.extention) AS img,
-                                p.str_code2,
                                 p.str_name,
                                 p.str_state,
                                 p.str_volume,
@@ -64,7 +64,6 @@ if(!isset($attributes['group']) and !isset($attributes['border'])) {
                                 p.num_price_single,
                                 p.num_price_pack,
                                 p.num_amount,
-                                p.expiration,
                                 p.pricelist_id
                                 
 	              FROM   pricelist AS p LEFT JOIN goods_pic AS g ON p.str_barcode = g.barcode
@@ -99,25 +98,26 @@ if(!isset($attributes['group']) and !isset($attributes['border'])) {
 }
 
 if(isset($attributes['find']) and isset($attributes['pricelist_id'])){
-    $query = "SELECT id,
-                     str_code1,
-                     str_barcode,
-                     str_code2,
-                     str_name,
-                     str_state,
-                     str_volume,
-                     str_package,
-                     num_price_single,
-                     num_price_pack,
-                     num_amount,
-                     expiration,
-                     'pricelist_id'
-              FROM   pricelist 
-              WHERE  pricelist_id={$attributes['pricelist_id']} AND
-			  		 str_code2 <> 'X' AND (expiration > Now() OR  expiration = '0000-00-00') AND
-    MATCH (`str_name`, `str_group`, `str_state`) 
-                            AGAINST ('{$attributes['find']}') 
-              ORDER  BY id";
+    $query = "SELECT p.id,
+                                p.str_code1,
+                                p.str_barcode,
+                                CONCAT(g.id,'.',g.extention) AS img,
+                                p.str_name,
+                                p.str_state,
+                                p.str_volume,
+                                p.str_package,
+                                p.num_price_single,
+                                p.num_price_pack,
+                                p.num_amount,
+                                p.pricelist_id
+                                
+	              FROM   pricelist AS p LEFT JOIN goods_pic AS g ON p.str_barcode = g.barcode
+               
+              WHERE  p.pricelist_id={$attributes['pricelist_id']} AND
+			  		 p.str_code2 <> 'X' AND (p.expiration > Now() OR  p.expiration = '0000-00-00') AND
+    MATCH (p.`str_name`) 
+                            AGAINST ('{$attributes['word']}') 
+              ORDER  BY p.id";
 }
 
 $qry_price = mysql_query($query) or die($query);

@@ -65,8 +65,8 @@ function tovar ($barcode) {
 			
 			echo "<tr>";
 			echo "<td></td>";
-			echo "<td>&nbsp;&nbsp;</td>";
-            echo "<td>".$row["gost"]."</td>";	
+			echo "<td><strong>Сайт поддержки:</strong></td>";
+            echo "<td><a href='".$row["gost"]."' target='_block'>{$row['gost']}</a></td>";	
 			echo "</tr>";
 		   
 		  

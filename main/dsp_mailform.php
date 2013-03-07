@@ -1,8 +1,15 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#msg").focus();
+    });
+</script>
 <br />
 <div align="center">
     <form action="index.php?act=sendmail<?php echo $urladd; ?>" method="post" name="addform" enctype="multipart/form-data">
-        <textarea cols="40" rows="8" wrap="soft" name="comments"></textarea><br>
+        <textarea cols="122" rows="12" wrap="soft" id="msg" name="comments"></textarea>
+        <br>
         <input type="Submit" value="Отправить письмо оператору" >
-    </form></div>
+    </form>
+</div>
 <br />
 <br />

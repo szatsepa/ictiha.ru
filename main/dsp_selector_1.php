@@ -26,7 +26,7 @@
                 var query = this.id;
                 query = query.substr(4);
                 document.location = "index.php?act="+query+"<?php echo $urladd; ?>";
-            }).css({'border':'none','padding-left':'12px'});
+            }).css({'border':'none','padding-left':'12px','cursor':'pointer'});
 
             if($("#auth").val()=='yes' && $("#act").val()!='single_price'){
                 
@@ -41,7 +41,9 @@
                 $("#apple").empty().append('<form id="search" action="index.php?act=authentication" method="post"><input type="hidden" name="find" value="1"/><input class="sendsubmit" id="entry" type="submit" value="Н"><input type="text" placeholder="Войти..." value="" name="code" maxlength="40" size="40"></form>');
             }
             
-            
+            $("#second_btn").click(function(){
+                document.location = "http://coop.po-mera.ru/";
+            });
             
         });
 </script>
@@ -72,29 +74,8 @@
 
         <div class="searchwindow">
             <div class="searchpole">
-<!--                <div id="username">
-                    <input type="hidden" id="FIO" value="<?php echo "";?>">
-                </div>-->
                 <div id="apple">
-                    <?php
-                        if(!isset($attributes[act]) && $authentication == 'no'){ 
-                            ?>
-<!--                        <form id="search" action="index.php?act=authentication" method="post">
-                            <input type="hidden" name="find" value="1"/>
-                            <input class="sendsubmit" id="entry" type="submit" value="Н">
-                            <input type="text" placeholder="Войти..." value="" name="code" maxlength="40" size="40">
-                        </form>-->
-                    
-                     <?php   }else{
-                    ?>
-<!--                    <form id="search" action="#" method="post">
-                        <input type="hidden" name="find" value="1"/>
-                        <input class="sendsubmit" id="find_btn" type="button" value="Н">
-                        <input type="text" placeholder="Искать..." value="" name="word" maxlength="40" size="40">
-                    </form>-->
-                    <?php
-                        }
-                    ?>
+                  
                 </div>
             </div>
             <div class="exitbutton">
@@ -106,7 +87,7 @@
     </div>
 </div>
 <div id="main_menu"> 
-    <br><br><p style="text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn_main" id="first_btn">Кнопка 1</button>&nbsp;&nbsp;<button class="btn_main" id="second_btn">Кнопка 2</button>&nbsp;
+    <br><br><p style="text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn_main" id="first_btn">Кнопка 1</button>&nbsp;&nbsp;<button class="btn_main" id="second_btn">Совместные закупки</button>&nbsp;
         <?php
         if($_SESSION[auth] == 1){
             if (($user["role"] == 1 or $user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { ?>

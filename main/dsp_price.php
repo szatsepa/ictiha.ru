@@ -369,7 +369,7 @@ while ($field_count < $num_fields - 1) {
 
 if ($attributes['act'] <> 'edit_price') {   	
 
-    $fields = array ("Артикул","&nbsp;","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Кол-во(шт.)","Скидка","&nbsp;");
+    $fields = array ("Артикул","Ш-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Кол-во(шт.)","Скидка","&nbsp;");
 } else {
     $fields = array ("Арт.","Ш-код","&nbsp;","Наим.","Страна","Емк.","Фас.","Цена ед.","Цена кор.","Ост.(шт.)","Срок годности","","Дейст.");
 }
@@ -435,6 +435,12 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
             }
             
             if($field_count == 2){
+                $str_barcode = $dat;
+            }
+            
+            // Служебное поле str_code2?
+            if ($field_count == 3) {
+//                $str_code2 = $dat;
                 // Разберемся, какую картинку выводить
                 $picture = $images_root.$dat;
                 if (file_exists($picture)) {
@@ -442,11 +448,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
                 } else {
                     $pic_name = "no_pic.jpg";
                 }
-            }
-            
-            // Служебное поле str_code2?
-            if ($field_count == 3) {
-                $str_code2 = $dat;
+                $str_code2 = "<img src='../images/goods/$pic_name' alt='$pic_name' width='37'>";
             }
             
              // Фасовка?
@@ -461,15 +463,15 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
     <td <?php echo $bold; ?>>
         <a href="index.php?act=single_item&amp;pricelist_id=<?php echo $attributes['pricelist_id'];?>&amp;artikul=<?php echo $artikul.$urladd; ?>" id="<?php echo $artikul; ?>">
         <?php echo $dat."</a></td>";
-    		} else if($field_count == 2){	
-//               	выводим иконку товара
-                   
-                            echo "<td $bold><img src='../images/goods/$pic_name' alt='$pic_name' width='37'></td>";
-                       
     		}else {	
                 // Не показываем остаток незалогиненым пользователям	
                     if ($authentication == "no" and $field_count == 10) {
                             echo "<td $bold>&nbsp;</td>";
+                        }else if($field_count == 3){	
+//               	выводим иконку товара
+                   
+                                    echo "<td $bold>$str_code2</td>";
+
                         } else {
                             if ($dat == 999999999){
                                 echo "<td style='text-align:center;' $bold>&amp;</td>";
@@ -570,7 +572,7 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
         $str_code2      =   mysql_result($qry_price,$row_count,"str_code2");
         $name           =   mysql_result($qry_price,$row_count,"str_name");
         $volume         =   mysql_result($qry_price,$row_count,"str_volume");
-	    $package        =   mysql_result($qry_price,$row_count,"str_package");
+        $package        =   mysql_result($qry_price,$row_count,"str_package");
         $price_single   =   mysql_result($qry_price,$row_count,"num_price_single");
         
         if ($authentication == "yes") {
