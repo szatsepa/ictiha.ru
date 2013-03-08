@@ -8,6 +8,7 @@
                    type:'post',
                    dataType:'json',
                    data:{uid:$("#uid").val()},
+                   cache:false,
                    success:function(data){
                        
                        var str_messages = '';
@@ -81,6 +82,7 @@
                    type:'post',
                    dataType:'json',
                    data:{uid:$("#uid").val()},
+                   cache:false,
                    success:function(data){
                        var str_messages = '';
                        $.each(data, function(){
