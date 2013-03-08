@@ -38,12 +38,8 @@ $result = mysql_query($query);
 
 $supplier = mysql_result($result,0);
 
-$query = "INSERT INTO `private_messages` (`sender`,`recipient`,`role`,`message`,status) VALUES ($uid, $supplier, 2, $msg, 1)";
+$query = "INSERT INTO `private_messages` (`sender`,`recipient`,`message`) VALUES ($uid, $supplier, $msg)";
 
 mysql_query($query);
 
-print_r($attributes);
-echo "<br>";
-print_r($_SESSION);
-
- ?>
+?>

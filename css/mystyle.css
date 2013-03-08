@@ -146,3 +146,22 @@ float:left;
 #color_msg{
   width: 330px;background-color: #F5BFE6;text-align: left;margin-left: 127px;height: 47px
 }
+
+/* CSS for the scrollers */
+div.horizontal_scroller, div.vertical_scroller{
+        position:relative;
+        margin-left: 18px;
+        height:27px;
+        width:96%;
+        display:block;
+        overflow:hidden;
+/*        border:#CCCCCC 1px solid;*/ 
+}
+div.scrollingtext{
+        position:absolute;
+        white-space:nowrap;
+/*        font-family:'Trebuchet MS',Arial;*/
+        font-size:1.0em;
+/*        font-weight:bold;*/
+        color:#000f00;
+}

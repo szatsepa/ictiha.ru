@@ -1,5 +1,45 @@
 <script type="text/javascript">
+<!--
         $(document).ready(function(){
+            
+             function getMessage(){
+                    $.ajax({
+                   url:'main/qry_mails_for_me.php',
+                   type:'post',
+                   dataType:'json',
+                   data:{uid:$("#uid").val()},
+                   success:function(data){
+                       
+                       var str_messages = '';
+                       $.each(data, function(index){
+                           
+                           str_messages += this['sender']+' пишет - "'+this['message']+'".      ';
+                       });
+                       
+                        $("div.scrollingtext").text(str_messages);
+                   },
+                   error:function(data){
+                       console.log(data['responseText']);
+                   }
+                });
+                return false;
+             }
+            
+            var role = $("#role").val();
+            
+            
+            if($("#auth").val()=='yes' && $("#act").val()!='single_price'){
+                
+                 $("#apple").empty().append('<p>'+'<?php echo "{$user['name']} {$user['surname']}";?>'+'</p>');
+                 
+            }else if($("#auth").val()=='yes' && $("#act").val()=='single_price'){ 
+                
+                $("#apple").empty().append('<form id="search" action="#" method="post"><input type="hidden" name="find" value="1"/><input class="sendsubmit" id="find_btn" type="button" value="Н"><input type="text" placeholder="Искать..." value="" name="word" maxlength="40" size="40"></form>');
+                    
+            }else if($("#auth").val()=='no'){
+                console.log("PIZDETS");
+                $("#apple").empty().append('<form id="search" action="index.php?act=authentication" method="post"><input type="hidden" name="find" value="1"/><input class="sendsubmit" id="entry" type="submit" value="Н"><input type="text" placeholder="Войти..." value="" name="code" maxlength="40" size="40"></form>');
+            }
             
 //            var win = {'authentication':'no','add_cart':'no','step1':'no','step2':'no','company_prices':'no','single_price':'no','single_item':'no','add_favprice':'no','kabinet':'no','supplier':'no','customers_list':'no','customer_delete':'no','customer_update':'no','customer_edit':'no','edit_price':'no','kotirovka':'no','view_archzakaz':'no','mailform':'no','sendmail':'no','complist':'no','arch_zakazuser':'no','otchet':'no','arch_done':'no','rubrika':'no','alltags':'no'}
             
@@ -26,30 +66,69 @@
                 var query = this.id;
                 query = query.substr(4);
                 document.location = "index.php?act="+query+"<?php echo $urladd; ?>";
-            }).css({'border':'none','padding-left':'12px','cursor':'pointer'});
+            }).css({'border':'none','padding-left':'12px','cursor':'pointer'});            
 
-            if($("#auth").val()=='yes' && $("#act").val()!='single_price'){
-                
-                 $("#apple").empty().append('<p>'+'<?php echo "{$user['name']} {$user['surname']}";?>'+'</p>');
-                 
-            }else if($("#auth").val()=='yes' && $("#act").val()=='single_price'){ 
-                
-                $("#apple").empty().append('<form id="search" action="#" method="post"><input type="hidden" name="find" value="1"/><input class="sendsubmit" id="find_btn" type="button" value="Н"><input type="text" placeholder="Искать..." value="" name="word" maxlength="40" size="40"></form>');
-                    
-            }else if($("#auth").val()=='no'){
-                
-                $("#apple").empty().append('<form id="search" action="index.php?act=authentication" method="post"><input type="hidden" name="find" value="1"/><input class="sendsubmit" id="entry" type="submit" value="Н"><input type="text" placeholder="Войти..." value="" name="code" maxlength="40" size="40"></form>');
-            }
-            
             $("#second_btn").click(function(){
                 document.location = "http://coop.po-mera.ru/";
             });
+
+     if(role == 2){
+         
+            getMessage();
             
-        });
+            var intID = setInterval($.ajax({
+                   url:'main/qry_mails_for_me.php',
+                   type:'post',
+                   dataType:'json',
+                   data:{uid:$("#uid").val()},
+                   success:function(data){
+                       var str_messages = '';
+                       $.each(data, function(){
+                           str_messages += this['sender']+' пишет - "'+this['message']+'".       ';
+                       });
+                       
+                        $("div.scrollingtext").text(str_messages);
+                   },
+                   error:function(data){
+                       console.log(data['responseText']);
+                   }
+                }), 1000*60*10);
+            
+            //create scroller for each element with "horizontal_scroller" class...
+            $('.horizontal_scroller').SetScroller({	velocity: 	 60,
+                                                    direction: 	 'horizontal',
+                                                    startfrom: 	 'right',
+                                                    loop:		 'infinite',
+                                                    movetype: 	 'linear',
+                                                    onmouseover: 'pause',
+                                                    onmouseout:  'play',
+                                                    onstartup: 	 'play',
+                                                    cursor: 	 'pointer'
+                                            });
+            /*
+                    All possible values for options...
+
+                    velocity: 		from 1 to 99 								[default is 50]						
+                    direction: 		'horizontal' or 'vertical' 					[default is 'horizontal']
+                    startfrom: 		'left' or 'right' for horizontal direction 	[default is 'right']
+                                                    'top' or 'bottom' for vertical direction	[default is 'bottom']
+                    loop:			from 1 to n+, or set 'infinite'				[default is 'infinite']
+                    movetype:		'linear' or 'pingpong'						[default is 'linear']
+                    onmouseover:	'play' or 'pause'							[default is 'pause']
+                    onmouseout:		'play' or 'pause'							[default is 'play']
+                    onstartup: 		'play' or 'pause'							[default is 'play']
+                    cursor: 		'pointer' or any other CSS style			[default is 'pointer']
+            */		
+        }
+
+});
+//-->
 </script>
 <div class="container">
     <input type="hidden" id="act" value="<?php echo $attributes['act'];?>">
     <input type="hidden" id="auth" value="<?php echo $authentication;?>">
+    <input type="hidden" id="role" value="<?php echo $user['role'];?>">
+    <input type="hidden" id="uid" value="<?php echo $user['id'];?>">
     <div class="lb-1">
         <a href="http://po-mera.ru/cabinet/">
             <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_01.png">
@@ -115,5 +194,10 @@
             <?php } ?>
             <button class="btn_main" id="btn_mailform">Обратная&nbsp;связь</button>&nbsp;
         <?php }?></p>
-            <br><br>
+    <?php if($user['role'] == 2){?>
+        <div class="horizontal_scroller">
+            <div class="scrollingtext">
+            </div>
+        </div>
+    <?php }?>
 </div>
