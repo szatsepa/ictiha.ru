@@ -95,7 +95,7 @@ $query3 = "INSERT INTO pricelist
 						$num_price_pack,
 						$num_amount,
 						$str_group,
-						$pricelist_id
+						$pricelist_id,
                                                 $expiration)";
 						
 
@@ -103,13 +103,13 @@ $result = mysql_query($query3) or die('<span class="edit4">Ошибка</span>')
 
 $new_id = mysql_insert_id();
 
-echo "$query3<br/>";
-
 ?>
 <span class="edit5">Позиция <?php echo $str_name;?> добавлена</span>
 <script language="JavaScript">
 $(document).ready(function() {
-$("#ssylki").append("<tr ><td><?php echo str_replace("'","",$str_code1); ?></td><td><?php echo str_replace("'","",$str_barcode); ?></td><td>V</td><td><strong><?php echo str_replace("'","",$str_name); ?></strong></td><td><?php echo str_replace("'","",$str_state); ?></td><td><?php echo str_replace("'","",$str_volume);?></td><td><?php echo str_replace("'","",$str_package); ?></td><td><?php echo $num_price_single; ?></td><td><?php echo $num_price_pack; ?></td><td><?php echo $num_amount; ?></td><td><button class='cart' id='e<?php echo $new_id;?>'>Редакт.</button><button class='cart2' id='s<?php echo $new_id;?>' style='display:none;'>Сохранить</button>&nbsp;<a href='#' class='cloud' id='d<?php echo $new_id;?>' title='Удалить'>x</a></td></tr>");
+//   $lnk =  '<a href="index.php?act=single_item&amp;pricelist_id=<?php echo $attributes['pricelist_id'];?>&amp;artikul=<?php echo str_replace("'","",$str_code1); ?>" id="<?php echo str_replace("'","",$str_code1); ?>">';
+
+$("#ssylki").append("<tr ><td><?php echo str_replace("'","",$str_code1); ?></td><td><?php echo str_replace("'","",$str_barcode); ?></td><td></td><td><a href='index.php?act=single_item&amp;pricelist_id=<?php echo $attributes['pricelist_id'];?>&amp;artikul=<?php echo str_replace("'","",$str_code1); ?>' id='<?php echo str_replace("'","",$str_code1); ?>'><?php echo str_replace("'","",$str_name); ?></a></td><td><?php echo str_replace("'","",$str_state); ?></td><td><?php echo str_replace("'","",$str_volume);?></td><td><?php echo str_replace("'","",$str_package); ?></td><td><?php echo $num_price_single; ?></td><td><?php echo $num_price_pack; ?></td><td><?php echo $num_amount; ?></td><td></td><?php echo str_replace("'","",$str_barcode); ?></td><td></td><td><a href='index.php?act=single_item&amp;pricelist_id=<?php echo $attributes['pricelist_id'];?>&amp;artikul=<?php echo str_replace("'","",$str_code1); ?>' id='<?php echo str_replace("'","",$str_code1); ?>'><?php echo str_replace("'","",$str_name); ?></a></td><td><?php echo str_replace("'","",$expiration); ?></td><td><?php echo str_replace("'","",$str_volume) ?><td><button class='cart' id='e<?php echo $new_id;?>'>Редакт.</button><button class='cart2' id='s<?php echo $new_id;?>' style='display:none;'>Сохранить</button>&nbsp;<a href='#' class='cloud' id='d<?php echo $new_id;?>' title='Удалить'>x</a></td></tr>");
 
 $("#no_goods").empty();
 

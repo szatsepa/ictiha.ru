@@ -39,7 +39,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>'; ?>
 	}
 	</script>
 <!--    <script type="text/javascript" src="js/jquery.js"></script>-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.8.1.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/jquery.slimbox2.js"></script>
 	<script type="text/javascript" src="js/jquery.switcher.js"></script>
     <script type="text/javascript" src="js/jquery.validate.js"></script>

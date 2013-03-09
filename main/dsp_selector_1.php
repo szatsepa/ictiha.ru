@@ -14,7 +14,7 @@
                        var str_messages = '';
                        $.each(data, function(index){
                            
-                           str_messages += this['sender']+' пишет - "'+this['message']+'".      ';
+                           str_messages += this['sender']+' пишет - "'+this['message']+'";  -\t\t';
                        });
                        
                         $("div.scrollingtext").text(str_messages);
@@ -77,7 +77,7 @@
          
             getMessage();
             
-            var intID = setInterval($.ajax({
+            var intID = setInterval(function(){$.ajax({
                    url:'main/qry_mails_for_me.php',
                    type:'post',
                    dataType:'json',
@@ -86,7 +86,7 @@
                    success:function(data){
                        var str_messages = '';
                        $.each(data, function(){
-                           str_messages += this['sender']+' пишет - "'+this['message']+'".       ';
+                           str_messages += '\t - '+this['sender']+' пишет - "'+this['message']+'";\t\t';
                        });
                        
                         $("div.scrollingtext").text(str_messages);
@@ -94,13 +94,13 @@
                    error:function(data){
                        console.log(data['responseText']);
                    }
-                }), 1000*60*10);
+                });}, 1000*60*10);
             
-            //create scroller for each element with "horizontal_scroller" class...
-            $('.horizontal_scroller').SetScroller({	velocity: 	 60,
+            //create scroller for each element with "horizontal_scroller" class...	
+            $('.horizontal_scroller').SetScroller({velocity: 	 80,
                                                     direction: 	 'horizontal',
                                                     startfrom: 	 'right',
-                                                    loop:		 'infinite',
+                                                    loop:	 'infinite',
                                                     movetype: 	 'linear',
                                                     onmouseover: 'pause',
                                                     onmouseout:  'play',
@@ -124,7 +124,7 @@
         }
 
 });
-//-->
+-->
 </script>
 <div class="container">
     <input type="hidden" id="act" value="<?php echo $attributes['act'];?>">

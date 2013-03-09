@@ -7,21 +7,23 @@
 
  ?>
 <script type="text/javascript">
+    <!--
 	$(document).ready(function(){
-            
-            
-        
             
         $("#addrecord_tbl").css({'width':'1062px'});
         
         $("input.required").focus(function(){
             
             var input_obj = {'str_code1':'6','str_barcode':'8','str_name':'24','str_state':'8','expiration':'12','str_volume':'4','str_package':'6','num_price_single':'5','num_price_pack':'5','num_amount':'5'};
+            
             var id = this.id;
-//            console.log(input_obj[id]);
+            
             $(this).attr('size', input_obj[id]);
+            
         }).blur(function(){
+            
             $(this).attr('size', 1);
+            
         });
             
 		$('#addrecord_btn').click(function() {
@@ -41,7 +43,7 @@
                                                         'str_group1':$("#str_group1").val(),
                                                         'str_group2':$("#str_group2").val(),
                                                         'expiration':$("#expiration").val(),
-                                                        'pricelist_id':<?php echo $attributes[pricelist_id];?>
+                                                        'pricelist_id':$("#pid").val()
                                                     }); 
 
                     return false;
@@ -54,12 +56,12 @@
                     
                     $("#addrecord_msg").load('index.php',{'act':'addlimit',
                                                         'zakaz_limit':$("#zakaz_limit").val(),
-                                                        'pricelist_id':<?php echo $attributes[pricelist_id];?>}); 
+                                                        'pricelist_id':$("#pid").val()}); 
 
                     return false;
                 });
      });
-    
+  -->  
 </script>
 
 <p id="addrecord_msg">&nbsp;</p>
@@ -110,8 +112,7 @@ while ($th < count($fields2)) {
 				?></td>
 				<input type="hidden" name="str_group1" id="str_group1" value="<?php echo $current_group; ?>">
 				<td style="text-align:right" colspan="2">Или введите новую группу:</td>
-				<td colspan="2"><input type="text" name="str_group2" id="str_group2" value="" size="16" maxlength="255"></td>
-				
+				<td colspan="2"><input type="text" name="str_group2" id="str_group2" value="" size="16" maxlength="255"></td>				
 				<td colspan="2" style="text-align:right"><button id="addrecord_btn">Добавить позицию</button></td>
  			 </tr>  
 			</form>
