@@ -11,10 +11,14 @@ if (!isset($attributes['company_id'])) {
 
 }
 
-$query = "SELECT DISTINCT c.price_id
+$query = "(SELECT DISTINCT c.price_id
           FROM cart c,price p
           WHERE c.price_id   = p.id AND
-                p.company_id = $attributes[company_id]";
+                p.company_id = {$attributes['company_id']}) UNION
+(SELECT DISTINCT c.price_id
+          FROM reserved_items c,price p
+          WHERE c.price_id   = p.id AND
+                p.company_id = {$attributes['company_id']})";
 
 $qry_companycart = mysql_query($query) or die($query);
 

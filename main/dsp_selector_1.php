@@ -2,18 +2,23 @@
 <!--
         $(document).ready(function(){
             
+//            var snd;
+            var dt = new Date();
+            
+//            console.log(Date.parse(dt));
+            
              function getMessage(){
                     $.ajax({
                    url:'main/qry_mails_for_me.php',
                    type:'post',
                    dataType:'json',
-                   data:{uid:$("#uid").val()},
+                   data:{'uid':$("#uid").val(),'dt':Date.parse(dt)},
                    cache:false,
                    success:function(data){
-                       
+                       console.log(data);
                        var str_messages = '';
                        $.each(data, function(index){
-                           
+//                           console.log(this['now']);
                            str_messages += this['sender']+' пишет - "'+this['message']+'";  -\t\t';
                        });
                        
@@ -81,9 +86,10 @@
                    url:'main/qry_mails_for_me.php',
                    type:'post',
                    dataType:'json',
-                   data:{uid:$("#uid").val()},
+                   data:{'uid':$("#uid").val(),'dt':Date.parse(dt)},
                    cache:false,
                    success:function(data){
+                       console.log(data);
                        var str_messages = '';
                        $.each(data, function(){
                            str_messages += '\t - '+this['sender']+' пишет - "'+this['message']+'";\t\t';
