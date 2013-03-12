@@ -28,7 +28,8 @@ function artikul($st_id, $select, $group,$search){
                         pl.str_state, 
                         pl.str_volume, 
                         pl.num_price_single,
-                        gp.id
+                        gp.id,
+                        p.expiration
                  FROM storefront AS s, 
                         storefront_data AS  sdt, 
                         price AS p, 
@@ -43,6 +44,7 @@ function artikul($st_id, $select, $group,$search){
         AND p.status <> 2
         AND gp.pictype = 1
             AND pl.str_name LIKE '$string'
+            AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
             GROUP BY pl.str_name
                     ORDER BY pl.str_name";
              
@@ -56,7 +58,8 @@ function artikul($st_id, $select, $group,$search){
                         pl.str_state, 
                         pl.str_volume, 
                         pl.num_price_single,
-                        gp.id
+                        gp.id,
+                        p.expiration
                  FROM storefront AS s, 
                         storefront_data AS  sdt, 
                         price AS p, 
@@ -70,6 +73,7 @@ function artikul($st_id, $select, $group,$search){
         AND pl.str_code2 <> 'X'
         AND p.status <> 2
         AND gp.pictype = 1
+             AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
             GROUP BY pl.str_name
                     ORDER BY pl.str_name";
         }
@@ -84,7 +88,8 @@ function artikul($st_id, $select, $group,$search){
                         pl.str_state, 
                         pl.str_volume, 
                         pl.num_price_single,
-                        gp.id 
+                        gp.id,
+                        p.expiration 
                  FROM storefront AS s, 
                         storefront_data AS  sdt, 
                         price AS p, 
@@ -98,6 +103,7 @@ function artikul($st_id, $select, $group,$search){
          AND p.status <> 2
                     AND pl.str_barcode = gp.barcode
         AND gp.pictype = 1
+         AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
         GROUP BY pl.str_name
                     ORDER BY  pl.num_price_single ASC";
 
@@ -113,7 +119,8 @@ function artikul($st_id, $select, $group,$search){
                         pl.str_state, 
                         pl.str_volume, 
                         pl.num_price_single,
-                        gp.id 
+                        gp.id,
+                        p.expiration 
                  FROM storefront AS s, 
                         storefront_data AS  sdt, 
                         price AS p, 
@@ -127,6 +134,7 @@ function artikul($st_id, $select, $group,$search){
          AND p.status <> 2
                     AND pl.str_barcode = gp.barcode
         AND gp.pictype = 1
+         AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
         GROUP BY pl.str_name
                     ORDER BY  pl.str_name ASC ";
     }else if (isset ($select) and $select == 'volume'){
@@ -139,7 +147,8 @@ function artikul($st_id, $select, $group,$search){
                         pl.str_state, 
                         pl.str_volume, 
                         pl.num_price_single,
-                        gp.id 
+                        gp.id,
+                        p.expiration 
                  FROM storefront AS s, 
                         storefront_data AS  sdt, 
                         price AS p, 
@@ -153,6 +162,7 @@ function artikul($st_id, $select, $group,$search){
          AND p.status <> 2
                     AND pl.str_barcode = gp.barcode
         AND gp.pictype = 1
+         AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
         GROUP BY pl.str_name
                     ORDER BY  pl.str_volume ASC ";
     }else if (isset ($select) and $select == 'group'){
@@ -168,7 +178,8 @@ function artikul($st_id, $select, $group,$search){
                         pl.str_state, 
                         pl.str_volume, 
                         pl.num_price_single,
-                        gp.id 
+                        gp.id,
+                        p.expiration 
                  FROM storefront AS s, 
                         storefront_data AS  sdt, 
                         price AS p, 
@@ -183,6 +194,7 @@ function artikul($st_id, $select, $group,$search){
                     AND pl.str_barcode = gp.barcode
         AND gp.pictype = 1
                     AND pl.str_group = $group_1
+         AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
         GROUP BY pl.str_name
                     ORDER BY  pl.str_name ASC ";
     }else if (isset ($select) and $select == 'prices'){
@@ -198,7 +210,8 @@ function artikul($st_id, $select, $group,$search){
                         pl.str_state, 
                         pl.str_volume, 
                         pl.num_price_single,
-                        gp.id 
+                        gp.id,
+                        p.expiration 
                  FROM storefront AS s, 
                         storefront_data AS  sdt, 
                         price AS p, 
@@ -213,6 +226,7 @@ function artikul($st_id, $select, $group,$search){
                     AND pl.str_barcode = gp.barcode
         AND gp.pictype = 1
                     AND pl.pricelist_id = $group_1
+         AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
         GROUP BY pl.str_name
                     ORDER BY  pl.str_name ASC ";
     }else if (isset ($select) and $select == 'R'){
@@ -228,7 +242,8 @@ function artikul($st_id, $select, $group,$search){
                         pl.str_state, 
                         pl.str_volume, 
                         pl.num_price_single,
-                        gp.id 
+                        gp.id,
+                        p.expiration 
                  FROM storefront AS s, 
                         storefront_data AS  sdt, 
                         price AS p, 
@@ -245,6 +260,7 @@ function artikul($st_id, $select, $group,$search){
                     AND gp.pictype = 1
                     AND p.rubrika = $group_1
                     AND r.id = p.rubrika
+         AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
         GROUP BY pl.str_name
                     ORDER BY  pl.str_name ASC ";
     }

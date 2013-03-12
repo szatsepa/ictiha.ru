@@ -13,7 +13,7 @@ if ($authentication == "yes") {
 }
 $company_id = quote_smart($attributes[company_id]);
 
-$query = "SELECT p.id,p.comment,k.price_id,k.user_id,p.status, p.expiration
+$query = "SELECT p.id,p.comment,k.price_id,k.user_id,p.status, p.expiration, (p.expiration > Now() OR  p.expiration = '0000-00-00') AS actual
 FROM price p
 LEFT OUTER JOIN kabinet k
 ON p.id = k.price_id AND k.user_id = $user_for_select

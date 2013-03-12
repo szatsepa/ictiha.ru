@@ -447,17 +447,17 @@ switch ($attributes['act']) {
 	
     case "rubrikator":
 	include("qry_rubrikator.php");
-    include("dsp_header.php");
-    include("dsp_rubrikalist.php");
-    include("dsp_rubrikaform.php");
+        include("dsp_header.php");
+        include("dsp_rubrikalist.php");
+        include("dsp_rubrikaform.php");
 	break;
     
     case "rubrika_edit":
 	include("qry_rubrikator.php");
-    include("qry_rubrika.php");
-    include("dsp_header.php");
-    include("dsp_rubrikalist.php");
-    include("dsp_rubrikaform.php");
+        include("qry_rubrika.php");
+        include("dsp_header.php");
+        include("dsp_rubrikalist.php");
+        include("dsp_rubrikaform.php");
 	break;
     
     case "rubrika_update":
@@ -466,12 +466,12 @@ switch ($attributes['act']) {
 	break;
     
     case "rubrika_add":
-    include("qry_rubrikaadd.php");
+        include("qry_rubrikaadd.php");
 	include("act_torubriki.php");
 	break;
     
     case "rubrika_delete":
-    include("qry_rubrikadel.php");
+        include("qry_rubrikadel.php");
 	include("act_torubriki.php");
 	break;
 	

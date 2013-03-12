@@ -27,7 +27,7 @@
                           $price_arr = array();
                         while ($row = mysql_fetch_assoc($qry_companyprices)) {
                     // Пропускаем заблокированные прайсы
-                    if ($row["status"] == 0) continue;
+                    if ($row["status"] == 0 or $row['actual'] == 0) continue;
                                
                     echo $rowcount.".<a href='index.php?act=single_price&pricelist_id=".$row["id"].$urladd."'>".$row["comment"]."</a>";
                                 if ($row["id"] == $row["price_id"]) echo "<img src='images/heart.gif' width='12' height='12' border='0' hspace='3' alt='Любимый прайс'>";

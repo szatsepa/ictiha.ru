@@ -103,16 +103,16 @@ if ($title != '') echo "<br/><h2>".$title."</h2><br/>";
         <tr>
             <td class="btp">
                 <form action="index.php?act=look" method="post">
-                    <input type="hidden" name="cod" value="<?php echo $attributes[cod];?>"/>
+                    <input type="hidden" name="cod" value="<?php echo $attributes['cod'];?>"/>
                     <input type="hidden" name="select" value="prices"/>
-                    <input type="hidden" name="stid" value="<?php echo $attributes[stid];?>"/>
+                    <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
                     <input type="hidden" name="group" value="<?php echo $price_id; ?>"/>
                     <input type="submit" onmouseover="this.style.color='#CCCCCC'" onmouseout="this.style.color='#FFFFFF'" value="Прайс заказа<?php echo $message; ?>" class="submit2"/>
                 </form>
             </td>
             <td class="btp">
                 <form action="index.php?act=del_order" method="post">
-                    <input type="hidden" name="stid" value="<?php echo $attributes[stid]; ?>"/>
+                    <input type="hidden" name="stid" value="<?php echo $attributes['stid']; ?>"/>
                     <input type="hidden" name="price_id" value="<?php echo $price_id; ?>"/> 
                     <input type='Submit' onmouseover="this.style.color='#CCCCCC'" onmouseout="this.style.color='#FFFFFF'" value='Удалить заказ<?php echo $message; ?>'  class="submit2" />
                 </form>
@@ -128,25 +128,27 @@ $price = $price_id;
 
 include 'dsp_cart.php';
 
-$contragent_name = $_SESSION[user]->data[name]." ".$_SESSION[user]->data[surname];
+$contragent_name = $_SESSION['user']->data['name']." ".$_SESSION['user']->data['surname'];
 ?>
 
 <br />
 <div class = "cont_reg">
             
 <form action="index.php?act=create_order" method="post" name="addform" enctype="multipart/form-data"> 
-    <input type="hidden" name="stid" value="<?php echo $attributes[stid];?>"/>
+    <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
     <input type="hidden" name="price_id" value="<?php echo $price; ?>"/>
-    <input type="hidden" name="contragent_id" value="<?php echo $_SESSION[user]->data[id];?>"/> 
+    <input type="hidden" name="contragent_id" value="<?php echo $_SESSION[user]->data['id'];?>"/> 
     <div id = "cont_reg_left">
                     <br/>
                     <br/>
                     <br/>
 
                     <div id = "cont_reg_left_3">E-mail: </div>
-                    <div id = "cont_reg_left_4"><input type="text" required id="eml"  onblur="return isEmailCorrect()" name="e_mail" size="30" value="<?php echo $_SESSION[user]->data[email];?>"/></div>
+                    <div id = "cont_reg_left_4"><input type="text" required id="eml"  onblur="return isEmailCorrect()" name="e_mail" size="30" value="<?php echo $_SESSION['user']->data['email'];?>"/></div>
+                    <div id = "cont_reg_left_3">Контактный телефон: </div>
+                    <div id = "cont_reg_left_4"><input type="text" required id="phone" name="phone" size="30" value="<?php echo $_SESSION['user']->data['phone'];?>"/></div>
                     <div id = "cont_reg_left_3">Адрес доставки: </div>
-                    <div id = "cont_reg_left_66"><textarea rows="3" cols="29" name="adress"><?php echo $_SESSION[user]->data[shipping_address];?></textarea></div>
+                    <div id = "cont_reg_left_66"><textarea rows="3" cols="29" name="adress"><?php echo $_SESSION['user']->data['shipping_address'];?></textarea></div>
                     <div id = "cont_reg_left_3">Пожелания заказчика: </div>
                     <div id = "cont_reg_left_66"><textarea rows="3" cols="29" name="desire"></textarea></div>
                     <div id = "cont_reg_left_3">Метка: </div>

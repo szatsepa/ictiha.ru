@@ -1,28 +1,30 @@
 <?php
 
-if(isset ($_SESSION[auth]) && $_SESSION[auth] == 1){
+if(isset ($_SESSION['auth']) && $_SESSION['auth'] == 1){
     
     $who = "user_id";
     
-}else if(isset ($_SESSION[auth]) && $_SESSION[auth] == 2){
+}else if(isset ($_SESSION['auth']) && $_SESSION['auth'] == 2){
     
     $who = "customer";
     
 }
 
-$stid = intval($attributes[stid]);
+$stid = intval($attributes['stid']);
 
-$id = $_SESSION[user]->data[id];
+$id = $_SESSION['user']->data['id'];
 
-$eml = $_SESSION[user]->data[email];
+$eml = $_SESSION['user']->data['email'];
 
-$price_id = quote_smart($attributes[price_id]);
+$price_id = quote_smart($attributes['price_id']);
 
-$shipment = quote_smart($attributes[adress]);
+$shipment = quote_smart($attributes['adress']);
 
-$comment = quote_smart($attributes[desire]);
+$comment = quote_smart($attributes['desire']);
 
-$tags = quote_smart($attributes[mark]);
+$tags = quote_smart($attributes['mark']);
+
+$phone = quote_smart($attributes['phone']);
 
 // Соберем статистику о пользователе
 
@@ -37,13 +39,13 @@ $agent = quote_smart($_SERVER["HTTP_USER_AGENT"]);
 // 
  $exe_time = '';
 
-if ($attributes[day] != '' and $attributes[mon] != '' and $attributes[year] != '') {
+if ($attributes['day'] != '' and $attributes['mon'] != '' and $attributes['year'] != '') {
 
-	$exe_time = $attributes[year]."-".$attributes[mon]."-".$attributes[day];
+	$exe_time = $attributes['year']."-".$attributes['mon']."-".$attributes['day'];
 	
-	if ($attributes[hh] != '' and $attributes[mm] != '') {
+	if ($attributes['hh'] != '' and $attributes['mm'] != '') {
 	
-		$exe_time .= " ".$attributes[hh].":".$attributes[mm].":00"; 
+		$exe_time .= " ".$attributes['hh'].":".$attributes['mm'].":00"; 
 	
 	} else {
 	
@@ -57,7 +59,7 @@ $status = 1;
 
 $exe_time = quote_smart($exe_time);
 
-$resolution = "$attributes[scr_width]x$attributes[scr_height]";
+$resolution = "{$attributes['scr_width']}x{$attributes['scr_height']}";
 
 $resolution = quote_smart($resolution);
 
@@ -75,7 +77,8 @@ $query = "INSERT INTO arch_zakaz
            ip,
            resolution,
            agent,
-           tags) 
+           tags,
+            phone) 
           VALUES 
           ($id,
           $exe_time,
@@ -86,7 +89,8 @@ $query = "INSERT INTO arch_zakaz
           $ip,
           $resolution,
           $agent,
-          $tags)";
+          $tags,
+            $phone)";
 
 $qry_add = mysql_query($query) or die($query);
 
@@ -144,13 +148,13 @@ $quer = "DELETE FROM cart WHERE $who=$id AND price_id=$price_id";
 if ($zakaz) {
             
      
-      $surname = $_SESSION[user]->data[surname];
+      $surname = $_SESSION['user']->data['surname'];
       
-      $name = $_SESSION[user]->data[name];
+      $name = $_SESSION['user']->data['name'];
               
             $message ="Здравствуйте $surname $name! Ваш заказ № $zakaz  принят в обработку. С вами свяжется оператор .\n C уважением. Администрация. ";              
  
-            $headers = 'From: administrator@'. $_SERVER[SERVER_NAME]. "\r\n";
+            $headers = 'From: administrator@'. $_SERVER['SERVER_NAME']. "\r\n";
             
             $headers  .= 'MIME-Version: 1.0' . "\r\n";
             

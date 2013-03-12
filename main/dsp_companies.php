@@ -21,7 +21,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <fieldset>
+                                <fieldset class="fs">
                                 <?php
                                     $companies = new Companies();
 
@@ -36,7 +36,7 @@
 			<tr>
 				<!-- td colspan=2 align="center"><strong>Компании:</strong></td -->
                             <td>
-                                <fieldset>
+                                <fieldset class="fs">
                                 <?php
                                 $prices = new Prices(); 
                                 echo $prices->_getBlock();

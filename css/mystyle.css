@@ -167,3 +167,6 @@ div.scrollingtext{
 /*        font-weight:bold;*/
         color:#000f00;
 }
+fieldset.fs{
+    border-color: #efefef;
+}

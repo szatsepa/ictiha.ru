@@ -110,17 +110,6 @@ class Prices{
             $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i-1)]['price_id']}'><img src='images/goods/$image' alt='{$this->artikles[($i-1)]['name']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i-1)]['price_id']}'>{$this->artikles[($i-1)]['name']} - {$this->artikles[($i-1)]['price']} руб.</a></p></td><td><p><a href='index.php?act=single_price&amp;pricelist_id={$this->artikles[($i)]['price_id']}'><img src='images/goods/$image1' alt='{$this->artikles[($i)]['name']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i)]['price_id']}'>{$this->artikles[($i)]['name']} - {$this->artikles[($i)]['price']} руб.</a></p></td></tr>";            
         }
         
-//        foreach ($this->artikles as $value){
-//            if($value[img]){
-//                $image = $value[img];
-//            }else{
-//                $image = "no_pic.jpg";
-//            }
-////            echo $value[price_id]."<br>";
-//            
-//            $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><a href='index.php?act=single_price&amp;pricelist_id=$value[price_id]'><img src='images/goods/$image' alt='$value[name]' width='128'></a></td><td><a href='index.php?act=single_price&pricelist_id=$value[price_id]'>$value[name] - $value[price] руб.</a></td></tr>";
-//        }
-        
         $this->str_block .= "</tbody></table>";
         
         return $this->str_block;
@@ -197,7 +186,7 @@ class Chapters{
     }
     
     function _getBlock(){
-        $block = '<fieldset><table border="0" cellpadding="2" cellsapcing="1"><tr>';
+        $block = '<fieldset class="fs"><table border="0" cellpadding="2" cellsapcing="1"><tr>';
                                         
         foreach ($this->rubrikator as $key => $value) {
             

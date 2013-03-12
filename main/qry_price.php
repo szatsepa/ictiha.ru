@@ -65,6 +65,7 @@ if(!isset($attributes['group']) and !isset($attributes['border'])) {
                                 p.num_price_single,
                                 p.num_price_pack,
                                 p.num_amount,
+                                p.expiration,
                                 p.pricelist_id
                                 
 	              FROM   pricelist AS p LEFT JOIN goods_pic AS g ON p.str_barcode = g.barcode
