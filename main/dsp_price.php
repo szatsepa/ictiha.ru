@@ -96,6 +96,88 @@
             }
         });
         
+                
+                
+        var out = {barcode:$("#it_barcode").val(),aid:$("#it_id").val()};
+        
+        var images = new Array();
+        
+        var position = 0;
+        
+        $.ajax({
+            url:'main/qry_description.php',
+            type:'post',
+            dataType:'json',
+            data:out,
+            success:function(data){
+                images = data['images'];
+                $("#item_image").attr('src', 'act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+data['img']+'&width=163&height=376');
+                $("#description").css('visibility', 'visible');
+            },
+            error:function(data){
+                document.write(data['responseText']);
+            }
+        });
+        $("#add_cart").mousedown(function(){
+            var out = {uid:$("#uid").val(),pid:$("#pid").val(),mobile:$("#mobile").val(),amount:1,discount:0,aid:$("#it_id").val()};
+            $.ajax({
+                url:'add_cart_1.php',
+                type:'post',
+                dataType:'json',
+                data:out,
+                success:function(data){
+                    alert("Товар в количестве 1шт. добавлен в корзину!");
+                    document.location.href = "index.php?act=single_price&pricelist_id="+$("#pid").val();
+                },
+                error:function(data){
+                    document.write(data['responseText']);
+                }
+            });
+        });
+        $("#prewiev").mousedown(function(){
+            position--; 
+            if(position < 0)position = 0;
+            $("#item_image").attr('src', '../images/goods/'+images[position]);
+        });
+        $("#next").mousedown(function(){
+            position++;
+            if(position > images.length-1)position = (images.length-1);
+            $("#item_image").attr('src', '../images/goods/'+images[position]);
+        });
+        
+        $(".look_more").mousedown(function(){
+            var id = this.id;
+            document.location = $("#"+id).val();
+         });
+        
+        function look_more(pid){
+            $.ajax({
+                url:'main/qry_look_more.php',
+                type:'post',
+                dataType:'json',
+                data:{pid:pid},
+                success:function(data){
+                    buildLookMore(data);
+                },
+                error:function(data){
+                    console.log(data['responseText']);
+                }
+            });
+         }
+         
+         function buildLookMore(arr){
+            
+            var this_array = arr;
+            
+            
+                for(var i=0;i<this_array.length;i++){
+    //                console.log(this_array[i]['str_name']+" "+this_array[i]['str_code1']);
+                    if(this_array[i]['img']){
+                        $("#more_"+i).attr('title',this_array[i]['str_name']).attr('src','act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+this_array[i]['img']+'&width=102&height=226').val("index.php?act=single_item&pricelist_id="+$("#pid").val()+"&artikul="+this_array[i]['str_code1']);
+                }
+            } 
+        }
+        
         
     });
         
@@ -540,6 +622,8 @@ if ($attributes['act'] == "single_item") {
 	tovar($barcode);
 	
 	tovar_pic($barcode,"");
+        
+//        include 'dsp_description.php';
 	
 
  } // End if ($attributes['act'] == "single_item") 

@@ -7,7 +7,7 @@
             
             var bg_color = $(this).val();
             
-            $(this).parent().parent().css({'background-color':bg_color}).attr('id',bg_color);
+            $(this).parent().parent().css({'background-color':bg_color}).attr('id',bg_color).remove();
             
          });
          
@@ -18,8 +18,12 @@
                   
               }
          });
-                  
-        $("#how_meny").text("Итого: "+cnt+"руб.");
+         if(cnt != 0){
+             $("#how_meny").text("Итого: "+cnt+"руб.");
+         }   else{
+             $("#my_cart tbody").append("<tr><td id='no_items' colspan='3'>В корзине нет товаров</td><td colspan='2' align='right'>&nbsp;</td></tr>");
+         }      
+        
     });
 </script>
 <br />
@@ -51,11 +55,11 @@ if ($mobile == 'true') {
 // Выводим заголовок таблицы
 $th = 0;
 while ($th < count($fields)) {
-    if ($attributes[act] == 'step1' and $mobile == 'true' and ($th == 3 or $th == 9 or $th == 10)) {
+    if ($attributes['act'] == 'step1' and $mobile == 'true' and ($th == 3 or $th == 9 or $th == 10)) {
         echo "<th class='cart'>".$fields[$th]."</th>";
     }
 	
-    if ($mobile == 'false' or $attributes[act] == 'step2') {
+    if ($mobile == 'false' or $attributes['act'] == 'step2') {
         echo "<th class='cart'>".$fields[$th]."</th>";
     }
     
@@ -63,7 +67,7 @@ while ($th < count($fields)) {
 }
 
 // Место под кнопку
-if ($attributes[act] == 'step1' or $attributes[act] == 'kabinet') {
+if ($attributes['act'] == 'step1' or $attributes['act'] == 'kabinet') {
     echo "<th class='cart' colspan='2'>&nbsp;</th>";
 }
 echo "</tr><thead><tbody>";
@@ -77,23 +81,23 @@ while ($row_count < $num_rows) {
 	while ($field_count < $num_fields) {
             $dat = mysql_result($qry_cart,$row_count,$array_fields[$field_count]);
             if($field_count<11){
-                if ($attributes[act] == 'step1' and $mobile == 'true' and ($field_count == 3 or $field_count == 9 or $field_count == 10)) {
+                if ($attributes['act'] == 'step1' and $mobile == 'true' and ($field_count == 3 or $field_count == 9 or $field_count == 10)) {
                         echo "<td class='cart'>".$dat."</td>";
                     }
 
-                    if ($mobile == 'false' or $attributes[act] == 'step2') {
+                    if ($mobile == 'false' or $attributes['act'] == 'step2') {
                         echo "<td class='cart'>".$dat."</td>";
                 }
             }
 
-            if(($attributes[act] == 'step1' or $attributes[act] == 'kabinet') and $field_count == 20){
+            if(($attributes['act'] == 'step1' or $attributes['act'] == 'kabinet') and $field_count == 20){
 
                 echo "<td style='visibility:hidden;width:1px;'><input class='expir' type='hidden' value='$dat'></td>";
             }				
 		++$field_count;
 	}
     
-    if ($attributes[act] == 'step1' or $attributes[act] == 'kabinet') {
+    if ($attributes['act'] == 'step1' or $attributes['act'] == 'kabinet') {
         $artikul = mysql_result($qry_cart,$row_count,$array_fields[0]);
         echo "<td class='cart' style='border:none'><form action='index.php?act=delcart' method='post'><input type='hidden' name='artikul' value='".$artikul."'><input type='hidden' name='query_str' value='".$_SERVER['QUERY_STRING']."'><input class='submit3' type='submit' value='X'></form></td>";
     }
@@ -110,10 +114,10 @@ while ($row_count < $num_rows) {
 }
 
 $colspan = 10;
-if ($mobile == 'true' and $attributes[act] == 'step1') $colspan = 2;
-if ($attributes[act] == 'step2') $colspan = 9;
+if ($mobile == 'true' and $attributes['act'] == 'step1') $colspan = 2;
+if ($attributes['act'] == 'step2') $colspan = 9;
 if ($total == 0) {
-    echo"<tr><td colspan='".$colspan."'>В корзине нет товаров</td><td colspan='2' align='right'>&nbsp;</td></tr>";
+    echo"<tr><td id='no_items' colspan='".$colspan."'>В корзине нет товаров</td><td colspan='2' align='right'>&nbsp;</td></tr>";
 }
 echo"<tr><td colspan='".$colspan."'></td><td id='how_meny' colspan='2' align='right'></td></tr>";
 echo "</tbody></table>";
@@ -121,8 +125,8 @@ echo "</tbody></table>";
 if ($mobile != 'true') {?>
 </div>
 <?php } ?>
-<div>
+<!--<div>
     <span id="color_msg">
         Товар просрочен.
     </span>
-</div>
+</div>-->

@@ -115,7 +115,7 @@
                         </td>
                 </tr>
                 <tr>	
-                        <td colspan='2'><br /><input type="submit" value="Отправить заказ оператору" ></td>
+                        <td colspan='2'><br /><input type="submit" id="send_order" value="Отправить заказ оператору" disabled></td>
                 </tr>
             </tbody>
         </table>
@@ -123,8 +123,14 @@
 </div>
 <script language="JavaScript" type="text/javascript">
         $(document).ready(function(){
+            $("#send_order").attr('disabled', false);
             var str_input = '<tr><td colspan="2"><input type="hidden" name=scr_width  value="' + screen.width  +'"><input type="hidden" name=scr_height value="' + screen.height +'"></td></tr>';
             $("#torder tbody").append(str_input);
+            if($("#no_items").text() == 'В корзине нет товаров'){
+                $("#send_order").attr('disabled', true);
+                alert($("#no_items").text()+" кнопка не активна!");
+                
+            }
             
         });
 </script>

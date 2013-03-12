@@ -130,6 +130,7 @@ switch ($attributes[act]) {
 	include ("main/qry_cart.php");
         include ("as/act_md5name.php");
 	include ("main/dsp_fn_tovar.php");
+        include 'main/cnt_fn_items.php';
 	include ("main/dsp_fn_tovar_pic.php");
 	include ("main/dsp_fn_pic.php");
 	include ("main/dsp_header.php");

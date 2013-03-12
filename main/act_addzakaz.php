@@ -85,9 +85,11 @@ $query = "INSERT INTO arch_goods
                  c.num_discount,
                  p.str_name,
                  p.num_price_single 
-          FROM cart c, pricelist p 
+          FROM cart c, pricelist p, price pr 
           WHERE p.str_code1    = c.artikul 
             AND p.pricelist_id = c.price_id 
+            AND p.pricelist_id = pr.id 
+            AND AND p.pricelist_id = pr.id AND (pr.expiration > Now() OR  pr.expiration = '0000-00-00')
             AND c.price_id     = $pricelist_id  
             AND c.user_id      = {$user['id']} AND 
 			p.str_code2 <> 'X'";
@@ -108,5 +110,9 @@ $query2 = "INSERT INTO zakaz_history
                          {$user['id']})";
                              
 $qry_zakazhistory = mysql_query($query2) or die($query2);
+
+$query = "DELETE cart FROM cart, price WHERE price.id = cart.price_id AND (price.expiration <= Now() OR  price.expiration <> '0000-00-00')";
+
+mysql_query($query);
 
  ?>
