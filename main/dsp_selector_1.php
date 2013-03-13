@@ -70,12 +70,18 @@
             
             $("button.btn_main").click(function(){ 
                 var query = this.id;
-                query = query.substr(4);
-                document.location = "index.php?act="+query+"<?php echo $urladd; ?>";
+                if(this.id != "second_btn"){
+                    query = query.substr(4);
+                    document.location = "index.php?act="+query+"<?php echo $urladd; ?>"; 
+                }
+                
             }).css({'border':'none','padding-left':'12px','cursor':'pointer'});            
 
             $("#second_btn").click(function(){
-                document.location = "http://coop.po-mera.ru/";
+                
+                $(this).attr({'href':'http://coop.po-mera.ru/'});
+                var newwindow=window.open($(this).attr('href'));
+                
             });
 
      if(role == 2){
@@ -178,29 +184,33 @@
         <?php
         if($_SESSION[auth] == 1){
             if (($user["role"] == 1 or $user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { ?>
-            <button class="btn_main" id="btn_kabinet">Личный&nbsp;кабинет</button>&nbsp;
+                <button class="btn_main" id="btn_kabinet">Личный&nbsp;кабинет</button>&nbsp;
             <?php } 
                     if (($user["role"] == 1 or $user["role"] == 2) and $attributes[act] != 'supplier' and (!in_array("supplier",$rights)) and $mobile == 'false') {?>
-            <button class="btn_main" id="btn_supplier">Кабинет&nbsp;поставщика</button>&nbsp;
+                <button class="btn_main" id="btn_supplier">Кабинет&nbsp;поставщика</button>&nbsp;
             <?php }
             if (($user["role"] == 1 or $user["role"] == 5) and $attributes[act] != 'torg' and (!in_array("torg",$rights)) and $mobile == 'false') {?>
-            <button class="btn_main" id="btn_torg">Кабинет&nbsp;торгового</button>&nbsp;
+                <button class="btn_main" id="btn_torg">Кабинет&nbsp;торгового</button>&nbsp;
             <?php } 
             if ($attributes[act] == 'kabinet') { ?> 
-            <button class="btn_main" id="btn_rch_zakazuser">Архив&nbsp;заказов</button>&nbsp;
-            <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
+                <button class="btn_main" id="btn_rch_zakazuser">Архив&nbsp;заказов</button>&nbsp;
+                <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
             <?php } 						
             if ($attributes[act] == 'supplier') { ?> 
-            <button class="btn_main" id="btn_arch_done">Архив&nbsp;поставок</button>&nbsp;
-            <button class="btn_main" id="btn_arch_decline">Отменённые&nbsp;заказы</button>&nbsp;
-            <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
-            <?php } 
-
+                <button class="btn_main" id="btn_arch_done">Архив&nbsp;поставок</button>&nbsp;
+                <button class="btn_main" id="btn_arch_decline">Отменённые&nbsp;заказы</button>&nbsp;
+                <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
+            <?php }
+            if($attributes['act'] == 'kabinet'){
+                ?>
+                <button class="btn_main" id="btn_pset">Личные настройки</button>&nbsp;
+            <?php
+            }
             if (isset($attributes[act])) {
             ?>
-            <button class="btn_main" id="btn_complist">Список&nbsp;компаний</button>&nbsp;
+                <button class="btn_main" id="btn_complist">Список&nbsp;компаний</button>&nbsp;
             <?php } ?>
-            <button class="btn_main" id="btn_mailform">Обратная&nbsp;связь</button>&nbsp;
+                <button class="btn_main" id="btn_mailform">Обратная&nbsp;связь</button>&nbsp;
         <?php }?></p>
     <?php if($user['role'] == 2){?>
         <div class="horizontal_scroller">

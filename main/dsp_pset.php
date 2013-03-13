@@ -3,7 +3,7 @@
 <p>Для автоматизации работы сервисной и курьерской службы укажите следующие данные:</p>
 <br />
 <form>
-<table border="0">
+<table border="1">
 <tr>
 	<td>Ваш день рождения</td>
 	<td><input type="text" size="2" maxlength="2"></td>
@@ -133,6 +133,10 @@
 <textarea cols="50" rows="5"></textarea>
 </p>
 <br />
+
+<p>
+    <input type="submit" value="Сщхранить"/>
+</p>
 
 </form>
 

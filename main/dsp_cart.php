@@ -3,25 +3,31 @@
         
         var cnt = 0;
         
+        var rows = 0;
+        
         $.each($("#my_cart tbody tr td input.expir"), function(){
             
-            var bg_color = $(this).val();
+            var bg_color = $(this).val(); 
             
-            $(this).parent().parent().css({'background-color':bg_color}).attr('id',bg_color).remove();
+            $(this).parent().parent().css({'background-color':bg_color}).attr('id',bg_color);
+            
+            if(bg_color == "#F5BFE6"){
+                $(this).parent().parent().remove();
+            }
             
          });
          
-          $.each($("#my_cart tbody tr td"), function(){
+         $.each($("#my_cart tbody tr td"), function(){
               if(this.cellIndex == 7 && $(this).parent().attr('id')=='#E3F5BF'){
                   
                   cnt += parseInt($(this).text());
                   
               }
+              rows++;
          });
+//         console.log(rows);
          if(cnt != 0){
              $("#how_meny").text("Итого: "+cnt+"руб.");
-         }   else{
-             $("#my_cart tbody").append("<tr><td id='no_items' colspan='3'>В корзине нет товаров</td><td colspan='2' align='right'>&nbsp;</td></tr>");
          }      
         
     });
@@ -33,7 +39,7 @@
 
 $num_rows	=	mysql_numrows($qry_cart);
 $num_fields	=	mysql_num_fields($qry_cart);
-//echo "$num_fields<br>";
+//echo "$num_rows<br>$num_fields<br>";
 $field_count	=	0;
 
 $array_fields = array();
@@ -85,9 +91,9 @@ while ($row_count < $num_rows) {
                         echo "<td class='cart'>".$dat."</td>";
                     }
 
-                    if ($mobile == 'false' or $attributes['act'] == 'step2') {
+                if ($mobile == 'false' or $attributes['act'] == 'step2') {
                         echo "<td class='cart'>".$dat."</td>";
-                }
+                    }
             }
 
             if(($attributes['act'] == 'step1' or $attributes['act'] == 'kabinet') and $field_count == 20){

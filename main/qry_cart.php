@@ -32,11 +32,6 @@ if (isset($_SESSION['torg']) and $_SESSION['torg'] > 0) {
 	
 }
 
-
-//echo "[pricelist_id]".$attributes[pricelist_id];
-
-//$quer = "SELECT a.str_code1,a.str_code2,a.str_name,a.str_state,a.str_volume,a.str_package,a.num_price_single,a.num_price_pack,b.num_amount,b.num_discount FROM pricelist a, cart b WHERE a.id = b.num_id AND b.user_id=".$current_user." ORDER BY a.id";
-
 $query = "SELECT a.str_code1,
                 a.str_barcode,
                 a.str_code2,

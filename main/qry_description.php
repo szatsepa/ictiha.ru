@@ -6,9 +6,9 @@
  */
 include 'qry_connect.php'; 
 
-$barcode = $_POST[barcode];
+$barcode = $_POST['barcode'];
 
-$aid = intval($_POST[aid]); 
+$aid = intval($_POST['aid']); 
   
 $result = mysql_query("SELECT CONCAT(id,'.',extention) AS img FROM goods_pic WHERE pictype = 1 AND barcode = '$barcode'");
 
@@ -21,7 +21,7 @@ $result = mysql_query("SELECT CONCAT(gp.id,'.',gp.extention) AS img FROM goods_p
 $tmp_array = array(); 
 
 while ($var = mysql_fetch_assoc($result)){
-    array_push($tmp_array, $var[img]);
+    array_push($tmp_array, $var['img']);
 }
 
 $out['images'] = $tmp_array; 

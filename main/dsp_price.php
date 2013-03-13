@@ -1,5 +1,9 @@
 <script type="text/javascript">
 	$(document).ready(function(){
+            
+            look_more($("#pid").val());
+            
+                $("#name_center").css({'width':'480px'});
 	     
          $('.cart').live("click", function() {
              
@@ -98,7 +102,7 @@
         
                 
                 
-        var out = {barcode:$("#it_barcode").val(),aid:$("#it_id").val()};
+        var out = {'barcode':$("#it_barcode").val(),'aid':$("#it_id").val(),'pid':$("#pid").val()};
         
         var images = new Array();
         
@@ -111,7 +115,14 @@
             data:out,
             success:function(data){
                 images = data['images'];
-                $("#item_image").attr('src', 'act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+data['img']+'&width=163&height=376');
+                
+                if(images.length < 2){
+//                    console.log(images.length);
+                    $("#prewiev").css({'cursor':'default','background':'none'});
+                    $("#next").css({'cursor':'default','background':'none'});
+                }
+                $("#item_image").attr('src', '../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+data['img']+'&width=163&height=376');
+                
                 $("#description").css('visibility', 'visible');
             },
             error:function(data){
@@ -119,9 +130,9 @@
             }
         });
         $("#add_cart").mousedown(function(){
-            var out = {uid:$("#uid").val(),pid:$("#pid").val(),mobile:$("#mobile").val(),amount:1,discount:0,aid:$("#it_id").val()};
+            var out = {'uid':$("#uid").val(),'pid':$("#pid").val(),'mobile':$("#mobile").val(),'amount':1,'discount':0,'aid':$("#it_id").val()};
             $.ajax({
-                url:'add_cart_1.php',
+                url:'../main/add_cart_1.php',
                 type:'post',
                 dataType:'json',
                 data:out,
@@ -133,16 +144,19 @@
                     document.write(data['responseText']);
                 }
             });
-        });
+            return false;
+        }).css('cursor','pointer');
+        
         $("#prewiev").mousedown(function(){
             position--; 
             if(position < 0)position = 0;
-            $("#item_image").attr('src', '../images/goods/'+images[position]);
+            $("#item_image").attr('src', '../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+images[position]);
         });
+        
         $("#next").mousedown(function(){
             position++;
             if(position > images.length-1)position = (images.length-1);
-            $("#item_image").attr('src', '../images/goods/'+images[position]);
+            $("#item_image").attr('src', '../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+images[position]);
         });
         
         $(".look_more").mousedown(function(){
@@ -150,12 +164,12 @@
             document.location = $("#"+id).val();
          });
         
-        function look_more(pid){
+        function look_more(){
             $.ajax({
                 url:'main/qry_look_more.php',
                 type:'post',
                 dataType:'json',
-                data:{pid:pid},
+                data:{'pid':$("#pid").val()},
                 success:function(data){
                     buildLookMore(data);
                 },
@@ -163,6 +177,7 @@
                     console.log(data['responseText']);
                 }
             });
+            return false;
          }
          
          function buildLookMore(arr){
@@ -171,14 +186,12 @@
             
             
                 for(var i=0;i<this_array.length;i++){
-    //                console.log(this_array[i]['str_name']+" "+this_array[i]['str_code1']);
                     if(this_array[i]['img']){
-                        $("#more_"+i).attr('title',this_array[i]['str_name']).attr('src','act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+this_array[i]['img']+'&width=102&height=226').val("index.php?act=single_item&pricelist_id="+$("#pid").val()+"&artikul="+this_array[i]['str_code1']);
+                        $("#more_"+i).attr('title',this_array[i]['str_name']).attr({'src':'../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+this_array[i]['img']+'&width=102&height=226'}).val("index.php?act=single_item&pricelist_id="+$("#pid").val()+"&artikul="+this_array[i]['str_code1']);
                 }
             } 
         }
-        
-        
+        return false;        
     });
         
 </script>
@@ -343,31 +356,34 @@ if (isset($attributes['pricelist_id']) and $authentication == "yes" and (mysql_n
 <?php
 if ($attributes['act'] == 'single_item') {
     if(mysql_num_rows($qry_price)==0) exit (); 
-	$barcode        = mysql_result($qry_price,0,"str_barcode");
+        $barcode        = mysql_result($qry_price,0,"str_barcode");
 	$item_name_head = mysql_result($qry_price,0,"str_name");
-	echo "<h2>$item_name_head<br />$attributes[artikul]#$barcode</h2>";
+        $item_id = mysql_result($qry_price,0,"id");
+        $price_item = mysql_result($qry_price,0,"num_price_single");
+        $volume = mysql_result($qry_price,0,"str_volume");
+	echo "<h2>$item_name_head<br />{$attributes['artikul']}#$barcode</h2>";
 
 }
 	
 	
 $num_pages	= 	ceil($num_rows / $per_page); // Количество страниц прайса
 
-if(!isset($attributes[page]) || $attributes[page] > $num_pages) {
-	$attributes[page] = 1;
+if(!isset($attributes['page']) || $attributes['page'] > $num_pages) {
+	$attributes['page'] = 1;
 } 
 
-if (isset($attributes[next_page]) and $attributes[next_page] > 0) {
-    $attributes[page] = $attributes[next_page];
+if (isset($attributes['next_page']) and $attributes['next_page'] > 0) {
+    $attributes['page'] = $attributes['next_page'];
 }
 
-$current_page = $attributes[page];
+$current_page = $attributes['page'];
 $act = "act=".$attributes['act']."&amp;pricelist_id=".$attributes['pricelist_id']."&amp;";
 /*if (isset($attributes['act'])) {
 	$act = "act=".$attributes['act']."&";
 }*/
 
 // Устанавливаем границы вывода страниц
-$pages = $attributes[page] - 1;
+$pages = $attributes['page'] - 1;
 if ($pages <= 1) {
     $pages = 1;
     $left_dots = '';
@@ -375,7 +391,7 @@ if ($pages <= 1) {
     $left_dots = '...';
 }
 
-$pages_end = $attributes[page] + 1;
+$pages_end = $attributes['page'] + 1;
 if ($pages_end >= $num_pages) {
     $pages_end = $num_pages;
     $right_dots = '';
@@ -403,7 +419,7 @@ if ($num_rows > $per_page){
     if (isset($attributes['border'])){
         $pages_display .= "<input type='hidden' name='border' value='{$attributes['border']}'>";
     }
-    if(isset ($attributes[search])){
+    if(isset ($attributes['search'])){
         $pages_display .= "<input type='hidden' name='search' value='1'>";
         $pages_display .= "<input type='hidden' name='word' value='{$attributes['word']}'>";
     }
@@ -447,25 +463,38 @@ while ($field_count < $num_fields - 1) {
 }
 //print_r ($array_fields);
 //echo mysql_num_rows($qry_price)." => ROWS <br>";
-// Вывод прайс-листа
+// Вывод прайс-листа"Срок годности","Кол-во(шт.)",
 
-if ($attributes['act'] <> 'edit_price') {   	
+    
 
+if ($attributes['act'] <> 'edit_price') {     
+    
     $fields = array ("Артикул","Ш-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Кол-во(шт.)","Скидка","&nbsp;");
-} else {
+    
+} 
+
+if($attributes['act']== 'single_price'){
+    
+    $fields = array ("Артикул","Ш-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток(шт.)","Срок годности","Кол-во(шт.)","Скидка","&nbsp;");
+    
+}
+
+if($attributes['act'] == 'edit_price'){
+    
     $fields = array ("Арт.","Ш-код","&nbsp;","Наим.","Страна","Емк.","Фас.","Цена ед.","Цена кор.","Ост.(шт.)","Срок годности","","Дейст.");
+    
 }
 
 // Выводим блокированные только для редактирования
 if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act'] == 'edit_price'))) {
 
-    echo "<br><table class='dat' id='ssylki'><thead>";
+    echo "<br><table class='dat' id='ssylki'><thead><tr>";
     $th = 0;
     while ($th < count($fields)) {
     	echo "<th class='dat'>".$fields[$th]."</th>";
     	++$th;
     }
-    echo "</thead><tbody>";
+    echo "</tr></thead><tbody>";
     $silver = "style='background-color:ThreedFace;'";
     while ($row_count < $row_end) {
         
@@ -498,7 +527,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
         
 		$bold    = '';
 		$ordered = '';
-		$skidka  = 0;
+		$skidka  = "0%";
 		
         while ($field_count < $num_fields - 1) {	
     		$dat = mysql_result($qry_price,$row_count,$array_fields[$field_count]);
@@ -568,7 +597,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
     	
     	if ($attributes['act'] <> 'edit_price') {   	
         	echo "<td><input type='Text' maxlength='3' size='3' name='amount' value='$ordered' " . $disabled . " $bold></td>";
-        	echo "<td><input type='Text' maxlength='2' size='2' name='discount' value='$skidka' " . $disabled . " $bold></td>";
+        	echo "<td style='text-align:center;'> $skidka</td>";
         	echo "<td><input type='Submit' value='&gt;&gt;' " . $disabled . " $bold></td>";
         	if (isset($attributes['border'])) echo "<input type='Hidden' name='border' value='".$attributes['border']."'>";
         	if (isset($attributes['group'])) echo "<input type='Hidden' name='group' value='".$attributes['group']."'>";
@@ -617,13 +646,24 @@ if ($attributes['act'] == "single_item") {
         //kotirovka($barcode,$user[id],$attributes['pricelist_id'],'button');
     
     }
+    
+    echo "<input type='hidden' id='pid' value='{$attributes['pricelist_id']}'/>
+    <input type='hidden' id='it_id' value='$item_id'/>
+    <input type='hidden' id='it_barcode' value='$barcode'/>
+    <input type='hidden' id='uid' value='{$user['id']}'/>
+    <input type='hidden' id='art' value='$artikul'/>
+    <input type='hidden' id='mobile' value='$mobile'/>";
 	
 	// Выводим описание товара и картинку если есть штрих-код
-	tovar($barcode);
-	
-	tovar_pic($barcode,"");
+//	tovar($barcode);
+//	
+//	tovar_pic($barcode,"");
         
-//        include 'dsp_description.php';
+        $about = about_item($barcode);
+        
+//        print_r($about);
+        
+        include 'dsp_description.php';
 	
 
  } // End if ($attributes['act'] == "single_item") 
@@ -666,7 +706,7 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
  		if (array_key_exists($artikul,$cart)) {
         	$bold    = " class='marked'";
         	$ordered = $cart[$artikul];
-        	$skidka  = $disc[$artikul];
+        	$skidka  = $disc[$artikul]."%";
         } else {
             $bold    = '';
         	$ordered = '';

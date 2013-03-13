@@ -65,8 +65,8 @@ foreach ($zakaz as $dat) {
 </tr>
 </tbody>
 </table>
-<p align="right"><a href="index.php?act=arch_zakazuser" class="help" style="text-decoration:underline;">Архив заказов</a>&nbsp;&nbsp;</p>
+<!--<p align="right"><a href="index.php?act=arch_zakazuser" class="help" style="text-decoration:underline;">Архив заказов</a>&nbsp;&nbsp;</p>-->
 
-<p align="right"><a href="index.php?act=pset" class="help" style="text-decoration:underline;">Личные настройки</a>&nbsp;&nbsp;</p>
-<p align="right"><a href="index.php?act=otchet" class="help" style="text-decoration:underline;">Отчеты</a>&nbsp;&nbsp;</p>
+<!--<p align="right"><a href="index.php?act=pset" class="help" style="text-decoration:underline;">Личные настройки</a>&nbsp;&nbsp;</p>-->
+<!--<p align="right"><a href="index.php?act=otchet" class="help" style="text-decoration:underline;">Отчеты</a>&nbsp;&nbsp;</p>-->
 </div>

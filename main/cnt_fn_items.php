@@ -3,14 +3,15 @@ function about_item($barcode) {
     
     if ($barcode == '') return;
 	
-    $query = "SELECT barcode, 
-					 name,
-					 short_description,
-					 ingridients, 
-					 specification, 
-					 gost
-                FROM goods
-               WHERE barcode='$barcode'";
+    $query = "SELECT g.barcode, 
+                    g.name,
+                    g.short_description,
+                    g.ingridients, 
+                    g.specification, 
+                    g.gost,
+                    p.expiration
+                FROM goods AS g, pricelist AS p
+               WHERE g.barcode='$barcode' AND g.barcode = p.str_barcode";
 
     $qry_exist = mysql_query($query) or die($query);
     
@@ -26,7 +27,7 @@ function about_item($barcode) {
         
         while ($row = mysql_fetch_assoc($qry_exist)) {
             
-            $about = array('sd'=>trim($row["short_description"]),'ingr'=>trim($row["ingridients"]),'spec'=>trim($row["specification"]),'name'=>$row["name"],'gost'=>$row["gost"]);
+            $about = array('sd'=>trim($row["short_description"]),'ingr'=>trim($row["ingridients"]),'spec'=>trim($row["specification"]),'name'=>$row["name"],'gost'=>$row["gost"],'expiration'=>$row['expiration']);
             
         }    
      } 
