@@ -203,7 +203,7 @@
             <?php }
             if($attributes['act'] == 'kabinet'){
                 ?>
-                <button class="btn_main" id="btn_pset">Личные настройки</button>&nbsp;
+<!--                <button class="btn_main" id="btn_pset">Личные настройки</button>&nbsp;-->
             <?php
             }
             if (isset($attributes[act])) {

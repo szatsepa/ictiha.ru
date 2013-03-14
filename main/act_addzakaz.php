@@ -89,7 +89,7 @@ $query = "INSERT INTO arch_goods
           WHERE p.str_code1    = c.artikul 
             AND p.pricelist_id = c.price_id 
             AND p.pricelist_id = pr.id 
-            AND AND p.pricelist_id = pr.id AND (pr.expiration > Now() OR  pr.expiration = '0000-00-00')
+            AND (pr.expiration > Now() OR  pr.expiration = '0000-00-00')
             AND c.price_id     = $pricelist_id  
             AND c.user_id      = {$user['id']} AND 
 			p.str_code2 <> 'X'";

@@ -28,8 +28,8 @@ class Prices{
             $result = mysql_query($query);
             
             if(mysql_num_rows($result) > 0){
-                $row = mysql_fetch_row($result);
-                array_push($this->prices, $row[0]);
+                $pid = mysql_result($result,0);
+                array_push($this->prices, $pid);
             }
         }
         
@@ -97,6 +97,8 @@ class Prices{
         
         $this->str_block = "<table id='art_block'><tbody>";
         
+//        $cnt = count($this->artikles);
+        
         for($i=1;$i<count($this->artikles);($i+=2)){
             
             $image = $this->artikles[($i-1)]['img'];
@@ -126,7 +128,7 @@ class Companies{
 
     function Companies(){
         
-        $query = "SELECT id, `name`,`full_about` FROM `companies`";
+        $query = "SELECT id, `name`,`full_about`, CONCAT('logo_',`id`,'.jpg') AS logo FROM `companies` ORDER BY `name`";
         
         $result = mysql_query($query);
         
@@ -143,28 +145,33 @@ class Companies{
     
     function _getBlock(){
         
-        $tmp = array();
+        $this->str_block = '<fieldset class="fs"><table border="0" cellpadding="2" cellsapcing="1"><thead></thead><tbody>';
         
-        for($i=0;$i<4;$i++){
+        $num_cells = count($this->companies);
+        
+        $num_rows = ceil($num_cells/5);
+        
+        $cell = 0;
+        
+        for($i = 0; $i < $num_rows;$i++){
+            $this->str_block .= "<tr>";
             
-            $rand = rand(0, (count($this->companies)-1));
-            array_push($tmp, $this->companies[$rand]);
-            if((count($this->companies)-1)==$i){
-                break;
+            for($ii = 0;$ii < 5; $ii++){
+                if(!file_exists($_SERVER["DOCUMENT_ROOT"]."/images/logos/".$this->companies[$cell]['logo'])){
+                    $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$this->companies[$cell]['id']}'>{$this->companies[$cell]['name']}</a></td>"; 
+                }else{
+                    $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$this->companies[$cell]['id']}'><img src='../main/act_prewiew.php?src=http://{$_SERVER['SERVER_NAME']}/images/logos/{$this->companies[$cell]['logo']}&width=42&height=42'/>{$this->companies[$cell]['name']}</a></td>";
+                }
+                
+                $cell++;
             }
+            
+            $this->str_block .= "</tr>";
         }
+
         
-        $this->str_block = "<table id='art_block'><tbody><tr>";
-        
-        for($i=0;$i<count($tmp);$i++){
-                      
-             $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$tmp[$i]['id']}'>{$tmp[$i]['name']}</a></td>";
-        }
-        
-        $this->str_block .= "</tbody></table>";
-        
-        
-        
+        $this->str_block .= '</tbody></table></fieldset>';
+               
         return $this->str_block;
     }
 }
@@ -186,14 +193,27 @@ class Chapters{
     }
     
     function _getBlock(){
-        $block = '<fieldset class="fs"><table border="0" cellpadding="2" cellsapcing="1"><tr>';
-                                        
-        foreach ($this->rubrikator as $key => $value) {
-            
-            $block .= '<td valign="top" class="rubrik_link"><a href="index.php?act=rubrika&amp;id='.$value['id'].'"><img src="../images/'.$value['sinonim'].'.jpg" width="60"/></a><a href="index.php?act=rubrika&amp;id='.$value['id'].'">'.$value['name'].'</a></td>';                                               
-        }
+        $block = '<fieldset class="fs"><table border="0" cellpadding="2" cellsapcing="1"><thead></thead><tbody>';
         
-        $block .= '</tr></table></fieldset>';
+        $num_cells = count($this->rubrikator);
+        
+        $num_rows = ceil($num_cells/5);
+        
+        $cell = 0;
+        
+        for($i = 0; $i < $num_rows;$i++){
+            $block .= "<tr>";
+            
+            for($ii = 0;$ii < 5; $ii++){
+                $block .= '<td valign="top" class="rubrik_link"><a href="index.php?act=rubrika&amp;id='.$this->rubrikator[$cell]['id'].'"><img src="../main/act_prewiew.php?src=http://'.$_SERVER['SERVER_NAME'].'/images/'.$this->rubrikator[$cell]['sinonim'].'.jpg&width=48&height=48"/></a><a href="index.php?act=rubrika&amp;id='.$this->rubrikator[$cell]['id'].'">'.$this->rubrikator[$cell]['name'].'</a></td>';
+                $cell++;
+            }
+            
+            $block .= "</tr>";
+        }
+
+        
+        $block .= '</tbody></table></fieldset>';
         
         return $block;
     }

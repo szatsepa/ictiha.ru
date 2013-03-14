@@ -577,7 +577,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
     		}else {	
                 // Не показываем остаток незалогиненым пользователям	
                     if ($authentication == "no" and $field_count == 10) {
-                            echo "<td $bold>&nbsp;</td>";
+                            echo "<td $bold>$dat</td>";
                         }else if($field_count == 3){	
 //               	выводим иконку товара
                    

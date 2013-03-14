@@ -66,8 +66,8 @@ if (isset($attributes[error])) {
     <a href="index.php?act=strf" class="header2">Витрина</a>
 <!--    <a href="index.php?act=allstorefront" class="header2">Все витрины</a>-->
     <a href="index.php?act=rubrikator" class="header2">Рубрикатор</a>
-    <a href="index.php?act=arch_zakaz&amp;display=all" class="header2">Заказы</a>
-    <a href="index.php?act=reports" class="header2">Отчеты</a>
+<!--    <a href="index.php?act=arch_zakaz&amp;display=all" class="header2">Заказы</a>
+    <a href="index.php?act=reports" class="header2">Отчеты</a>-->
     <a href="index.php?act=statistics" class="header2">Статистика</a> 
 </td>
 <td width='*' align='right'>
