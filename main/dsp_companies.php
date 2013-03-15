@@ -11,7 +11,7 @@
                                     <?php
                                     $rubrikator = new Chapters();
                                     
-                                    echo $rubrikator->_getBlock();
+                                    echo $rubrikator->_getBlockChapters();
                                     
                                     ?>
                                 </td>
@@ -21,13 +21,13 @@
                         </tr>
                         <tr>
                             <td>
-                                <fieldset class="fs">
+<!--                                <fieldset class="fs">-->
                                 <?php
                                     $companies = new Companies();
 
-                                    echo $companies->_getBlock();
+                                    echo $companies->_getBlockCompanies();
                                 ?>
-                                </fieldset>
+<!--                                </fieldset>-->
                             </td>
                         </tr>
                         <tr>
@@ -39,7 +39,7 @@
                                 <fieldset class="fs">
                                 <?php
                                 $prices = new Prices(); 
-                                echo $prices->_getBlock();
+                                echo $prices->_getBlockArticles();
                             ?>
                                 </fieldset>
                             </td>

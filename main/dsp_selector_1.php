@@ -43,7 +43,7 @@
                 $("#apple").empty().append('<form id="search" action="#" method="post"><input type="hidden" name="find" value="1"/><input class="sendsubmit" id="find_btn" type="button" value="Н"><input type="text" placeholder="Искать..." value="" name="word" maxlength="40" size="40"></form>');
                     
             }else if($("#auth").val()=='no'){
-                console.log("PIZDETS");
+               
                 $("#apple").empty().append('<form id="search" action="index.php?act=authentication" method="post"><input type="hidden" name="find" value="1"/><input class="sendsubmit" id="entry" type="submit" value="Н"><input type="text" placeholder="Войти..." value="" name="code" maxlength="40" size="40"></form>');
             }
             

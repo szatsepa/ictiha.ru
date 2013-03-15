@@ -64,8 +64,8 @@ class Prices{
         
         while ($row = mysql_fetch_assoc($result)){
             
-            $row[name] = utf8_to_cp1251($row[name]);
-            $company_letter = iconv_substr($row[name], 0,1);
+            $row['name'] = utf8_to_cp1251($row['name']);
+            $company_letter = iconv_substr($row['name'], 0,1);
             $company_letter = cp1251_to_utf8($company_letter);
             
             // Учитываем только русские буквы
@@ -93,7 +93,7 @@ class Prices{
         return $this->artikles;
     }
     
-    function _getBlock(){
+    function _getBlockArticles(){
         
         $this->str_block = "<table id='art_block'><tbody>";
         
@@ -143,9 +143,9 @@ class Companies{
         return $this->companies;
     }
     
-    function _getBlock(){
+    function _getBlockCompanies(){
         
-        $this->str_block = '<fieldset class="fs"><table border="0" cellpadding="2" cellsapcing="1"><thead></thead><tbody>';
+        $this->str_block = '<fieldset class="fs"><table cellpadding="2" cellsapcing="1"><thead></thead><tbody>';
         
         $num_cells = count($this->companies);
         
@@ -192,7 +192,7 @@ class Chapters{
         
     }
     
-    function _getBlock(){
+    function _getBlockChapters(){
         $block = '<fieldset class="fs"><table border="0" cellpadding="2" cellsapcing="1"><thead></thead><tbody>';
         
         $num_cells = count($this->rubrikator);
@@ -207,6 +207,7 @@ class Chapters{
             for($ii = 0;$ii < 5; $ii++){
                 $block .= '<td valign="top" class="rubrik_link"><a href="index.php?act=rubrika&amp;id='.$this->rubrikator[$cell]['id'].'"><img src="../main/act_prewiew.php?src=http://'.$_SERVER['SERVER_NAME'].'/images/'.$this->rubrikator[$cell]['sinonim'].'.jpg&width=48&height=48"/></a><a href="index.php?act=rubrika&amp;id='.$this->rubrikator[$cell]['id'].'">'.$this->rubrikator[$cell]['name'].'</a></td>';
                 $cell++;
+                if($cell == $num_cells)                    break;
             }
             
             $block .= "</tr>";

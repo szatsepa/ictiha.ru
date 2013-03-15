@@ -130,20 +130,26 @@
             }
         });
         $("#add_cart").mousedown(function(){
-            var out = {'uid':$("#uid").val(),'pid':$("#pid").val(),'mobile':$("#mobile").val(),'amount':1,'discount':0,'aid':$("#it_id").val()};
-            $.ajax({
-                url:'../main/add_cart_1.php',
-                type:'post',
-                dataType:'json',
-                data:out,
-                success:function(data){
-                    alert("Товар в количестве 1шт. добавлен в корзину!");
-                    document.location.href = "index.php?act=single_price&pricelist_id="+$("#pid").val();
-                },
-                error:function(data){
-                    document.write(data['responseText']);
-                }
-            });
+            
+            if($("#auth").val() == 'yes'){
+                var out = {'uid':$("#uid").val(),'pid':$("#pid").val(),'mobile':$("#mobile").val(),'amount':1,'discount':0,'aid':$("#it_id").val()};
+                $.ajax({
+                    url:'../main/add_cart_1.php',
+                    type:'post',
+                    dataType:'json',
+                    data:out,
+                    success:function(data){
+                        alert("Товар в количестве 1шт. добавлен в корзину!");
+                        document.location.href = "index.php?act=single_price&pricelist_id="+$("#pid").val();
+                    },
+                    error:function(data){
+                        document.write(data['responseText']);
+                    }
+                });
+            }else{
+                alert("Зарегистрирйтесь пожалуйста - прежде, чем делать заказ!");
+            }
+            
             return false;
         }).css('cursor','pointer');
         
@@ -171,6 +177,7 @@
                 dataType:'json',
                 data:{'pid':$("#pid").val()},
                 success:function(data){
+                    
                     buildLookMore(data);
                 },
                 error:function(data){
@@ -182,12 +189,10 @@
          
          function buildLookMore(arr){
             
-            var this_array = arr;
-            
-            
-                for(var i=0;i<this_array.length;i++){
-                    if(this_array[i]['img']){
-                        $("#more_"+i).attr('title',this_array[i]['str_name']).attr({'src':'../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+this_array[i]['img']+'&width=102&height=226'}).val("index.php?act=single_item&pricelist_id="+$("#pid").val()+"&artikul="+this_array[i]['str_code1']);
+                for(var i=0;i<arr.length;i++){
+                    
+                    if(arr[i]['img']){
+                        $("#more_"+i).attr('title',arr[i]['str_name']).attr({'src':'../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+arr[i]['img']+'&width=102&height=226'}).val("index.php?act=single_item&pricelist_id="+$("#pid").val()+"&artikul="+arr[i]['str_code1']);
                 }
             } 
         }

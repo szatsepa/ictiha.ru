@@ -25,17 +25,12 @@
                          
                          
                 <!-- END -->
-                
-                <?php
-                if($authentication == 'yes'){
-                ?>
+
                 <div id = "v_korzinu"> 
-                    
+                    <input type="hidden" id="auth" value="<?php echo $authentication;?>"/>                    
                     <a id="add_cart">В корзину</a>
                 </div>
-                <?php 
-                }
-                ?>
+                
                 
                 <div id = "opisanie_center" style="position: relative;width: 100%;height: 218px;float: left;">
                             <br/><br/>
