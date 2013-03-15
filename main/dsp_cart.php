@@ -1,42 +1,8 @@
-<script type="text/javascript">
-    $(document).ready(function(){
-        
-        var cnt = 0;
-        
-        var rows = 0;
-        
-        $.each($("#my_cart tbody tr td input.expir"), function(){
-            
-            var bg_color = $(this).val(); 
-            
-            $(this).parent().parent().css({'background-color':bg_color}).attr('id',bg_color);
-            
-            if(bg_color == "#F5BFE6"){
-                $(this).parent().parent().remove();
-            }
-            
-         });
-         
-         $.each($("#my_cart tbody tr td"), function(){
-              if(this.cellIndex == 7 && $(this).parent().attr('id')=='#E3F5BF'){
-                  
-                  cnt += parseInt($(this).text());
-                  
-              }
-              rows++;
-         });
-//         console.log(rows);
-         if(cnt != 0){
-             $("#how_meny").text("Итого: "+cnt+"руб.");
-         }      
-        
-    });
-</script>
 <br />
 <?php if ($mobile != 'true') { ?>
 <div style="margin-left:5px;margin-bottom:10px;">
 <?php }
-
+include ("main/dsp_backtoprice.php");
 $num_rows	=	mysql_numrows($qry_cart);
 $num_fields	=	mysql_num_fields($qry_cart);
 //echo "$num_rows<br>$num_fields<br>";
@@ -55,7 +21,7 @@ $fields = array ("Артикул","Штрих-код","&nbsp;","Наименов
 if ($mobile == 'true') {
     echo "<table border='1' cellspacing='0' cellpadding='3'><thead><tr>";
 } else {
-    echo "<table class='cart' id='my_cart'><thead><tr>";
+    echo "<table class='cart' id='my_cart_$price_id'><thead><tr>";
 }
 
 // Выводим заголовок таблицы
@@ -131,8 +97,3 @@ echo "</tbody></table>";
 if ($mobile != 'true') {?>
 </div>
 <?php } ?>
-<!--<div>
-    <span id="color_msg">
-        Товар просрочен.
-    </span>
-</div>-->

@@ -1,12 +1,59 @@
 <script language="JavaScript">
-	function delPrice (inp) {
+	
+    $(document).ready(function(){
+        
+        var cnt = 0;
+        
+        var rows = 0;
+        
+        $.each($(".cart tbody tr td input.expir"), function(index){
+            
+            console.log(index);
+            
+            var bg_color = $(this).val(); 
+            
+            $(this).parent().parent().css({'background-color':bg_color}).attr('id',bg_color);
+            
+            if(bg_color == "#F5BFE6"){
+                $(this).parent().parent().parent().parent().parent().empty();
+            }
+            
+         });
+         
+         $.each($(".cart tbody tr td"), function(index){
+             
+                 var id = this.id;
+             
+                if(id){
+//                    console.log(id+" -> "+$(this).text());
+                    
+                    var obj = $("#"+id);
+
+                    if($(this).cellIndex == 7 && $(this).parent().attr('id')=='#E3F5BF'){
+
+                        cnt += parseInt($(obj).text());
+                        
+//                         console.log(cnt);
+
+                    }
+                    rows++;
+              }
+              
+         });
+//         console.log(rows);
+         if(cnt != 0){
+             $("#how_meny").text("Итого: "+cnt+"руб.");
+         } 
+         
+         function delPrice (inp) {
 		if (confirm("Вы уверены, что хотите удалить этот прайс из \"Избранного\"?")) {
 			URL = "<?php echo "http://".$host."/index.php?act=del_favprice&id=" ?>" + inp;
 			document.location.href = URL;
-			//alert (URL);
 		}
-		return true;
+		return false;
 	}
+        
+    });
 </script>
 <?php include "main/dsp_message.php"; ?>
 <div align="center" style="padding-top:10px;">

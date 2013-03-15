@@ -7,7 +7,7 @@ $cart_count = 1;
 
 while ($row = mysql_fetch_assoc($qry_cartlist)) {
 	$price_id = $row["price_id"];
-	include ("main/dsp_backtoprice.php");
+//	include ("main/dsp_backtoprice.php");
 	
 	$attributes['pricelist_id'] = $price_id;
         include ("main/qry_cart.php");

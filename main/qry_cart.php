@@ -32,6 +32,15 @@ if (isset($_SESSION['torg']) and $_SESSION['torg'] > 0) {
 	
 }
 
+$query = "DELETE `cart` 
+            FROM `cart`, `pricelist`,`price` 
+            WHERE `pricelist`.`pricelist_id` = 6 
+            AND `cart`.`price_id` = `price`.`id` 
+            AND `pricelist`.`expiration`< Now() 
+            AND `cart`.`artikul` = `pricelist`.`str_code1`";
+
+mysql_query($query);
+
 $query = "SELECT a.str_code1,
                 a.str_barcode,
                 a.str_code2,

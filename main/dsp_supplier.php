@@ -187,7 +187,7 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
                 <tr><td>
                  <?php $rowcount = 1;
 
-			while ($row = mysql_fetch_assoc($qry_companyprices)) { 
+                while ($row = mysql_fetch_assoc($qry_companyprices)) { 
                     
                     // Есть ли в корзинах заказы для данного прайса?
                     $zakaz_exists = 0;
@@ -195,13 +195,13 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
                         if ($row2["price_id"] == $row["id"]) $zakaz_exists = 1;
                     }
                     
-                    if (mysql_num_rows($qry_companycart) > 0) {
+                    if (mysql_num_rows($qry_companycart) > 0) { 
                         mysql_data_seek($qry_companycart,0);
                     }
                     
                     $where = whereS(9);  
                     
-			        echo "<div style='margin-bottom:0px;'>".$rowcount.".<a href='index.php?act=single_price&pricelist_id=".$row["id"].$urladd."'>".$row["comment"]."</a>"; ?>&nbsp;<a href='#' class='cloud' title='Удалить' onclick='javascript:blockPrice("<?php echo $row["id"].$urladd; ?>",<?php echo $zakaz_exists; ?>,0); return false;'>x</a></div><br />
+                    echo "<div style='margin-bottom:0px;'>".$rowcount.".<a href='index.php?act=single_price&pricelist_id=".$row["id"].$urladd."'>".$row["comment"]."</a>"; ?>&nbsp;<a href='#' class='cloud' title='Удалить' onclick='javascript:blockPrice("<?php echo $row["id"].$urladd; ?>",<?php echo $zakaz_exists; ?>,0); return false;'>x</a>&nbsp;&nbsp;Актуален до - <?php echo $row['expiration'];?></div><br />
 					<?php if ($row["status"] == 2) { ?><span class="edit"><a href="index.php?act=edit_price&amp;pricelist_id=<?php echo $row["id"].$urladd ?>">Редактировать</a></span><?php } if ($row["status"] == 1){ ?><span class="edit2"><a href='#' onclick='javascript:blockPrice("<?php echo $row["id"].$urladd; ?>",<?php echo $zakaz_exists; ?>,2); return false;'>Блокировать</a></span>
 <!-- my block -->					
 <!--					<span class="edit">
