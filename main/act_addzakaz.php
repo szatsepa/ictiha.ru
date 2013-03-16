@@ -36,7 +36,7 @@ if(isset($demo)) {
 $query = "INSERT INTO arch_zakaz 
           (user_id,
            time,
-		   exe_time,
+           exe_time,
            contragent_id,
            contragent_name,
            email,
@@ -44,14 +44,14 @@ $query = "INSERT INTO arch_zakaz
            shipment,
            comments,
            status,
-		   ip,
-		   resolution,
-		   agent,
-		   tags) 
+           ip,
+           resolution,
+           agent,
+           tags) 
           VALUES 
           ($user[id],
            now(),
-		   NULLIF('$exe_time',''),
+           NULLIF('$exe_time',''),
           '{$attributes['contragent_id']}',
           '{$attributes['contragent_name']}',
           '{$attributes['email']}',
@@ -76,7 +76,7 @@ $query = "INSERT INTO arch_goods
            amount,
            discount,
            name,
-           price_single) 
+           price_single)
           SELECT $zakaz,
                  {$user['id']},
                  c.artikul,
@@ -96,23 +96,38 @@ $query = "INSERT INTO arch_goods
 
 $qry_add = mysql_query($query) or die($query);
 
+if(mysql_affected_rows() > 0){
+    
+//    как ежели товари все просрочены и с заказом не ассоциируеться ни одна строка в arch_goods удалим заказ из таблицы вообще
+    
+    mysql_query("DELETE FROM `arch_zakaz` WHERE `id` = $zakaz");
+    
+    ?>
+<script type="text/javascript">
+    alert("Заказ состоял из просроченных товаров и анулирован!");
+</script>
+<?php
+    
+}else{
+    // Внесем информацию и в историю заказа
+    $query2 = "INSERT INTO zakaz_history 
+                            (id,
+                            time,
+                            status,
+                            user_id)
+                        VALUES 
+                                ($zakaz,
+                            now(),
+                            $status,
+                            {$user['id']})";
 
-// Внесем информацию и в историю заказа
-$query2 = "INSERT INTO zakaz_history 
-	                   (id,
-	                   time,
-	                   status,
-	                   user_id)
-	              VALUES 
-	                    ($zakaz,
-                         now(),
-                         $status,
-                         {$user['id']})";
-                             
-$qry_zakazhistory = mysql_query($query2) or die($query2);
+    $qry_zakazhistory = mysql_query($query2) or die($query2);
+
+}
+
+//удалим из корзины просроченые това ры если таковые имеються
 
 $query = "DELETE cart FROM cart, price WHERE price.id = cart.price_id AND (price.expiration <= Now() OR  price.expiration <> '0000-00-00')";
 
 mysql_query($query);
-
- ?>
+?>

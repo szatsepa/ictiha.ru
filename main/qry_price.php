@@ -16,27 +16,27 @@ if(isset($attributes['border']) and $attributes['border'] == "max") {
 	$query = "SELECT p.id,p.str_code1,p.str_barcode,CONCAT(g.id,'.',g.extention) AS img,p.str_name,p.str_state,p.str_volume,p.str_package,p.num_price_single,p.num_price_pack,p.num_amount,
                      p.expiration,p.pricelist_id
                     FROM pricelist AS p, goods_pic AS g  
-                    WHERE p.str_barcode = g.barcode AND p.pricelist_id={$attributes['pricelist_id']} AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00') ORDER BY p.num_amount DESC";
+                    WHERE p.str_barcode = g.barcode AND p.pricelist_id={$attributes['pricelist_id']} AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00') AND g.pictype = 1 AND g.pictype = 1 ORDER BY p.num_amount DESC";
 }
 
 if(isset($attributes['border']) and $attributes['border'] == "min") {
 	$query = "SELECT p.id,p.str_code1,p.str_barcode,CONCAT(g.id,'.',g.extention) AS img,p.str_name,p.str_state,p.str_volume,p.str_package,p.num_price_single,p.num_price_pack,p.num_amount,
                      p.expiration,p.pricelist_id
                     FROM pricelist AS p, goods_pic AS g  
-                    WHERE p.str_barcode = g.barcode AND p.pricelist_id={$attributes['pricelist_id']} AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00') ORDER BY p.num_amount";
+                    WHERE p.str_barcode = g.barcode AND p.pricelist_id={$attributes['pricelist_id']} AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00') AND g.pictype = 1 ORDER BY p.num_amount";
 }
 
 if(isset($attributes['group']) and $attributes['group'] != "") {
 	$query = "SELECT p.id,p.str_code1,p.str_barcode,CONCAT(g.id,'.',g.extention) AS img,p.str_name,p.str_state,p.str_volume,p.str_package,p.num_price_single,p.num_price_pack,p.num_amount,
                      p.expiration,p.pricelist_id
                     FROM pricelist AS p, goods_pic AS g 
-                    WHERE p.str_barcode = g.barcode AND p.pricelist_id={$attributes['pricelist_id']} AND p.str_group = '{$attributes['group']}' AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00')";
+                    WHERE p.str_barcode = g.barcode AND p.pricelist_id={$attributes['pricelist_id']} AND p.str_group = '{$attributes['group']}' AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00') AND g.pictype = 1";
 }
 
 if(isset($attributes['pricelist_id']) and isset($attributes['artikul']) and $attributes['act'] !='add_cart'){
 	$query = "SELECT p.id,p.str_code1,p.str_barcode,CONCAT(g.id,'.',g.extention) AS img,p.str_name,p.str_state,p.str_volume,p.str_package,p.num_price_single,p.num_price_pack,p.num_amount,p.pricelist_id
                 FROM pricelist AS p, goods_pic AS g 
-                WHERE p.str_barcode = g.barcode AND p.pricelist_id={$attributes['pricelist_id']} AND p.str_code1='{$attributes['artikul']}' AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00')";
+                WHERE p.str_barcode = g.barcode AND p.pricelist_id={$attributes['pricelist_id']} AND p.str_code1='{$attributes['artikul']}' AND  p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00') AND g.pictype = 1";
 }
 
 
@@ -73,7 +73,7 @@ if(!isset($attributes['group']) and !isset($attributes['border'])) {
 	              FROM   pricelist AS p LEFT JOIN goods_pic AS g ON p.str_barcode = g.barcode
 	              WHERE  p.pricelist_id={$attributes['pricelist_id']} AND
 				  		 p.str_code2 <> 'X' AND 
-						 p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00')
+						 p.num_amount > 0 AND (p.expiration > Now() OR  p.expiration = '0000-00-00') AND g.pictype = 1
 	              ORDER  BY p.id";
 	}
 		
@@ -97,7 +97,7 @@ if(isset($attributes['find']) and isset($attributes['pricelist_id'])){
 	              FROM   pricelist AS p LEFT JOIN goods_pic AS g ON p.str_barcode = g.barcode
                
               WHERE  p.pricelist_id={$attributes['pricelist_id']} AND
-			  		 p.str_code2 <> 'X' AND (p.expiration > Now() OR  p.expiration = '0000-00-00') AND
+			  		 p.str_code2 <> 'X' AND (p.expiration > Now() OR  p.expiration = '0000-00-00') AND g.pictype = 1 AND
     MATCH (p.`str_name`) 
                             AGAINST ('{$attributes['word']}') 
               ORDER  BY p.id";
