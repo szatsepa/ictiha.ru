@@ -46,27 +46,29 @@ while ($row = mysql_fetch_assoc($qry_zakazweek)) {
 <!-- p align="right"><a href="index.php?act=kotirovka" class="help" style="text-decoration:underline;">Сравнительные котировки</a>&nbsp;&nbsp;</p -->
 </div>
 <div style="margin-left:5px;">
-Заказы по дням недели:<br />
-<table class='cart'><thead><tr>
-<?php
-foreach ($days as $day) {
-?>
-<th  class='cart' style="width:10em;"><?php echo $day;?></th>
-<?php } ?>
+    <h2>Заказы по дням недели:</h2>
+    <br>
+    <table class='cart'>
+        <thead>
+            <tr>
+                <?php
+                foreach ($days as $day) {
+                ?>
+                <th  class='cart' style="width:10em;"><?php echo $day;?></th>
+                <?php } ?>
 
-   </tr> </thead>
-<tbody>
-    <tr>
-<?php
-foreach ($zakaz as $dat) {
-?>
-<td class='cart' style="text-align:left;" valign="top"><?php echo $dat;?><br/>&nbsp;</td>
-<?php } ?>
-</tr>
-</tbody>
-</table>
-<!--<p align="right"><a href="index.php?act=arch_zakazuser" class="help" style="text-decoration:underline;">Архив заказов</a>&nbsp;&nbsp;</p>-->
-
-<!--<p align="right"><a href="index.php?act=pset" class="help" style="text-decoration:underline;">Личные настройки</a>&nbsp;&nbsp;</p>-->
-<!--<p align="right"><a href="index.php?act=otchet" class="help" style="text-decoration:underline;">Отчеты</a>&nbsp;&nbsp;</p>-->
+            </tr> 
+        </thead>
+        <tbody>
+            <tr>
+                <?php
+                foreach ($zakaz as $dat) {
+                ?>
+                <td class='cart' style="text-align:left;" valign="top">
+                   <p> <?php echo $dat;?></p>
+                </td>
+                <?php } ?>
+            </tr>
+        </tbody>
+    </table>
 </div>

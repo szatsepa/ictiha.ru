@@ -170,3 +170,11 @@ div.scrollingtext{
 fieldset.fs{
     border-color: #efefef;
 }
+.footer
+{
+	border-top: solid 1px #e5e5e5;
+	text-align: center;
+	padding: 1.5em 0em 1.5em 0em;
+        height: 21px;
+        width: 100%;
+}

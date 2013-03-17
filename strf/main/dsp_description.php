@@ -77,34 +77,38 @@ foreach ($name_artikul->volume as $value) {
                             <p class="description">Описание:</p>
                             <p class="description_2">
                     <?php 
-			if(!$description[short_description]){
+			if(!$description['short_description']){
                             echo "Описание товара отсутствует."; 	
                         }else{
-                            echo $description[short_description];
+                            echo "{$description['short_description']}</p>";
                             ?>
-                               <br/>
-                               <a href='index.php?act=view_descr&amp;artikul=<?php echo $attributes['artikul'];?>&amp;stid=<?php echo $attributes['stid'];if(isset ($attributes['cod']))echo "&cod=".$attributes['cod'];?>&price_id=<?php echo $attributes['price_id'];?>' target='_blank' style="font-family: Arial;font-size: 12px;color: #990033;" onmouseover="this.style.color='#878787'" onmouseout="this.style.color='#990033'" > &nbsp;Подробно...</a>
+<!--                               <br/>-->
+                               <p><a href='index.php?act=view_descr&amp;artikul=<?php echo $attributes['artikul'];?>&amp;stid=<?php echo $attributes['stid'];if(isset ($attributes['cod']))echo "&cod=".$attributes['cod'];?>&price_id=<?php echo $attributes['price_id'];?>' target='_blank' style="font-family: Arial;font-size: 12px;color: #990033;" onmouseover="this.style.color='#878787'" onmouseout="this.style.color='#990033'" > &nbsp;Подробно...</a>
                                 <?php 
                         }
                          ?>
                             </p>
                         </div>
-                        
-			<div id = "ingr_title">Ингридиенты:</div>
-			<div id = "ingr_txt"><?php 
+<!--                      
+			<div id = "ingr_title"></div>-->
+                        <div id = "ingr_txt"><p>Ингридиенты:&nbsp;<?php 
 			if(!$description[ingridients]){
                             echo "Информация отсутствует.";	
                         }else{
                             echo $description['ingridients'];
                         }
 
-                    ?></div>
-                        <div id = "vopros_txt">
-                            <a href="http://<?php echo $description['gost'];?>" target="_blank"><?php echo $description['gost'];?></a>
+                    ?></p>
+                        <p>Годен до <?php echo $name_artikul->expiration;?></p>
+                        <p> Сайт поддержки: <a href="http://<?php echo $description['gost'];?>" target="_blank"><?php echo $description['gost'];?></a></p> 
                         </div>
-                        <div id="expiration">
+                        
+<!--                        <div id="expiration">
                             <p>Годен до <?php echo $name_artikul->expiration;?></p>
                         </div>
+                        <div id = "vopros_txt">
+                            <p> Сайт поддержки: <a href="http://<?php echo $description['gost'];?>" target="_blank"><?php echo $description['gost'];?></a></p>  
+                        </div>-->
 		</div>
 		
 		

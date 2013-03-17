@@ -671,7 +671,7 @@ p.description_2{
         font-style: italic;
         color: #BB0D72; 
 }
-#vopros_txt {
+#vopros_txt, #expiration {
         float: left;
         width: 314px;
         height: 19px;

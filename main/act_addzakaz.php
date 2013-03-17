@@ -78,7 +78,7 @@ $query = "INSERT INTO arch_goods
            name,
            price_single)
           SELECT $zakaz,
-                 {$user['id']},
+                 {$user['id']} AS id,
                  c.artikul,
                  c.price_id,
                  c.num_amount,
@@ -96,7 +96,7 @@ $query = "INSERT INTO arch_goods
 
 $qry_add = mysql_query($query) or die($query);
 
-if(mysql_affected_rows() > 0){
+if(mysql_affected_rows() == 0){
     
 //    как ежели товари все просрочены и с заказом не ассоциируеться ни одна строка в arch_goods удалим заказ из таблицы вообще
     

@@ -3,7 +3,7 @@
             
             look_more($("#pid").val());
             
-                $("#name_center").css({'width':'480px'});
+            $("#name_center").css({'width':'480px'});
 	     
          $('.cart').live("click", function() {
              
@@ -139,6 +139,7 @@
                     dataType:'json',
                     data:out,
                     success:function(data){
+//                        console.log(data);
                         alert("Товар в количестве 1шт. добавлен в корзину!");
                         document.location.href = "index.php?act=single_price&pricelist_id="+$("#pid").val();
                     },

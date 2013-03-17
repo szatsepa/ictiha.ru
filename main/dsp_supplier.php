@@ -241,26 +241,26 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
 <br />
 <br />
 <?php 
-$storefront = query_storefront($attributes[company_id]);
-
-if(mysql_num_rows($storefront)>0){
+//$storefront = query_storefront($attributes[company_id]);
+//
+//if(mysql_num_rows($storefront)>0){
 ?>
-<p align="left">
+<!--<p align="left">
 <form action="index.php?act=customers_list<?php echo $urladd; ?>" method="post">
     <div class="kab">Выберите витрину    <?php include 'main/dsp_priceselect.php';?>
     
      <input type="submit" name="open" value="Выбрать"/>
  </div>  
-</form></p>
+</form></p>-->
 
 <?php
-}
+//}
 ?>
 <!--<p align="right"><a href="index.php?act=customers_list<?php //echo $urladd; ?>" class="help" style="text-decoration:underline;">Пользователи витрины</a>&nbsp;&nbsp;</p>
 -->
-<p align="right"><a href="index.php?act=arch_done<?php echo $urladd; ?>" class="help" style="text-decoration: underline;">Архив поставок</a>&nbsp;&nbsp;</p>
+<!--<p align="right"><a href="index.php?act=arch_done<?php echo $urladd; ?>" class="help" style="text-decoration: underline;">Архив поставок</a>&nbsp;&nbsp;</p>
 <p align="right"><a href="index.php?act=arch_decline<?php echo $urladd; ?>" class="help" style="text-decoration: underline;">Отменённые заказы</a>&nbsp;&nbsp;</p>
-<p align="right"><a href="index.php?act=otchet" class="help" style="text-decoration:underline;">Отчеты</a>&nbsp;&nbsp;</p>
+<p align="right"><a href="index.php?act=otchet" class="help" style="text-decoration:underline;">Отчеты</a>&nbsp;&nbsp;</p>-->
 
 
 

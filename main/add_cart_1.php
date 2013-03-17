@@ -9,9 +9,9 @@ include 'qry_connect.php';
 
 $out = array('ok'=>"1");
 
-$aid = intval($_POST[aid]);
+$aid = intval($_POST['aid']);
 
-$mobile = $_POST[mobile];
+$mobile = $_POST['mobile'];
 
 if (isset($_SESSION['torg']) and $_SESSION['torg'] > 0) {
 
@@ -30,39 +30,39 @@ if (isset($_SESSION['torg']) and $_SESSION['torg'] > 0) {
 if ($mobile == 'false') {
 
 	// Избавимся от "неправильных" значений
-	if (!is_numeric($_POST[amount])) {
-		$_POST[amount] = 1;
+	if (!is_numeric($_POST['amount'])) {
+		$_POST['amount'] = 1;
 	}
 			
-	$_POST[amount] = intval($_POST[amount]);
+	$_POST['amount'] = intval($_POST['amount']);
 	
-	if ($_POST[amount] <= 0) {
-		$_POST[amount] = 1;
+	if ($_POST['amount'] <= 0) {
+		$_POST['amount'] = 1;
 	}
 	
 	
 		
 	$add_message = '0';
 	
-	if (isset($_POST[package])) {
+	if (isset($_POST['package'])) {
 	
 	    $add_message = " Возможен заказ только полных упаковок.";
 	    
 	    // Сколько полных упаковок?
-	    $packages = ceil ($_POST[amount] / $_POST[package]);
+	    $packages = ceil ($_POST['amount'] / $_POST['package']);
 	    
 	    // Новое количество товара с учетом полных упаковок
-	    $_POST[amount] = $packages * $_POST[package];
+	    $_POST['amount'] = $packages * $_POST['package'];
 	}
 	
 	// Попытаемся обновить существующие записи в корзине
 	$query   = "UPDATE cart 
-                       SET num_amount   = (num_amount + $_POST[amount]),
-                           num_discount = '$_POST[discount]',
+                       SET num_amount   = (num_amount + {$_POST['amount']}),
+                           num_discount = '{$_POST['discount']}',
                            time         = now() 
                      WHERE user_id    = $customer AND
                            artikul    = (SELECT str_code1 FROM pricelist WHERE id = $aid) AND
-                           price_id   = '$_POST[pid]'";
+                           price_id   = '{$_POST['pid']}'";
 				   
 	$query_try = mysql_query($query) or die($query);
 	
@@ -76,22 +76,22 @@ if ($mobile == 'false') {
 		           price_id,
 		           time) 
 		          VALUES 
-		          ($_POST[amount],
-		          '$_POST[discount]',
+		          ({$_POST['amount']},
+		          '{$_POST['discount']}',
 		           $customer,
 		          (SELECT str_code1 FROM pricelist WHERE id = $aid),
-		          '$_POST[pid]',
+		          '{$_POST['pid']}',
 		           now())";
 		           
 		$qry_add = mysql_query($query) or die($query);
 	}
         
-//        $out['query'] = $query;
+        $out['query'] = $query;
 	
 	$query = "SELECT num_amount,pricelist_id 
 	          FROM   pricelist 
 	          WHERE  id    = $aid AND 
-	                 pricelist_id = $_POST[pid] AND 
+	                 pricelist_id = {$_POST['pid']} AND 
 					 str_code2 <> 'X'";
 					 
 	$qry_row = mysql_query($query) or die($query);
@@ -100,9 +100,9 @@ if ($mobile == 'false') {
 	
 	if ($current_amount != 999999999 and !isset($demo)) {
 	    $query = "UPDATE pricelist 
-	             SET num_amount = ($current_amount - $_POST[amount]) 
+	             SET num_amount = ($current_amount - {$_POST['amount']}) 
 	             WHERE id    = $aid AND 
-	                   pricelist_id = $_POST[pid] AND 
+	                   pricelist_id = {$_POST['pid']} AND 
 					   str_code2 <> 'X'";
 	    $qry_row = mysql_query($query) or die($query);
 	}
@@ -113,7 +113,7 @@ if ($mobile == 'false') {
 	
 	$query = "UPDATE cart SET time = now() ".$set_torg." 
                    WHERE user_id  = $customer AND 
-			 price_id = $_POST[pid]";
+			 price_id = {$_POST['pid']}";
 	
 	$qry_row = mysql_query($query) or die($query);
 	
@@ -123,7 +123,7 @@ if ($mobile == 'false') {
 	
 		$query = "UPDATE cart SET parent_zakaz = $parent_zakaz  
 			   WHERE user_id  = $customer AND 
-			         price_id = $_POST[pid]";
+			         price_id = {$_POST['pid']}";
 		
 		$qry_parent_zakaz = mysql_query($query) or die($query);
 	
@@ -141,8 +141,8 @@ if ($mobile == 'false') {
 	$discount = array();
 	$package  = array();
 	
-	if(isset($_POST[goods]) and $_POST[goods] > 0) {
-		$goods_recieved = $_POST[goods];
+	if(isset($_POST['goods']) and $_POST['goods'] > 0) {
+		$goods_recieved = $_POST['goods'];
 	} else {
 		//break;
 	}
@@ -201,7 +201,7 @@ if ($mobile == 'false') {
                                     time         = now() 
                                 WHERE user_id    = $customer AND
                                     artikul    = '".$artikul[$j]."' AND
-                                    price_id   = ".$_POST[pid];
+                                    price_id   = ".$_POST['pid'];
 		//echo $query;			   
 		$query_try = mysql_query($query) or die($query);
 		
@@ -219,7 +219,7 @@ if ($mobile == 'false') {
 			          '".$discount[$j]."',
 			           $customer,
 			          '".$artikul[$j]."',
-			           $_POST[pid],
+			           {$_POST['pid']},
 			           now())";
 			           
 			$qry_add = mysql_query($query) or die($query);
@@ -228,7 +228,7 @@ if ($mobile == 'false') {
 		$query = "SELECT num_amount,pricelist_id 
                         FROM   pricelist 
                         WHERE  str_code1    = '".$artikul[$j]."' AND 
-                                pricelist_id = $_POST[pid] AND 
+                                pricelist_id = {$_POST['pid']} AND 
 					 str_code2 <> 'X'";
 		$qry_row = mysql_query($query) or die($query);
 		$current_amount = mysql_result($qry_row,0,'num_amount');
@@ -238,7 +238,7 @@ if ($mobile == 'false') {
 		    $query = "UPDATE pricelist 
                                  SET num_amount = ($current_amount - ".$amount[$j].") 
                                  WHERE str_code1    = '".$artikul[$j]."' AND 
-		                   pricelist_id = $_POST[pid] AND 
+		                   pricelist_id = {$_POST['pid']} AND 
 					 	   str_code2 <> 'X'";
 		    $qry_row = mysql_query($query) or die($query);
 		}
@@ -249,7 +249,7 @@ if ($mobile == 'false') {
 		
 		$query = "UPDATE cart SET time = now() ".$set_torg." 
                             WHERE user_id  = $customer AND 
-                                price_id = $_POST[pid]";
+                                price_id = {$_POST['pid']}";
 		$qry_row = mysql_query($query) or die($query);
 	
 	
@@ -258,15 +258,12 @@ if ($mobile == 'false') {
 	// Подчищаем нулевые значения остатка в корзине
 	$query2 = "DELETE FROM cart 
                     WHERE user_id  = $customer AND 
-                        price_id = $_POST[pid] AND 
+                        price_id = {$_POST['pid']} AND 
                         num_amount = 0";
 	$qry_del = mysql_query($query2) or die($query2);
-	//print_r ($artikul);
-	//print_r ($amount);
-	//print_r ($discount);
 }
 
-
+$out['ok'] = mysql_affected_rows();
 
 echo json_encode($out); 
 

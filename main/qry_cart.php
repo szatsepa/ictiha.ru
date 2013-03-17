@@ -6,10 +6,14 @@ if (!isset($user["id"])) {
     $current_user = $user["id"];
 }
 
-if (!isset($attributes[pricelist_id])) {
+if (!isset($attributes['pricelist_id'])) {
 	$pricelist_id = 0;
 } else {
-	$pricelist_id = $attributes[pricelist_id];
+	$pricelist_id = $attributes['pricelist_id'];
+}
+
+if($price_id){
+    $pricelist_id = $price_id;
 }
 
 // Это Торговый?
@@ -34,9 +38,9 @@ if (isset($_SESSION['torg']) and $_SESSION['torg'] > 0) {
 
 $query = "DELETE `cart` 
             FROM `cart`, `pricelist`,`price` 
-            WHERE `pricelist`.`pricelist_id` = 6 
+            WHERE `pricelist`.`pricelist_id` = $pricelist_id 
             AND `cart`.`price_id` = `price`.`id` 
-            AND `pricelist`.`expiration`< Now() 
+            AND (`pricelist`.`expiration` > '0000-00-00' AND `pricelist`.`expiration`< Now())
             AND `cart`.`artikul` = `pricelist`.`str_code1`";
 
 mysql_query($query);
@@ -72,7 +76,7 @@ $query = "SELECT a.str_code1,
                a.str_code2 <> 'X'
       ORDER BY a.id";
 
-//echo $query; 
+//echo $query."<br>"; 
 //exit;
 
 $qry_cart = mysql_query($query) or die($query);
@@ -81,9 +85,7 @@ $qry_cart = mysql_query($query) or die($query);
 if (mysql_num_rows($qry_cart) > 0) {
 	
 	$price_id = mysql_result($qry_cart,0,"pricelist_id");
-	
-//	$price_id = $pricelist_id;
-	
+
 	// Id Торгового, который возможно делал заказ
 	$torgovy_id = intval(mysql_result($qry_cart,0,"torg"));
 	
@@ -91,17 +93,15 @@ if (mysql_num_rows($qry_cart) > 0) {
 	$price_company_id = mysql_result($qry_cart,0,"company_id");
 	
 	$query_i = "SELECT inn,
-				   	   contragent
-				  FROM companies
-				 WHERE id = $price_company_id";
+                        contragent
+                    FROM companies
+                    WHERE id = $price_company_id";
 	
 	$qry_inn = mysql_query($query_i) or die($query_i);
 	
 	$attributes[contragent_id]   = mysql_result($qry_inn,0,"inn");
 	$attributes[contragent_name] = htmlspecialchars(mysql_result($qry_inn,0,"contragent"));
-	
-	//echo $torgovy_id; exit;
-	
+		
 	mysql_data_seek($qry_cart,0);
 
 } else {
@@ -110,8 +110,10 @@ if (mysql_num_rows($qry_cart) > 0) {
  
 
 $query = "SELECT MAX(id) FROM cart";
+
 $qry_id = mysql_query($query) or die($query);
 
+$num_rows	=	mysql_numrows($qry_cart);
 
-
+$num_fields	=	mysql_num_fields($qry_cart);
 ?>

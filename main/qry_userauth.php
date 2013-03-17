@@ -2,7 +2,7 @@
 
 $pwd = quote_smart($attributes[code]);
 
-$query = "SELECT id 
+$query = "SELECT id, role 
 FROM users
 WHERE pwd=$pwd";
 

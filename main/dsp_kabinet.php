@@ -45,24 +45,33 @@
              $("#how_meny").text("Итого: "+cnt+"руб.");
          } 
          
-         function delPrice (inp) {
-		if (confirm("Вы уверены, что хотите удалить этот прайс из \"Избранного\"?")) {
-			URL = "<?php echo "http://".$host."/index.php?act=del_favprice&id=" ?>" + inp;
-			document.location.href = URL;
+        $(".cloud").click(function(){
+            
+            var pid = this.id;
+            
+            pid = pid.substr(3);
+           
+            if (confirm("Вы уверены, что хотите удалить этот прайс из \"Избранного\"?")) {
+			URL = "http://"+document.location.hostname+"/index.php?act=del_favprice&id=" + pid;
+			document.location = URL;
 		}
 		return false;
-	}
-        
+        });
+       
     });
 </script>
 <?php include "main/dsp_message.php"; ?>
 <div align="center" style="padding-top:10px;">
-<table border="0" cellpaddin="0" cellspacing="0">
-    <tr>
+    <input type="hidden" id="uadd" value="<?php echo $urladd;?>"/>
+    <table border="0" cellpaddin="0" cellspacing="0">
+        <tr>
     <?php //include("dsp_advert.php"); ?>
-        <td valign="top" class="kab"><table border="0" cellpadding="5" cellspacing="5" width="230">
+        <td valign="top" class="kab">
+            <table border="0" cellpadding="5" cellspacing="5" width="230">
                 <tr>
-                	<td><div class="kab">Избранные компании</div></td>
+                    <td>
+                        <div class="kab">Избранные компании</div>
+                    </td>
                 </tr>
 <?php 
 
@@ -81,18 +90,21 @@ echo "<tr><td class='smallmessage'>Нет компаний для отображ
 if (mysql_numrows($qry_userfavcompanies) > 7){
 	echo "<tr><td>&nbsp;<a href=''>Все компании&gt;&gt;<a></td></tr>";
 } ?>                        
-            </table></td>
-		<td valign="top" class="kab">
+            </table>
+        </td>
+        <td valign="top" class="kab">
             <table border="0" cellpadding="5" cellspacing="5" width="230">
                 <tr>
-                	<td><div class="kab">Избранные прайс-листы</div></td>
-                </tr>
+                    <td>
+                        <div class="kab">Избранные прайс-листы</div>
+                    </td>
+                </tr>                
 <?php 
 
 $rowcount = 1;
 // To do Буквенный параметр для JS-функции?
 while ($row = mysql_fetch_assoc($qry_userfavprices)) { 
-        echo "<tr><td><a href='index.php?act=single_price&pricelist_id=".$row["id"].$urladd."'>".$row["comment"]."</a>&nbsp;&nbsp;<a href='#' class='cloud' title='Удалить' onclick='javascript:delPrice(".$row["id"].$urladd."); return false;'>x</a></td></tr>";
+        echo "<tr><td><a href='index.php?act=single_price&pricelist_id=".$row["id"].$urladd."'>".$row["comment"]."</a>&nbsp;&nbsp;<a href='#' class='cloud' id='cl_{$row['id']}' title='Удалить'>x</a></td></tr>";
         
     ++$rowcount;
 	 
@@ -108,9 +120,12 @@ if (mysql_numrows($qry_userfavprices) > 7){
 } ?>                       
             </table>
         </td>        
-    <td valign="top" class="kab"><table border="0" cellpadding="5" cellspacing="5" width="230">
+    <td valign="top" class="kab">
+        <table border="0" cellpadding="5" cellspacing="5" width="230">
                 <tr>
-                	<td><div class="kab">Любимые товары</div></td>
+                    <td>
+                        <div class="kab">Любимые товары</div>
+                    </td>
                 </tr>
                 <?php 
                 // str_name,id,str_code1,num_amount,pricelist_id
@@ -136,11 +151,14 @@ if (mysql_numrows($qry_userfavprices) > 7){
                 }
             ?>
                     
-            </table></td>
+            </table>
+        </td>
     
 	<td valign="top"><table border="0" cellpadding="5" cellspacing="5" width="230">
                 <tr>
-                	<td><div class="kab">Метки</div></td>
+                    <td>
+                        <div class="kab">Метки</div>
+                    </td>
                 </tr>
                 <?php 
 				if (mysql_numrows($qry_archzakazlist) > 0) mysql_data_seek($qry_archzakazlist,0);
@@ -155,8 +173,8 @@ if (mysql_numrows($qry_userfavprices) > 7){
 				 
 				 }
 				?>
-            </table></td>
-	
+            </table>
+        </td>	
     </tr>
 </table>
-</div><br />
+</div>
