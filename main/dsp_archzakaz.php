@@ -24,7 +24,7 @@ $row = mysql_fetch_assoc($qry_archzakaz);
 <table>
     <tr>
 	<td>N заказа:&nbsp;</td>
-	<td><?php echo $attributes[id]; ?></td>
+	<td><?php echo $attributes['id']; ?></td>
 </tr>
 <tr>
 	<td>Дата, время:&nbsp;</td>
@@ -53,7 +53,7 @@ $row = mysql_fetch_assoc($qry_archzakaz);
 	<td>Отсрочить до:&nbsp;</td>
 	<td><?php echo $row["exe_date"]; ?></td>
 </tr>
-<?php if(isset ($attributes[store]))
+<?php if(isset ($attributes['store']))
 {
     echo "<tr>
    
@@ -120,23 +120,23 @@ while ($row_count < $num_rows) {
 echo"<tr><td colspan='3'>&nbsp;</td><td align='right'>Итого: ".$total."руб. </td></tr>";
 echo "</table>";
 
-if (!isset($attributes[zakaz])) {
+if (!isset($attributes['zakaz'])) {
 ?>
 <br />
 <?php if ($total > 0) {?>
-<form action="index.php?act=create_similar&amp;id=<?php echo $attributes[id].$urladd; ?>" method="post"><input type="Submit" value="Сформировать похожий заказ сейчас" ></form><?php } ?>&nbsp;<?php 
-    if ($attributes[dsp] == 'decline') include ("main/dsp_declinezakaz.php");
+<form action="index.php?act=create_similar&amp;id=<?php echo $attributes['id'].$urladd; ?>" method="post"><input type="Submit" value="Сформировать похожий заказ сейчас" ></form><?php } ?>&nbsp;<?php 
+    if ($attributes['dsp'] == 'decline') include ("main/dsp_declinezakaz.php");
 } 
-if (isset($attributes[dsp]) and $attributes[dsp] == 'accept') {?>
-<br /><form action="index.php?act=zakaz_accept&amp;id=<?php echo $attributes[id].$urladd; ?>" method="post"><input type="Submit" value="Подтвердить заказ" ><input type='hidden' name='status' value='2'></form>&nbsp;<?php include ("main/dsp_declinezakaz.php"); ?>
+if (isset($attributes['dsp']) and $attributes['dsp'] == 'accept') {?>
+<br /><form action="index.php?act=zakaz_accept&amp;id=<?php echo $attributes['id'].$urladd; ?>" method="post"><input type="Submit" value="Подтвердить заказ" ><input type='hidden' name='status' value='2'></form>&nbsp;<?php include ("main/dsp_declinezakaz.php"); ?>
 <?php } 
-if (isset($attributes[dsp]) and $attributes[dsp] == 'accepted') {?>
-<br /><form action="index.php?act=zakaz_accept&amp;id=<?php echo $attributes[id].$urladd; ?>" method="post"><input type="Submit" value="Заказ отгружен" ><input type='hidden' name='status' value='5'></form>&nbsp;<?php include ("main/dsp_declinezakaz.php"); ?>
+if (isset($attributes['dsp']) and $attributes['dsp'] == 'accepted') {?>
+<br /><form action="index.php?act=zakaz_accept&amp;id=<?php echo $attributes['id'].$urladd; ?>" method="post"><input type="Submit" value="Заказ отгружен" ><input type='hidden' name='status' value='5'></form>&nbsp;<?php include ("main/dsp_declinezakaz.php"); ?>
 <?php }
-if (isset($attributes[dsp]) and $attributes[dsp] == 'fin') {?>
-&nbsp;<form action="index.php?act=zakaz_accept&amp;id=<?php echo $attributes[id].$urladd; ?>" method="post"><input type="Submit" value="Заказ выполнен" ><input type='hidden' name='status' value='6'><input type='hidden' name='dsp' value='kabinet'></form>
+if (isset($attributes['dsp']) and $attributes['dsp'] == 'fin') {?>
+&nbsp;<form action="index.php?act=zakaz_accept&amp;id=<?php echo $attributes['id'].$urladd; ?>" method="post"><input type="Submit" value="Заказ выполнен" ><input type='hidden' name='status' value='6'><input type='hidden' name='dsp' value='kabinet'></form>
 <?php }
-if (isset($attributes[dsp]) and $attributes[dsp] == 'shipped') {?>
+if (isset($attributes['dsp']) and $attributes['dsp'] == 'shipped') {?>
 <br /><?php include ("main/dsp_declinezakaz.php"); ?>
 <?php } ?>
 </div>

@@ -12,7 +12,7 @@ while ($row = mysql_fetch_assoc($qry_zakazweek)) {
     
     // Ограничим вывод
     $counter = $order_count[$row["weekday"]];
-    if ($counter >= 5) continue;
+    if ($counter >= 9) continue;
     
     $dsp = '';
     
