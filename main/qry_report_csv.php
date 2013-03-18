@@ -1,7 +1,7 @@
 <?php
 //created by arcady.1254@gmail.com 28/1/2012
 
-$company_id = intval($attributes[company_id]);
+$company_id = intval($attributes['company_id']);
 
 $query = "SELECT a.id AS НомерЗаявки, 
                  ag.artikul AS Артикул,  
@@ -35,7 +35,7 @@ $report_array = array();
 
 while ($var = mysql_fetch_assoc($result)){
     
-    mysql_query("UPDATE arch_zakaz SET report = 1 WHERE id = $var[НомерЗаявки]");
+    mysql_query("UPDATE arch_zakaz SET report = 1 WHERE id = {$var['НомерЗаявки']}");
     
     array_push($report_array, $var);
     
@@ -73,7 +73,7 @@ $result = mysql_query($query) or die($query);
 
 while ($var = mysql_fetch_assoc($result)){
     
-    mysql_query("UPDATE arch_zakaz SET report = 1 WHERE id = $var[НомерЗаявки]");
+    mysql_query("UPDATE arch_zakaz SET report = 1 WHERE id = {$var['НомерЗаявки']}");
     
     array_push($report_array, $var);
     

@@ -49,12 +49,23 @@
             
             var pid = this.id;
             
+            var simbl = pid.substr(0,2);
+            
             pid = pid.substr(3);
-           
-            if (confirm("Вы уверены, что хотите удалить этот прайс из \"Избранного\"?")) {
+            
+            if(simbl == 'cl'){
+                if (confirm("Вы уверены, что хотите удалить этот прайс из \"Избранного\"?")) {
 			URL = "http://"+document.location.hostname+"/index.php?act=del_favprice&id=" + pid;
 			document.location = URL;
 		}
+            }else{
+                if (confirm("Вы уверены, что хотите удалить тег из \"Меток\"?")) {
+			URL = "http://"+document.location.hostname+"/index.php?act=del_tag&oid=" + pid;
+			document.location = URL;
+		}
+            }
+           
+            
 		return false;
         });
        
@@ -167,7 +178,7 @@ if (mysql_numrows($qry_userfavprices) > 7){
 				 
 					 if ($row["tags"] != '') {
 					 
-					 	echo "<tr><td><a href='index.php?act=view_archzakaz&id=".$row["id"].$urladd."'>".$row["tags"]."</a></td></tr>";
+					 	echo "<tr><td><a href='index.php?act=view_archzakaz&id=".$row["id"].$urladd."'>".$row["tags"]."</a>&nbsp;&nbsp;<a href='#' class='cloud' id='mk_{$row['id']}' title='Удалить'>x</a></td></tr>";
 					 
 					 }
 				 

@@ -13,9 +13,9 @@
             
             include ("qry_cart.php");
             
-            include ("main/dsp_backtoprice.php");
+            include ("dsp_backtoprice.php");
 
-            include ("dsp_cart_0.php");
+            include ("dsp_cart.php");
             
             ++$cart_count;
     }

@@ -109,7 +109,7 @@
                 });}, 1000*60*10);
             
             //create scroller for each element with "horizontal_scroller" class...	
-            $('.horizontal_scroller').SetScroller({velocity: 	 80,
+            $('.horizontal_scroller').SetScroller({velocity: 	 30,
                                                     direction: 	 'horizontal',
                                                     startfrom: 	 'right',
                                                     loop:	 'infinite',
@@ -193,7 +193,7 @@
                 <button class="btn_main" id="btn_torg">Кабинет&nbsp;торгового</button>&nbsp;
             <?php } 
             if ($attributes[act] == 'kabinet') { ?> 
-                <button class="btn_main" id="btn_rch_zakazuser">Архив&nbsp;заказов</button>&nbsp;
+                <button class="btn_main" id="btn_arch_zakazuser">Архив&nbsp;заказов</button>&nbsp;
                 <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
             <?php } 						
             if ($attributes[act] == 'supplier') { ?> 

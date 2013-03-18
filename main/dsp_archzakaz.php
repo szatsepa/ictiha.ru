@@ -1,26 +1,31 @@
 <?php 
 
-$row = mysql_fetch_assoc($qry_archzakaz);
-
+$status = array('1'=>"рассматривается поставщиком",'2'=>"подтвержден поставщиком",'3'=>"отменен",'4'=>"демо-заказ",'5'=>"отгружен поставщиком",'6'=>"выполнен");
+//print_r($archorder);
+//echo "<br>";
 ?>
 
 <br />
 <div style="margin-left:10px;">
-   <?php //print_r($row); echo "<br/>"; ?>
-<strong>Статус заказа:</strong> <?php
-    if($row["status"] == 1) echo "рассматривается поставщиком";
-    if($row["status"] == 2) echo "подтвержден поставщиком";
-    if($row["status"] == 3) echo "отменен";
-    if($row["status"] == 4) echo "демо-заказ";
-    if($row["status"] == 5) echo "отгружен поставщиком";
-    if($row["status"] == 6) echo "выполнен";
-   
+   <?php if($user['role'] == 2){
+       ?>
+    <p>
+        <strong>
+            <?php echo $customer;?>
+        </strong>
+    </p>   
+    <?php
+   }
+?>
+<p><strong>Статус заказа:</strong> <?php
+    echo $status[$archorder["status"]];
+   echo "</p>";
     
-    if($row["decline_comment"] != "") { ?>
-<br /><strong>Причина:</strong> <?php echo $row["decline_comment"];
+    if($archorder["decline_comment"] != "") { ?>
+<p><strong>Причина:</strong>&nbsp;&nbsp;<?php echo $archorder["decline_comment"]."</p>";
     
      }  ?> 
-<br /><br />
+<br />
 <table>
     <tr>
 	<td>N заказа:&nbsp;</td>
@@ -28,30 +33,30 @@ $row = mysql_fetch_assoc($qry_archzakaz);
 </tr>
 <tr>
 	<td>Дата, время:&nbsp;</td>
-	<td><?php echo $row["zakaz_date"]; ?></td>
+	<td><?php echo $archorder["zakaz_date"]; ?></td>
 </tr>
 <tr>
 	<td>E-mail менеджера:&nbsp;</td>
-	<td><?php echo $row["email"]; ?></td>
+	<td><?php echo $archorder["email"]; ?></td>
 </tr>
 <tr>
 	<td>ИНН:</td>
-	<td><?php echo $row["contragent_id"]; ?></td>
+	<td><?php echo $archorder["contragent_id"]; ?></td>
 </tr>
 	<td>Наименование контрагента:</td>
-	<td><?php echo $row["contragent_name"]; ?></td>
+	<td><?php echo $archorder["contragent_name"]; ?></td>
 </tr>
 <tr>
 	<td>Адрес доставки:</td>
-	<td><?php echo $row["shipment"]; ?></td>
+	<td><?php echo $archorder["shipment"]; ?></td>
 </tr>
 <tr>
 	<td>Пожелания заказчика:</td>
-	<td><?php echo $row["comments"]; ?></td>
+	<td><?php echo $archorder["comments"]; ?></td>
 </tr>
 <tr>
 	<td>Отсрочить до:&nbsp;</td>
-	<td><?php echo $row["exe_date"]; ?></td>
+	<td><?php echo $archorder["exe_date"]; ?></td>
 </tr>
 <?php if(isset ($attributes['store']))
 {
@@ -59,7 +64,7 @@ $row = mysql_fetch_assoc($qry_archzakaz);
    
     <td>Заказчик:&nbsp;</td>
         
-    <td>".$row["surname"]." ".$row["name"]."</td>
+    <td>".$archorder["surname"]." ".$archorder["name"]."</td>
 </tr>";
 }
 ?>
@@ -123,7 +128,7 @@ echo "</table>";
 if (!isset($attributes['zakaz'])) {
 ?>
 <br />
-<?php if ($total > 0) {?>
+<?php if ($total > 0 and $user['role'] != 2) {?>
 <form action="index.php?act=create_similar&amp;id=<?php echo $attributes['id'].$urladd; ?>" method="post"><input type="Submit" value="Сформировать похожий заказ сейчас" ></form><?php } ?>&nbsp;<?php 
     if ($attributes['dsp'] == 'decline') include ("main/dsp_declinezakaz.php");
 } 

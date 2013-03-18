@@ -1,7 +1,7 @@
 <?php
 
 $user     = $user["id"];
-$price_id = intval($attributes[id]);
+$price_id = intval($attributes['id']);
 
 $query = "DELETE FROM kabinet 
           WHERE user_id  = $user AND 

@@ -15,13 +15,13 @@ $today = date("d.m.Y");
 // Проверок здесь нет из-за демонстрационных целей
 $exe_time = '';
 
-if ($attributes[day] != '' and $attributes[mon] != '' and $attributes[year] != '') {
+if ($attributes['day'] != '' and $attributes['mon'] != '' and $attributes['year'] != '') {
 
-	$exe_time = $attributes[day]."-".$attributes[mon]."-".$attributes[year];
+	$exe_time = $attributes['day']."-".$attributes['mon']."-".$attributes['year'];
 	
-	if ($attributes[hh] != '' and $attributes[mm] != '') {
+	if ($attributes['hh'] != '' and $attributes['mm'] != '') {
 	
-		$exe_time .= " ".$attributes[hh].":".$attributes[mm]; 
+		$exe_time .= " ".$attributes['hh'].":".$attributes['mm']; 
 	
 	} else {
 	
@@ -48,7 +48,7 @@ if ($attributes[day] != '' and $attributes[mon] != '' and $attributes[year] != '
 </tr>
 <tr>
 	<td>E-mail менеджера:&nbsp;</td>
-	<td><?php echo $attributes[email]; ?></td>
+	<td><?php echo $attributes['email']; ?></td>
 </tr>
 <tr>
 	<td>Телефон менеджера:&nbsp;</td>
@@ -56,18 +56,18 @@ if ($attributes[day] != '' and $attributes[mon] != '' and $attributes[year] != '
 </tr>
 <tr>
 	<td>ИНН:</td>
-	<td><?php echo $attributes[contragent_id]; ?></td>
+	<td><?php echo $attributes['contragent_id']; ?></td>
 </tr>
 	<td>Наименование контрагента:</td>
-	<td><?php echo $attributes[contragent_name]; ?></td>
+	<td><?php echo $attributes['contragent_name']; ?></td>
 </tr>
 <tr>
 	<td>Условия доставки:</td>
-	<td><?php echo $attributes[shipment]; ?></td>
+	<td><?php echo $attributes['shipment']; ?></td>
 </tr>
 <tr>
 	<td>Комментарии:</td>
-	<td><?php echo $attributes[comments]; ?></td>
+	<td><?php echo $attributes['comments']; ?></td>
 </tr>
 <tr>
 	<td>Отсрочить до:</td>
@@ -81,6 +81,7 @@ if ($attributes[day] != '' and $attributes[mon] != '' and $attributes[year] != '
 include ("main/dsp_cart.php");
 
 $output = ob_get_contents(); 
+
 ob_end_flush();
 $output = str_replace ("<table class='cart'>","<table cellspacing=0 cellpadding=4>.",$output);
 $output = str_replace ("<table>","<table cellspacing=0 cellpadding=4>.",$output);
@@ -92,7 +93,7 @@ $output = str_replace ("<table>","<table cellspacing=0 cellpadding=4>.",$output)
 
 <?php
 // multiple recipients
-$to  = 'djv57@yandex.ru';
+$to  = 'operator@shop.po-mera.ru';
 
 $demalert = '';
 
@@ -101,14 +102,14 @@ if (isset($demo)) {
 } 
 
 // Отправляем письмо также и поставщику (если можно)
-if (mysql_num_rows($qry_supplemail) == 1) {	
-	$add_email = ",". mysql_result($qry_supplemail,0);
-} else {
-	$add_email = '';
-}
+//if (mysql_num_rows($qry_supplemail) == 1) {	
+//	$add_email = ",". mysql_result($qry_supplemail,0);
+//} else {
+//	$add_email = '';
+//}
 
 // subject
-$subject = $demalert.'Уведомление о заказе N'.$zakaz;
+$subject = $demalert.'Уведомление о заказе N '.$zakaz;
 
 // message
 $message = "<html><head><STYLE TYPE='text/css'>BODY {font-family:sans-serif;} TABLE {border:solid 1px gray;} TH {border:solid 1px gray;} TD {border:solid 1px gray;}</STYLE></head><body>".$output;
@@ -122,9 +123,9 @@ $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 // To do $attributes[email]!!! Подумать о безопасности
 
 // Additional headers
-$headers .= 'To: '.$attributes[email]."\r\n";
-$headers .= 'From: noreply@call-up.ru' . "\r\n";
-$headers .= 'Bcc: djv57@yandex.ru, operator@call-up.ru' . $add_email . "\r\n";
+$headers .= 'To: '.$attributes['email']."\r\n";
+$headers .= 'From: noreply@shop.po-mera.ru' . "\r\n";
+$headers .= 'Bcc: operator@shop.po-mera.ru\r\n';
 
 // Mail it
 mail($to, $subject, $message, $headers);

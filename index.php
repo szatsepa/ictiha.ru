@@ -453,6 +453,13 @@ switch ($attributes[act]) {
 	include ("main/act_tokabinet.php");
 	break;
     
+    case "del_tag":
+	$title = ""; 
+	include ("main/qry_deltag.php");
+	include ("main/qry_disconnect.php");
+	include ("main/act_tokabinet.php");
+	break;
+    
     case "pset":	
         $title = "Личные настройки"; 
         include ("main/dsp_header.php");
