@@ -21,6 +21,7 @@ $query = "SELECT DISTINCT a.id,
           WHERE a.user_id=$user_for_select AND 
                 a.id=g.zakaz AND 
                 p.id=g.price_id
+AND a.status < 6
           ORDER BY weekday,
                    a.id DESC";
 

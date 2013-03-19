@@ -82,7 +82,7 @@ switch ($attributes[act]) {
 	break;
     
     case "single_price":
-	$title = "";
+	$title = "Прайс";
 	include ("main/qry_price.php");
 	include ("main/qry_cart.php");
         include ("as/act_md5name.php");
@@ -281,7 +281,7 @@ switch ($attributes[act]) {
 	break;
     
     case "view_archzakaz":
-	$title = "";
+	$title = "Заказ";
         include ("main/qry_archzakaz.php");
 	include ("main/dsp_header.php");
         include ("main/dsp_selector_1.php");
@@ -471,7 +471,7 @@ switch ($attributes[act]) {
 	
 	// По умолчанию    
     default:
-	$title = "";
+	$title = "ПО \"МЕРА\"";
         include 'main/class_prices.php'; 
         include ("main/act_string2html.php");
 	include ("main/dsp_header.php");

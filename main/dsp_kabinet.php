@@ -158,7 +158,7 @@ if (mysql_numrows($qry_userfavprices) > 7){
                 }
                 
                 if (mysql_numrows($qry_userfavgoods) > 7){
-                echo "<tr><td>&nbsp;<a href=''>Все товары&nbsp;&gt;&gt;<a></td></tr>";
+                echo "<tr><td>&nbsp;<a href='index.php?'>Все товары&nbsp;&gt;&gt;<a></td></tr>";
                 }
             ?>
                     

@@ -141,7 +141,7 @@ if (isset($attributes['dsp']) and $attributes['dsp'] == 'accepted') {?>
 if (isset($attributes['dsp']) and $attributes['dsp'] == 'fin') {?>
 &nbsp;<form action="index.php?act=zakaz_accept&amp;id=<?php echo $attributes['id'].$urladd; ?>" method="post"><input type="Submit" value="Заказ выполнен" ><input type='hidden' name='status' value='6'><input type='hidden' name='dsp' value='kabinet'></form>
 <?php }
-if (isset($attributes['dsp']) and $attributes['dsp'] == 'shipped') {?>
+if (isset($attributes['dsp']) and $attributes['dsp'] == 'shipped' and $user['role'] == 3) {?>
 <br /><?php include ("main/dsp_declinezakaz.php"); ?>
 <?php } ?>
 </div>

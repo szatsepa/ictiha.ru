@@ -1,4 +1,8 @@
 <?php
+include 'dsp_uniselect_class.php';
+
+$my_select = new DateSelect();
+
 //if ($price_id > 0 and ($total - $zakaz_limit) >= 0) {
 //	
 	if (isset($attributes['contragent_id'])) {
@@ -55,15 +59,19 @@
 
 <br />
 <div>
-    <form action="index.php?act=step2&amp;pricelist_id=<?php echo $attributes['pricelist_id'];?>" method="post" name="addform" enctype="multipart/form-data">
+    
+    <form  method="post" id="save_order" name="addform" enctype="multipart/form-data">
         <table id="torder">
             <thead>
-                
+<!--             action="index.php?act=step2&amp;pricelist_id=<"   -->
             </thead>
             <tbody>
                 <tr>
                         <td>ИНН:</td>
-                        <td><input type="text" maxlength="12" size="12" name="contragent_id" value="<?php echo $contragent_id; ?>"  class="step1"></td>
+                        <td>
+                            <input type="hidden" name="pricelist_id" id="pid" value="<?php echo $attributes['pricelist_id'];?>"/>
+                            <input type="text" maxlength="12" size="12" name="contragent_id" value="<?php echo $contragent_id; ?>"  class="step1">
+                        </td>
                 </tr>
                 <tr>
                         <td>Наименование контрагента:</td>
@@ -110,12 +118,30 @@
                 </tr>
                 <tr>
                         <td>Отсрочить до:</td>
-                        <td><input type="text" maxlength="2" size="2" name="day" class="step1" value="">-<input type="text" maxlength="2" size="2" name="mon" class="step1" value="">-<input type="text" maxlength="4" size="4" name="year" class="step1" value="">&nbsp;дд-мм-гггг&nbsp;&nbsp;<input type="text" maxlength="2" size="2" name="hh" class="step1" value="">-<input type="text" maxlength="2" size="2" name="mm" class="step1" value="">&nbsp;чч-мм<br />
+                        <td>
+                            <p>
+                                &nbsp;&nbsp;дд &nbsp;&nbsp;- &nbsp;&nbsp;мм &nbsp;&nbsp;- &nbsp;&nbsp;гггг&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;чч &nbsp;&nbsp;- &nbsp;&nbsp;мм
+                            </p>
+                            <p>
+                                <?php echo $my_select->_getDey("day", 'd');?>
+                                -
+                                <?php echo $my_select->_getMonth('mon', 'm'); ?>
+                                -
+                                <?php echo $my_select->_getYear("year", 'y', 1);?>
+
+                                &nbsp;&nbsp;&nbsp;
+                                
+                                <?php echo $my_select->_getHoars('hh', 'h');?>
+                                -
+                                <?php echo $my_select->_getMinits('mm', 'm');?> 
+                            </p>
+
+<!--                            <br />-->
 
                         </td>
                 </tr>
                 <tr>	
-                        <td colspan='2'><br /><input type="submit" id="send_order" value="Отправить заказ оператору" disabled></td>
+                        <td colspan='2'><br /><input type="button" id="send_order" value="Отправить заказ оператору" disabled></td>
                 </tr>
             </tbody>
         </table>
@@ -123,14 +149,27 @@
 </div>
 <script language="JavaScript" type="text/javascript">
         $(document).ready(function(){
-            $("#send_order").attr('disabled', false);
+            $("#send_order").attr('disabled', false).css('cursor','pointer');
             var str_input = '<tr><td colspan="2"><input type="hidden" name=scr_width  value="' + screen.width  +'"><input type="hidden" name=scr_height value="' + screen.height +'"></td></tr>';
             $("#torder tbody").append(str_input);
             if($("#no_items").text() == 'В корзине нет товаров'){
-                $("#send_order").attr('disabled', true);
+                $("#send_order").attr('disabled', true).css('cursor','default');
                 alert($("#no_items").text()+" кнопка не активна!");
                 
             }
+            
+            $("#send_order").click(function(){
+                
+                var mydate = new Date();
+                
+                var input_date = new Date($("#y option:selected").val(), ($("#m option:selected").val()-1), $("#d option:selected").val(), $("#h option:selected").val(), $("#m option:selected").val()-5);
+                
+                if(input_date < mydate){
+                    alert("Дата \"Отсрочить\" не может быть раньше СЕЙЧАС!");
+                }else{
+                    $("#save_order").attr('action', "index.php?act=step2").submit();
+                }
+            });
             
         });
 </script>
@@ -138,17 +177,3 @@
 
 <br>
 <br>
-
-
-<?php 
-
-//} else {
-//
-//	echo "<br />&nbsp;Минимальный заказ для данного прайс-листа должен быть не менее ".$zakaz_limit."руб.";
-//		
-//	echo "<br />";
-
-
-
-//} 
- ?>

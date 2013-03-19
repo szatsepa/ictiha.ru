@@ -66,6 +66,8 @@ $query = "INSERT INTO arch_zakaz
 
 $qry_add = mysql_query($query) or die($query);
 
+//echo $query."<br>";
+
 $zakaz = mysql_insert_id();
 
 $query = "INSERT INTO arch_goods 
@@ -96,6 +98,8 @@ $query = "INSERT INTO arch_goods
 
 $qry_add = mysql_query($query) or die($query);
 
+//echo $query."<br>";
+
 if(mysql_affected_rows() == 0){
     
 //    как ежели товари все просрочены и с заказом не ассоциируеться ни одна строка в arch_goods удалим заказ из таблицы вообще
@@ -105,6 +109,7 @@ if(mysql_affected_rows() == 0){
     ?>
 <script type="text/javascript">
     alert("Заказ состоял из просроченных товаров и анулирован!");
+    document.location = "index.php";
 </script>
 <?php
     
@@ -125,9 +130,4 @@ if(mysql_affected_rows() == 0){
 
 }
 
-//удалим из корзины просроченые това ры если таковые имеються
-
-$query = "DELETE cart FROM cart, price WHERE price.id = cart.price_id AND (price.expiration <= Now() OR  price.expiration <> '0000-00-00')";
-
-mysql_query($query);
 ?>

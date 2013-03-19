@@ -12,11 +12,15 @@
 function option ($db_table,$value,$name,$selected_item,$condition) {
     
 	if ($selected_item === 0) {
-?><option value="">--Выберите из списка--</option> <?php
+?>
+<option value="">--Выберите из списка--</option> 
+    <?php
     }
 	
 	if ($selected_item === "Пользователи") {
-?><option value="0">Все пользователи</option> <?php
+?>
+<option value="0">Все пользователи</option> 
+    <?php
     }
 // Это название таблицы?
 if (gettype($db_table) == 'string') {

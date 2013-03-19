@@ -128,7 +128,7 @@ class Companies{
 
     function Companies(){
         
-        $query = "SELECT id, `name`,`full_about`, CONCAT('logo_',`id`,'.jpg') AS logo FROM `companies` ORDER BY `name`";
+        $query = "SELECT id, `name`,`full_about`, CONCAT('logo_',`id`,'.jpg') AS logo FROM `companies` WHERE `status` = 1 ORDER BY `name`";
         
         $result = mysql_query($query);
         
@@ -164,6 +164,7 @@ class Companies{
                 }
                 
                 $cell++;
+                if($cell == $num_cells)                    break;
             }
             
             $this->str_block .= "</tr>";

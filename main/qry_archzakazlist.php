@@ -35,7 +35,8 @@ $query = "SELECT DISTINCT a.id,
                price AS p,
                users AS u
           WHERE u.id=a.user_id AND
-                a.id=g.zakaz AND 
+                a.id=g.zakaz AND
+                a.status > 5 AND
                 p.id=g.price_id ".$add_where."
           ORDER BY id DESC";
  

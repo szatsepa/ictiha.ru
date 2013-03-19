@@ -7,9 +7,9 @@
 function otchet($type) { 
 
 	global $qry_companies,$qry_users;
-
+        
 ?>	
-<form action="index.php?act=report_csv" method="post" name="<?php echo $type; ?>" id="<?php echo $type; ?>">
+<form action="index.php?act=report" method="post" name="<?php echo $type; ?>" id="<?php echo $type; ?>">
 	
 <table border="0" cellpadding="0" cellspacing="0">
 	<tr>
@@ -33,16 +33,24 @@ function otchet($type) {
                 <option value="<?php echo $i;?>"><?php echo sprintf("%02d",$i);?></option>
           <?php } ?>    
         </select></td>
-		<td><select class="common" name="start_mon" id="start_mon">    								
+		<td>
+                    <select class="common" name="start_mon" id="start_mon">    								
             <?php 
                 
                 for ($i=1;$i<13;++$i) { ?>
                 <option value="<?php echo $i;?>"><?php echo sprintf("%02d",$i);?></option>
           <?php } ?>    
-        </select></td>
+        </select>
+                </td>
 		<td><select name="start_year" class="common">
-				<option value="2009">2009</option>
-				<option value="2010">2010</option>
+                        <?php
+                            $yy = date(Y);
+                            $lowyear = 2010;
+                            while($yy > $lowyear){
+                                echo "<option value='$yy'>$yy</option>";
+                                $yy--;
+                            }
+                        ?>
 			</select></td>
 		
 		<td>&nbsp;&nbsp;по&nbsp;</td>
@@ -62,8 +70,14 @@ function otchet($type) {
           <?php } ?>    
         </select></td>
 		<td><select name="end_year" class="common">
-				<option value="2009">2009</option>
-				<option value="2010">2010</option>
+				<?php
+                            $yy = date(Y);
+                            $lowyear = 2010;
+                            while($yy > $lowyear){
+                                echo "<option value='2009'>$yy</option>";
+                                $yy--;
+                            }
+                        ?>
 			</select></td>
 		
 		<td><input type="submit" value="Ok"></td>	 

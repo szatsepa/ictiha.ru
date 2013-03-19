@@ -237,7 +237,7 @@ $company_id   = $row3["company_id"];
 $company_name = $row3["company_name"];
 $price_name   = $row3["price_name"];
 $status       = $row3["status"];
-
+$_SESSION['company_id'] = $company_id;
 //Блокировка для незарегистрированных пользователей
 $disabled = '';
 //$dat = mysql_result($qry_price,$row_count,"num_amount");
