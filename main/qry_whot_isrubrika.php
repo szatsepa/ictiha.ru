@@ -9,7 +9,7 @@ $name = mysql_result($result,0);
 
 $name = ucfirst($name);
 
-echo json_encode(array('data'=>$name));
+echo json_encode(array('data'=>$name, 'pid'=>$_POST['pid']));
 
 mysql_close();
 ?>

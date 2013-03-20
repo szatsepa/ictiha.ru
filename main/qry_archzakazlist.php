@@ -25,11 +25,11 @@ if (isset($attributes[display])) {
 
 $query = "SELECT DISTINCT a.id, 
                           DATE_FORMAT(a.time, '%d.%m.%y') zakaz_date,
-						  a.status,
+                          a.status,
                           g.price_id,
                           p.comment price_name,
                           u.surname,
-						  a.tags
+                          a.tags
           FROM arch_zakaz AS a, 
                arch_goods AS g,
                price AS p,
@@ -41,5 +41,5 @@ $query = "SELECT DISTINCT a.id,
           ORDER BY id DESC";
  
 $qry_archzakazlist = mysql_query($query) or die($query);
-
+//echo "$query<br>";
 ?>

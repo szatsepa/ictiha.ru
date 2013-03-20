@@ -90,6 +90,7 @@
             dataType:'json',
             data:{'pid':$("#pid").val()},
             success:function(data){
+                console.log(data);
                 var first = data['data'].substr(0,1);
                 var second = data['data'].substr(1);
                 first = first.toUpperCase();
@@ -103,7 +104,7 @@
                 
                 
         var out = {'barcode':$("#it_barcode").val(),'aid':$("#it_id").val(),'pid':$("#pid").val()};
-        
+//        массив  в котором бум хранить дополнительные изображения
         var images = new Array();
         
         var position = 0;
@@ -114,13 +115,22 @@
             dataType:'json',
             data:out,
             success:function(data){
-                images = data['images'];
                 
+                 $.each(data['images'], function(){
+//                     создаем объект
+                     var img = new Image();
+//                     присваиваем свойство из массива - результата запроса
+                     img.src = 'http://'+document.location.hostname+'/main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+this+'&width=163&height=376';
+//                     добавляем в мвссив скрытых изображений
+                     images.push(img);
+                 });
+//                если массив короче 2 делаем невидимыми кнопки просмотра галереи изо
                 if(images.length < 2){
-//                    console.log(images.length);
+                    
                     $("#prewiev").css({'cursor':'default','background':'none'});
                     $("#next").css({'cursor':'default','background':'none'});
                 }
+//                загружаем основное изображение
                 $("#item_image").attr('src', '../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+data['img']+'&width=163&height=376');
                 
                 $("#description").css('visibility', 'visible');
@@ -154,18 +164,15 @@
             return false;
         }).css('cursor','pointer');
         
-        $("#prewiev").mousedown(function(){
-            position--; 
-            if(position < 0)position = 0;
-            $("#item_image").attr('src', '../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+images[position]);
-        });
-        
-        $("#next").mousedown(function(){
+        $("#prewiev, #next").mousedown(function(){
+//            листаем по кругу изображения если они есть
             position++;
-            if(position > images.length-1)position = (images.length-1);
-            $("#item_image").attr('src', '../main/act_prewiew.php?src=http://'+document.location.hostname+'/images/goods/'+images[position]);
+            
+            if(position == images.length)position = 0;
+            
+            $("#item_image").attr('src', images[position]['src']);
         });
-        
+
         $(".look_more").mousedown(function(){
             var id = this.id;
             document.location = $("#"+id).val();

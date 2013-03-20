@@ -175,6 +175,8 @@ if (mysql_numrows($qry_userfavprices) > 7){
 				if (mysql_numrows($qry_archzakazlist) > 0) mysql_data_seek($qry_archzakazlist,0);
                 
 				 while ($row = mysql_fetch_assoc($qry_archzakazlist)) { 
+                                     
+//                                     echo "{$row['tags']}<br>";
 				 
 					 if ($row["tags"] != '') {
 					 
