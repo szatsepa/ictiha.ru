@@ -34,7 +34,7 @@ $query = "SELECT DISTINCT a.id,
                 c.id = p.company_id AND
 		u.id=a.user_id AND
                 a.id=g.zakaz AND 
-                p.company_id = $attributes[company_id] AND 
+                p.company_id = {$attributes['company_id']} AND 
                 a.status > 0
           ORDER BY a.id DESC";
 //echo "$query";		  
@@ -73,7 +73,7 @@ $query = "SELECT DISTINCT a.id,
                 c.id = p.company_id AND
 		cu.id=a.customer AND
                 a.id=g.zakaz AND 
-                p.company_id = $attributes[company_id] AND 
+                p.company_id = {$attributes['company_id']} AND 
                 a.status > 0
           ORDER BY a.id DESC";
 //echo "$query";		  

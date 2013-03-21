@@ -1,5 +1,6 @@
 <h3><?php echo $user["company_name"]; ?></h3>
-<?php include "main/dsp_message.php";
+<?php 
+include "main/dsp_message.php";
 	  include ("main/act_md5name.php");
  ?>
 
@@ -25,7 +26,7 @@ document.location.href = "index.php?act=supplier";
   }
 }
  
-timerid = setInterval(timer,1000); /* запускаем таймер */
+timerid = setInterval(timer,60000); /* запускаем таймер */
 
 </script>
 <!--<div id="time">1:00</div>-->
@@ -40,7 +41,7 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
                 </tr>
 				<tr><td><?php
          
-				 foreach ($users_array as $row) { 
+				 foreach ($arhorder_array as $row) { 
                                     
 //                                    array_push($orders_arr, $row);
                                     
@@ -66,22 +67,19 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
         </td>
             
                 <!-- вот сюда пожалуй вставить бы заказы по витринам -->
-    <td valign="top" class="kab"><table border="0" cellpadding="5" cellspacing="5" width="230">
+<!--    <td valign="top" class="kab">
+        <table border="0" cellpadding="5" cellspacing="5" width="230">
                 <tr>
                         <td><div class="kab">Витрины заказы</div></td>
                 </tr>
-                                <tr><td><?php
+                                <tr><td><?php //
                                 foreach ($customers_array as $row) {  
                                         if ($row["status"] == 1 or $row["status"] == 4) {
                                                 echo "<p>N".$row["id"]."&nbsp;".$row["zakaz_date"];
-                                                
                                                 // Отсроченный заказ?
                                                 if ($row["exe_date"] != '') {
-                                                
                                                         echo "<br /><strong><small>Исполнить ".$row["exe_date"]."</small></strong>";
-                                                
-                                                }
-                                                
+                                                  }                                                
                                                 if ($row["status"] == 4) echo " (Демо)";
                                                 echo "<br /><a href='index.php?act=view_archzakaz&amp;store=1&amp;zakaz=no&amp;id=".$row["id"]."&amp;dsp=accept".$urladd."'>".$row["price_name"]."</a></p>";
                                         }
@@ -90,7 +88,8 @@ timerid = setInterval(timer,1000); /* запускаем таймер */
                                         mysql_data_seek($qry_customer_orders,0);
                                 }
                                  ?></a></td></tr>                               
-            </table></td>                
+            </table>
+    </td>                -->
                     <!-- END INSERTED -->
           
                     
