@@ -15,7 +15,7 @@
                    data:{'uid':$("#uid").val(),'dt':Date.parse(dt)},
                    cache:false,
                    success:function(data){
-                       console.log(data);
+//                       console.log(data);
                        var str_messages = '';
                        $.each(data, function(index){
 //                           console.log(this['now']);
@@ -95,7 +95,7 @@
                    data:{'uid':$("#uid").val(),'dt':Date.parse(dt)},
                    cache:false,
                    success:function(data){
-                       console.log(data);
+//                       console.log(data);
                        var str_messages = '';
                        $.each(data, function(){
                            str_messages += '\t - '+this['sender']+' пишет - "'+this['message']+'";\t\t';
@@ -118,7 +118,12 @@
                                                     onmouseout:  'play',
                                                     onstartup: 	 'play',
                                                     cursor: 	 'pointer'
-                                            });
+                                                });
+             
+             $("div.scrollingtext").click(function(){
+                 document.location.href = "index.php?act=msg";
+                                                });
+                                                
             /*
                     All possible values for options...
 
@@ -182,7 +187,7 @@
 <div id="main_menu"> 
     <br><br><p style="text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn_main" id="first_btn">Кнопка 1</button>&nbsp;&nbsp;<button class="btn_main" id="second_btn">Совместные закупки</button>&nbsp;
         <?php
-        if($_SESSION[auth] == 1){
+        if($_SESSION['auth'] == 1){
             if (($user["role"] == 1 or $user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { ?>
                 <button class="btn_main" id="btn_kabinet">Личный&nbsp;кабинет</button>&nbsp;
             <?php } 
@@ -192,11 +197,11 @@
             if (($user["role"] == 1 or $user["role"] == 5) and $attributes[act] != 'torg' and (!in_array("torg",$rights)) and $mobile == 'false') {?>
                 <button class="btn_main" id="btn_torg">Кабинет&nbsp;торгового</button>&nbsp;
             <?php } 
-            if ($attributes[act] == 'kabinet') { ?> 
+            if ($attributes['act'] == 'kabinet') { ?> 
                 <button class="btn_main" id="btn_arch_zakazuser">Архив&nbsp;заказов</button>&nbsp;
                 <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
             <?php } 						
-            if ($attributes[act] == 'supplier') { ?> 
+            if ($attributes['act'] == 'supplier') { ?> 
                 <button class="btn_main" id="btn_arch_done">Архив&nbsp;поставок</button>&nbsp;
                 <button class="btn_main" id="btn_arch_decline">Отменённые&nbsp;заказы</button>&nbsp;
                 <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
@@ -206,7 +211,7 @@
 <!--                <button class="btn_main" id="btn_pset">Личные настройки</button>&nbsp;-->
             <?php
             }
-            if (isset($attributes[act])) {
+            if (isset($attributes['act']) and $user['role'] != 2) {
             ?>
                 <button class="btn_main" id="btn_complist">Список&nbsp;компаний</button>&nbsp;
             <?php } ?>

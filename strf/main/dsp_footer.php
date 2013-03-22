@@ -1,6 +1,6 @@
             <div class="footer_box"> 
 <!--                <div class = "footer">
-                        <img src="http://<?php echo $_SESSION[domen];?>/images/storefront/F_<?php echo $attributes[stid];?>.jpg" width="1008" alt="Нижний баннер"/>
+                        <img src="http://<?php echo $_SERVER['SERVER_NAME'];?>/images/storefront/F_<?php echo $attributes[stid];?>.jpg" width="1008" alt="Нижний баннер"/>
                 </div>-->
 <!--                <div class="footer_right">
                     

@@ -4,7 +4,7 @@
  * created by arcady.1254@gmail.com
  */
 //
-//if(!isset ($_SESSION[domen])){} 
+//if(!isset ($_SERVER['SERVER_NAME'])){} 
 // 
 // if(isset ($attributes[stid])){
 //        $st_id = $attributes[stid];     
@@ -24,7 +24,7 @@ $domen = $row[domen];
 
 $resurs = $row[where_res];
 
-$_SESSION[domen] = $domen;
+$_SERVER['SERVER_NAME'] = $domen;
 
 $_SESSION[resurs] = $resurs;
 

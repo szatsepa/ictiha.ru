@@ -289,8 +289,8 @@ switch ($attributes['act']) {
         include 'qry_companies_advert.php';
         include 'qry_baners_st.php';
         include 'qry_select_storefront.php';
-    include("dsp_header.php");
-    include 'dsp_advertisement_st.php';  
+        include("dsp_header.php");
+        include 'dsp_advertisement_st.php';  
 	break;
     
     case 'ddcom':
@@ -480,14 +480,14 @@ switch ($attributes['act']) {
 	include("act_toprices.php");
 	break;
     	
-	case "arch_zakaz":    
-	$title = "Архив заказов";  
-    include("dsp_header.php");
+    case "arch_zakaz":    
+        $title = "Архив заказов";  
+        include("dsp_header.php");
 	include("../main/qry_archzakazlist.php");
 	include("qry_companies.php");
 	include("dsp_archzakaz.php");
-        include("qry_archzakazlist.php");
-        include("dsp_archzakaz.php");
+//        include("qry_archzakazlist.php");
+//        include("dsp_archzakaz.php");
 	break;
 	
 	//case "report_csv":    

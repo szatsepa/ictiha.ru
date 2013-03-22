@@ -39,7 +39,25 @@ if ($mobile == 'false') {
 	    // Новое количество товара с учетом полных упаковок
 	    $attributes['amount'] = $packages * $attributes['package'];
 	}
+        
+//        проверим есть ли товар на складе
+        
+        $query = "SELECT (`num_amount` - {$attributes['amount']}) AS `cnt` FROM `pricelist` WHERE `str_code1`= {$attributes['artikul']} AND `pricelist_id` = {$attributes['pricelist_id']}";
 	
+        $result = mysql_query($query) or die($query);
+        
+        $cnt = mysql_result($result, 0);
+        
+        if($cnt < 0){
+            header('Content-type: text/html; charset=utf-8'); 
+            ?>
+<script type="text/javascript">
+    alert("На складе недостаточно товара!!!");
+    document.location = "index.php?act=pi";
+</script>
+<?php
+                exit();
+        }
 	// Попытаемся обновить существующие записи в корзине
 
 	if(!isset($attributes['down'])){

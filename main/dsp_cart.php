@@ -12,7 +12,7 @@ while ($field_count < $num_fields) {
 	++$field_count;
 }
 
-mysql_data_seek($qry_cart, 0);
+if($qry_cart)mysql_data_seek($qry_cart, 0);
 
 $fields = array ("Артикул","Штрих-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Кол-во (шт.)","Скидка");
 

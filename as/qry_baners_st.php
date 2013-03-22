@@ -4,11 +4,13 @@
  * created by arcady.1254@gmail.com
  */
 
-$stid = intval($attributes[stid]);
+$stid = intval($attributes['stid']);
 
-$company_id = intval($attributes[company_id]);
+$company_id = intval($attributes['company_id']);
 
 $query = "SELECT * FROM storefront_reklama WHERE storefront_id = $stid AND company_id = $company_id";
+
+//echo "$query<br>";
 
 $result = mysql_query($query) or die($query); 
 

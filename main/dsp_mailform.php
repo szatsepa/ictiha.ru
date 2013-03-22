@@ -29,7 +29,6 @@
 </script>
 <br />
 <div align="center">
-    
         <div>
         <textarea cols="122" rows="12" wrap="soft" id="msg" name="comments">
             <?php echo $msg;?>
@@ -43,6 +42,7 @@
             </select>
             &nbsp;&nbsp;&nbsp;
             <input type="button" id="send_msg" value="Отправить письмо оператору" ></p>
+        
         <div>
     
 </div>

@@ -3,9 +3,9 @@
 //created by arcady.1254@gmail.com 7/1/2012
 // 
 
-$company_id = intval($_SESSION[user][company_id]);
+$company_id = intval($_SESSION['user']['company_id']);
 
-if($_SESSION[user][role] == 6)$str = "AND p.company_id = $company_id";
+if($_SESSION['user']['role'] == 6)$str = "AND p.company_id = $company_id";
 
 $query = "SELECT DISTINCT a.id, 
                           DATE_FORMAT(a.time, '%d.%m.%y') zakaz_date,
@@ -26,4 +26,4 @@ $query = "SELECT DISTINCT a.id,
 $qry_archzakazlist = mysql_query($query) or die($query);
 
 ?>
-<h3><?php echo $title; ?>&nbsp;клиентов витрин.</h3>
+<!--<h3><?php echo $title; ?>&nbsp;клиентов витрин.</h3>-->

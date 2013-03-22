@@ -6,9 +6,9 @@
 
 $text_array = array("200X270 или с соотношением сторон 2:3","200X540 или с соотношением сторон 2:5","470X100 или с соотношением сторон 5:1","700X100 или с соотношением сторон 7:1","200X270 или с соотношением сторон 2:3");
 
-$role = intval($_SESSION[user][role]);
+$role = intval($_SESSION['user']['role']);
 
-$com_id = intval($_SESSION[user][company_id]);
+$com_id = intval($_SESSION['user']['company_id']);
 
 $stores = qry_select_storefront($role, $com_id);
 
@@ -127,7 +127,7 @@ include("dsp_storefront_select.php");
             <table border="0">
                 
                 <tr valign="bottom">
-           <?php if(!$img_array[$i][id]){?>         
+           <?php if(!$img_array[$i]['id']){?>         
                       <td valign="bottom">
                           <h5> &nbsp;&nbsp;&nbsp; Баннер <?php echo ($i+1);?></h5> &nbsp;&nbsp;
                          <form enctype="multipart/form-data"  action="index.php?act=add_baner" method="post"> 

@@ -9,7 +9,7 @@
 
 	<div class = "cont_reg">
              <form action="index.php?act=registration" method="post" name="f_1">
-                 <input type="hidden" name="stid" value="<?php echo $attributes[stid];?>"/>
+                 <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
 		<div id = "cont_reg_left">
                     <br/>
                     <br/>
@@ -52,8 +52,8 @@
                         <br/>
                         <br/>
 			<div id = "cont_reg_left_btn">
-                        <input type="hidden" name="cod" value="<?php echo $attributes[cod]; unset($attributes[cod])?>"/>
-                        <input type="image" src="http://<?php echo $_SESSION[domen];?>/images/storefront/btn_pay_for.jpg" width="259" height="29" border="0" onclick="return validatePwd();"/>
+                        <input type="hidden" name="cod" value="<?php echo $attributes['cod']; unset($attributes['cod'])?>"/>
+                        <input type="image" src="http://<?php echo $_SERVER['SERVER_NAME'];?>/images/storefront/btn_pay_for.jpg" width="259" height="29" border="0" onclick="return validatePwd();"/>
                         </div>
                 </div>	
              </form>

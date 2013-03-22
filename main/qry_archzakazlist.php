@@ -20,8 +20,11 @@ if (isset($attributes[display])) {
 	
 } 
 
+$where_status = "a.status > 5 AND";
 
-//$user_for_select = $user["id"];
+if($user['role'] == 3){
+  $where_status = "";  
+}
 
 $query = "SELECT DISTINCT a.id, 
                           DATE_FORMAT(a.time, '%d.%m.%y') zakaz_date,
@@ -36,9 +39,11 @@ $query = "SELECT DISTINCT a.id,
                users AS u
           WHERE u.id=a.user_id AND
                 a.id=g.zakaz AND
-                a.status > 5 AND
+                $where_status
                 p.id=g.price_id ".$add_where."
           ORDER BY id DESC";
+
+
  
 $qry_archzakazlist = mysql_query($query) or die($query);
 //echo "$query<br>";
