@@ -39,7 +39,7 @@ $description = good_description($artikul,$attributes[price_id]);
          if($adverticement_array){
              
             echo '<form action="http://'.$adverticement_array[$pos][where_from].'" method="post"  target="_blank">
-            <input type="image" src="http://'.$_SERVER['SERVER_NAME'].$adverticement_array[$pos][name].'" width="200" alt="'.$adverticement_array[$pos][name].'"/>        
+            <input type="image" src="http://'.$_SERVER['HTTP_HOST'].$adverticement_array[$pos][name].'" width="200" alt="'.$adverticement_array[$pos][name].'"/>        
         </form>';
             
          } ?>

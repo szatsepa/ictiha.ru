@@ -1170,6 +1170,8 @@ table.arch_list{
 }
 table.cart {
     width:100%;
+    border : thin solid Gray;
+    border-width : 1px 1px 1px 1px;
 }
 
 th.cart {
@@ -1177,9 +1179,13 @@ th.cart {
         color: #330000;
         font-weight: bold;
         text-align: left;
+        border : thin solid Gray;
+	border-width : 1px 1px 1px 1px;
 }
 
 td.cart {
+        border : thin solid Gray;
+	border-width : 1px 1px 1px 1px;
         font: 11pt Arial;
         font-style: italic;
         color: #330000;

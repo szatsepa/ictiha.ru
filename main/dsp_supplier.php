@@ -219,7 +219,7 @@ timerid = setInterval(timer,60000); /* запускаем таймер */
                                         <span class="edit"><a href="##" onclick="javascript:showCode('code<?php echo $row["id"]."a";?>');">Получить код</a>
                                         </span>
                                         <span id='code<?php echo $row["id"]."a";?>' class='iframe'>Код для отображения прайса на сторонних сайтах:<br /><br />
-                                        <code>&lt;IFRAME NAME="content_frame" width="850" height="700" SRC="http://<?php echo $_SERVER['SERVER_NAME']; ?>/index.php?act=single_price&pricelist_id=<?php echo $row["id"];?>&st=1" &gt;Этот сайт использует фреймы&lt;/IFRAME&gt;</code>
+                                        <code>&lt;IFRAME NAME="content_frame" width="850" height="700" SRC="http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php?act=single_price&pricelist_id=<?php echo $row["id"];?>&st=1" &gt;Этот сайт использует фреймы&lt;/IFRAME&gt;</code>
                                         </span>
 
 

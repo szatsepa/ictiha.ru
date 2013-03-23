@@ -160,7 +160,7 @@ class Companies{
                 if(!file_exists($_SERVER["DOCUMENT_ROOT"]."/images/logos/".$this->companies[$cell]['logo'])){
                     $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$this->companies[$cell]['id']}'>{$this->companies[$cell]['name']}</a></td>"; 
                 }else{
-                    $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$this->companies[$cell]['id']}'><img src='../main/act_prewiew.php?src=http://{$_SERVER['SERVER_NAME']}/images/logos/{$this->companies[$cell]['logo']}&width=42&height=42'/>{$this->companies[$cell]['name']}</a></td>";
+                    $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$this->companies[$cell]['id']}'><img src='../main/act_prewiew.php?src=http://{$_SERVER['HTTP_HOST']}/images/logos/{$this->companies[$cell]['logo']}&width=42&height=42'/>{$this->companies[$cell]['name']}</a></td>";
                 }
                 
                 $cell++;
@@ -206,7 +206,7 @@ class Chapters{
             $block .= "<tr>";
             
             for($ii = 0;$ii < 5; $ii++){
-                $block .= '<td valign="top" class="rubrik_link"><a href="index.php?act=rubrika&amp;id='.$this->rubrikator[$cell]['id'].'"><img src="../main/act_prewiew.php?src=http://'.$_SERVER['SERVER_NAME'].'/images/'.$this->rubrikator[$cell]['sinonim'].'.jpg&width=48&height=48"/></a><a href="index.php?act=rubrika&amp;id='.$this->rubrikator[$cell]['id'].'">'.$this->rubrikator[$cell]['name'].'</a></td>';
+                $block .= '<td valign="top" class="rubrik_link"><a href="index.php?act=rubrika&amp;id='.$this->rubrikator[$cell]['id'].'"><img src="../main/act_prewiew.php?src=http://'.$_SERVER['HTTP_HOST'].'/images/'.$this->rubrikator[$cell]['sinonim'].'.jpg&width=48&height=48"/></a><a href="index.php?act=rubrika&amp;id='.$this->rubrikator[$cell]['id'].'">'.$this->rubrikator[$cell]['name'].'</a></td>';
                 $cell++;
                 if($cell == $num_cells)                    break;
             }

@@ -154,7 +154,7 @@ if ($zakaz) {
               
             $message ="Здравствуйте $surname $name! Ваш заказ № $zakaz  принят в обработку. С вами свяжется оператор .\n C уважением. Администрация. ";              
  
-            $headers = 'From: administrator@'. $_SERVER['SERVER_NAME']. "\r\n";
+            $headers = 'From: administrator@'. $_SERVER['HTTP_HOST']. "\r\n";
             
             $headers  .= 'MIME-Version: 1.0' . "\r\n";
             

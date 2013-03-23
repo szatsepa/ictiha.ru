@@ -324,6 +324,17 @@ switch ($attributes[act]) {
 	include ("main/qry_disconnect.php");
         break;
     
+    case "archmsg":
+        $title = "Архив сообщений";
+        include ("main/dsp_header.php");
+        include 'main/qry_mymessages.php';
+        include ("main/dsp_selector_1.php");
+        include 'main/dsp_mymessages.php';
+        include ("main/dsp_footer.php");
+	include ("main/qry_disconnect.php");
+        break;
+        
+    
     case "complist":
 	$title = "Список компаний";
         include ("main/act_string2html.php");

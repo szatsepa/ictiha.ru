@@ -171,12 +171,12 @@ switch ($attributes['act']) {
       case "order":
             
         $title = "Оформление заказа";
-         
+//        print_r($_SERVER);
         include 'main/dsp_header.php';
         include 'main/qry_count_volume.php';
         include ("main/qry_cart.php");
        
-        if(!isset ($attributes[type])){
+        if(!isset ($attributes['type'])){
         
             include 'main/act_to_ofice.php';
                 

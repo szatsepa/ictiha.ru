@@ -20,7 +20,7 @@ $qry_user = mysql_query($query) or die($query);
 $user_check = mysql_fetch_assoc($qry_user);
 	
 
-$to  = $user_check["e_mail"].",7905415@mail.ru";
+$to  = $user_check["e_mail"]."";
 
 // subject
 	$subject = 'Напоминание для пользователя '.$user_check["surname"]." ".$user_check["name"];

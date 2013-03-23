@@ -214,13 +214,15 @@
             if (isset($attributes['act']) and $user['role'] != 2) {
             ?>
                 <button class="btn_main" id="btn_complist">Список&nbsp;компаний</button>&nbsp;
+                <button class="btn_main" id="btn_mailform">Обратная&nbsp;связь</button>&nbsp;</p>
             <?php } ?>
-                <button class="btn_main" id="btn_mailform">Обратная&nbsp;связь</button>&nbsp;
-        <?php }?></p>
+                
+        <?php }?>
     <?php if($user['role'] == 2){?>
-        <div class="horizontal_scroller">
-            <div class="scrollingtext">
-            </div>
-        </div>
+                <button class="btn_main" id="btn_msg">Обратная&nbsp;связь</button>&nbsp;</p>
+                <div class="horizontal_scroller">
+                    <div class="scrollingtext">
+                    </div>
+                </div>
     <?php }?>
 </div>

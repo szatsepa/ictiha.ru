@@ -4,7 +4,7 @@
 		<div class =  "img_tovar_chk">
                     <div id = "name_tovara_chk"><p align="center"><strong><?php echo $status;?></strong></p></div>
 			<div id = "img_to_chk">
-                            <img src="main/act_prewiew.php?src=http://<?php echo $_SERVER['SERVER_NAME'];?>/images/goods/<?php echo $img; ?>.jpg&width=120&height=160" alt="Images"/>
+                            <img src="main/act_prewiew.php?src=http://<?php echo $_SERVER['HTTP_HOST'];?>/images/goods/<?php echo $img; ?>.jpg&width=120&height=160" alt="Images"/>
                         </div>
 			<div id = "name_tovara_chk"><?php echo $name;?></div>
 			<div id = "krat_opis_chk"><?php echo $comment;?></div>
@@ -16,9 +16,9 @@
 				<div id = "up_vid_chk">
                      <?php
                      
-                     if(isset ($_SESSION[user]))$user_id = $_SESSION[user]->data[id];
+                     if(isset ($_SESSION['user']))$user_id = $_SESSION['user']->data['id'];
                      
-                              if($count_volume>1 && $list_volume[$posart + 1][str_code1]){ 
+                              if($count_volume>1 && $list_volume[$posart + 1]['str_code1']){ 
                                 
 //                                 if(!$list_volume[$posart + 1][str_code1]){$dis = "disabled";
                                   ?>
@@ -26,7 +26,7 @@
                                    
                                     <form action="index.php?act=change_volume" method="post">
                                         <p align="center">
-                                            <input type="image" src="<?php echo "http://{$_SERVER['SERVER_NAME']}";?>/images/storefront/btn_up.gif" alt="Изменить." name="submit" value="val" style="vertical-align: middle" <?php //echo $dis;?>/></p>
+                                            <input type="image" src="<?php echo "http://{$_SERVER['HTTP_HOST']}";?>/images/storefront/btn_up.gif" alt="Изменить." name="submit" value="val" style="vertical-align: middle" <?php //echo $dis;?>/></p>
                                             <input type="hidden" name="name" value="<?php echo $name;?>"/>                                        
                                             <?php if(isset ($attributes[cod])){ ?> <input type="hidden" name="cod" value="<?php echo $attributes[cod]; ?>"/><?php } ?>                                        
                                             <input type="hidden" name="stid" value="<?php echo $attributes[stid];?>"/>
@@ -40,7 +40,7 @@
                                     <?php
                                     
                                     $dis = ''; }else{?>
-                                    <p align="center"><img  src="<?php echo "http://{$_SERVER['SERVER_NAME']}";?>/images/storefront/btn_up.gif" alt="Изменить." /></p>
+                                    <p align="center"><img  src="<?php echo "http://{$_SERVER['HTTP_HOST']}";?>/images/storefront/btn_up.gif" alt="Изменить." /></p>
                                     <?php }?>
                                 </div>
 				<div id = "vid_chk"><p class="cng_volume"><?php echo $volume;?> кг. </p></div>
@@ -52,7 +52,7 @@
                                          ?>
                                     <form action="index.php?act=change_volume" method="post">
                                         <p align="center">
-                                             <input type="image" src="<?php echo "http://{$_SERVER['SERVER_NAME']}";?>/images/storefront/btn_down.gif" alt="Удалить" name="submit" value="val" style="vertical-align: middle" <?php //echo $dis;?>/>
+                                             <input type="image" src="<?php echo "http://{$_SERVER['HTTP_HOST']}";?>/images/storefront/btn_down.gif" alt="Удалить" name="submit" value="val" style="vertical-align: middle" <?php //echo $dis;?>/>
                                             <input type="hidden" name="name" value="<?php echo $name;?>"/>
                                             <?php if(isset ($attributes[cod])){ ?> <input type="hidden" name="cod" value="<?php echo $attributes['cod']; ?>"/><?php } ?>
                                             <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
@@ -65,7 +65,7 @@
                                         </p>
                                     </form>
                                     <?php $dis = "";}else{?>
-                                    <p align="center"><img src="<?php echo "http://{$_SERVER['SERVER_NAME']}";?>/images/storefront/btn_down.gif" alt="Добвить" /></p>
+                                    <p align="center"><img src="<?php echo "http://{$_SERVER['HTTP_HOST']}";?>/images/storefront/btn_down.gif" alt="Добвить" /></p>
                                     <?php }?>
                                 </div>
 			</div>
@@ -84,7 +84,7 @@
                                             <input type="hidden"  name="up" value="1"/>
                                             <input type="hidden"  name="amount" value="1"/>
                                             <input type="hidden"  name="type" value="2"/>
-                                            <input type="image" src="<?php echo "http://{$_SERVER['SERVER_NAME']}";?>/images/storefront/btn_up.gif" alt="Добвить" name="submit0" value="val" style="vertical-align: middle"/>
+                                            <input type="image" src="<?php echo "http://{$_SERVER['HTTP_HOST']}";?>/images/storefront/btn_up.gif" alt="Добвить" name="submit0" value="val" style="vertical-align: middle"/>
                                         </p>
                                     </form>
                                 </div>
@@ -100,7 +100,7 @@
                                             <input type="hidden"  name="down" value="1"/>
                                             <input type="hidden"  name="type" value="2"/>
                                             <input type="hidden"  name="cod" value="<?php echo $attributes['cod'];?>"/>
-                                            <input type="image" src="<?php echo "http://{$_SERVER['SERVER_NAME']}";?>/images/storefront/btn_down.gif" alt="Удалить" name="submit1" value="val" style="vertical-align: middle"/>
+                                            <input type="image" src="<?php echo "http://{$_SERVER['HTTP_HOST']}";?>/images/storefront/btn_down.gif" alt="Удалить" name="submit1" value="val" style="vertical-align: middle"/>
                                         </p>
                                     </form>
                                 </div>

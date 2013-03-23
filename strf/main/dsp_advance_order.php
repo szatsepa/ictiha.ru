@@ -137,7 +137,7 @@ $contragent_name = $_SESSION['user']->data['name']." ".$_SESSION['user']->data['
 <form action="index.php?act=create_order" method="post" name="addform" enctype="multipart/form-data"> 
     <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
     <input type="hidden" name="price_id" value="<?php echo $price; ?>"/>
-    <input type="hidden" name="contragent_id" value="<?php echo $_SESSION[user]->data['id'];?>"/> 
+    <input type="hidden" name="contragent_id" value="<?php echo $_SESSION['user']->data['id'];?>"/> 
     <div id = "cont_reg_left">
                     <br/>
                     <br/>
@@ -156,18 +156,19 @@ $contragent_name = $_SESSION['user']->data['name']." ".$_SESSION['user']->data['
                     <div id = "cont_reg_left_3">Отсрочить до: </div>
                     <div id = "cont_reg_left_4">
             
+                        <p> 
                             <select class="date_select" id="dey" name="day"></select>
                             -
                             <select class="date_select" id="month" name="mon"></select>
                             -
                             <select class="date_select" id="year" name="year"></select>
 
-                            &nbsp;дд-мм-гггг&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <select class="date_select" id="hh" name="hh"></select>
                             -
                             <select class="date_select" id="mm" name="mm"></select>
-                            &nbsp;чч-мм
-                            <br /> 
+                            &nbsp;
+                        </p> 
         
                     </div>
     

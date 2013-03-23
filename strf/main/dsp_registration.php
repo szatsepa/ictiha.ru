@@ -53,7 +53,7 @@
                         <br/>
 			<div id = "cont_reg_left_btn">
                         <input type="hidden" name="cod" value="<?php echo $attributes['cod']; unset($attributes['cod'])?>"/>
-                        <input type="image" src="http://<?php echo $_SERVER['SERVER_NAME'];?>/images/storefront/btn_pay_for.jpg" width="259" height="29" border="0" onclick="return validatePwd();"/>
+                        <input type="image" src="http://<?php echo $_SERVER['HTTP_HOST'];?>/images/storefront/btn_pay_for.jpg" width="259" height="29" border="0" onclick="return validatePwd();"/>
                         </div>
                 </div>	
              </form>
