@@ -219,7 +219,9 @@
                 
         <?php }?>
     <?php if($user['role'] == 2){?>
+                <button class="btn_main" id="btn_kabinet">Личный&nbsp;кабинет</button>&nbsp;
                 <button class="btn_main" id="btn_msg">Обратная&nbsp;связь</button>&nbsp;</p>
+
                 <div class="horizontal_scroller">
                     <div class="scrollingtext">
                     </div>
