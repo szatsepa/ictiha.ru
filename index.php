@@ -169,6 +169,16 @@ switch ($attributes[act]) {
 	include ("main/dsp_footer.php");
 	include ("main/qry_disconnect.php");
 	break;
+    
+    case "canceled":
+        $title = "Отмененные заказы";
+        include ("main/qry_archzakazlist.php");
+        include ("main/dsp_header.php");
+        include ("main/dsp_selector_1.php");
+        include 'main/dsp_canceled.php';
+        include ("main/dsp_footer.php");
+	include ("main/qry_disconnect.php");
+        break;
 
     case "del_zakaz":
 	include ("main/qry_restoreallgoods.php");

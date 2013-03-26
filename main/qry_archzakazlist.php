@@ -9,10 +9,10 @@ if (!isset($user["id"])) {
 $add_where = " AND a.user_id=".$user_for_select." ";
 
 // Есть специальные параметры отображения?
-if (isset($attributes[display])) {
+if (isset($attributes['display'])) {
 	
 	// Показываем все заказы только администратору
-	if ($attributes[display] == 'all' and $user['role'] == 1) {
+	if ($attributes['display'] == 'all' and $user['role'] == 1) {
     	
 		$add_where = '';
 	}

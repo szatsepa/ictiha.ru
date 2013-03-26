@@ -17,7 +17,7 @@ if ($attributes[act] == 'tovar_edit') {
     $ingridients 	 	= $row["ingridients"];
     $specification   	= $row["specification"];
     $gost      		 	= $row["gost"];
-    $nds = $row[nds];
+    $nds = $row['nds'];
 	$disabled   	 	= " disabled='disabled'";
     
 } else {
@@ -76,7 +76,7 @@ if ($attributes[act] == 'tovar_edit') {
 	<td><input type="text" name="gost" size="25" value="<?php echo $gost; ?>"/></td>
 </tr>
 <tr>
-<input type="hidden" name="page" value="<?php echo $attributes[page];?>"/>
+<input type="hidden" name="page" value="<?php echo $attributes['page'];?>"/>
 	<td>НДС %</td>
 	<td><input type="text" name="nds" size="25" value="<?php echo $nds; ?>"/></td>
 </tr>
@@ -88,9 +88,9 @@ if ($attributes[act] == 'tovar_edit') {
 	<td align="right"><br /><input type="submit" value="<?php echo $submit; ?>" /></td>
         </form>
    
-<?php if ($attributes[act] == 'tovar_edit') { ?>
+<?php if ($attributes['act'] == 'tovar_edit') { ?>
 <form action="index.php?act=del_item" method="post">
-    <input type="hidden" name="page" value="<?php echo $attributes[page];?>"/>
+    <input type="hidden" name="page" value="<?php echo $attributes['page'];?>"/>
     <input type="hidden" name="barcode" value="<?php echo $barcode;?>"/>
         <td align="right"><br />
             <input type="submit" value="Удалить" />
@@ -108,7 +108,7 @@ if ($attributes[act] == 'tovar_edit') {
 <br />
 
 <?php
-if ($attributes[act] == 'tovar_edit') {
+if ($attributes['act'] == 'tovar_edit') {
 
 	tovar_pic($barcode,'edit');
 

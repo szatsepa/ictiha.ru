@@ -188,8 +188,9 @@
     <br><br><p style="text-align: left">&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn_main" id="first_btn">Кнопка 1</button>&nbsp;&nbsp;<button class="btn_main" id="second_btn">Совместные закупки</button>&nbsp;
         <?php
         if($_SESSION['auth'] == 1){
-            if (($user["role"] == 1 or $user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { ?>
+            if (($user["role"] == 1 or $user["role"] == 3) and $attributes['act'] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { ?>
                 <button class="btn_main" id="btn_kabinet">Личный&nbsp;кабинет</button>&nbsp;
+                
             <?php } 
                     if (($user["role"] == 1 or $user["role"] == 2) and $attributes[act] != 'supplier' and (!in_array("supplier",$rights)) and $mobile == 'false') {?>
                 <button class="btn_main" id="btn_supplier">Кабинет&nbsp;поставщика</button>&nbsp;
@@ -198,8 +199,7 @@
                 <button class="btn_main" id="btn_torg">Кабинет&nbsp;торгового</button>&nbsp;
             <?php } 
             if ($attributes['act'] == 'kabinet') { ?> 
-                <button class="btn_main" id="btn_arch_zakazuser">Архив&nbsp;заказов</button>&nbsp;
-                <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
+                <button class="btn_main" id="btn_arch_zakazuser">Архив&nbsp;заказов</button>&nbsp;                
             <?php } 						
             if ($attributes['act'] == 'supplier') { ?> 
                 <button class="btn_main" id="btn_arch_done">Архив&nbsp;поставок</button>&nbsp;
@@ -208,7 +208,7 @@
             <?php }
             if($attributes['act'] == 'kabinet'){
                 ?>
-<!--                <button class="btn_main" id="btn_pset">Личные настройки</button>&nbsp;-->
+                <button class="btn_main" id="btn_canceled">Отменённые&nbsp;заказы</button>&nbsp;
             <?php
             }
             if (isset($attributes['act']) and $user['role'] != 2) {

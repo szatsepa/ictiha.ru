@@ -18,7 +18,7 @@ $handle = fopen ($nameoffile,"r");
 // Количество успешно добавленных строк
 $sucs = 0;
 
-$query2 = "DELETE FROM pricelist WHERE pricelist_id=$attributes[price_id]";
+$query2 = "DELETE FROM pricelist WHERE pricelist_id={$attributes['price_id']}";
 
 $result = mysql_query($query2) or die($query2);
 
@@ -64,6 +64,8 @@ while ($data = fgetcsv ($handle, 65636,";")) {
 	$data[8] = str_replace (" ","",$data[8]);
 	$data[9] = str_replace (",",".",$data[9]);
 	$data[9] = str_replace (" ","",$data[9]);
+        $data[13] = str_replace (",",".",$data[13]);
+	$data[13] = str_replace (" ","",$data[13]);
 	$group   = str_replace ('"','',$group);
 	$group   = str_replace ("'","",$group);
 	
@@ -88,7 +90,8 @@ while ($data = fgetcsv ($handle, 65636,";")) {
     $num_amount       = intval($data[9]);
     $str_group        = quote_smart(iconv("WINDOWS-1251", "UTF-8",$data[10]));
     $str_unit         = quote_smart(iconv("WINDOWS-1251", "UTF-8",$data[12]));
-    $pricelist_id     = intval($attributes[price_id]);  
+    $pricelist_id     = intval($attributes['price_id']); 
+    $expiration       = quote_smart(iconv("WINDOWS-1251", "UTF-8", $data[13]));
     
 	$query3 = "INSERT INTO pricelist 
 					   (str_code1,
@@ -103,7 +106,8 @@ while ($data = fgetcsv ($handle, 65636,";")) {
 						num_amount,
 						str_group,
 						pricelist_id,
-                                                str_unit) 
+                                                str_unit,
+                                                expiration) 
 				VALUES ($artikul,
 						$str_barcode,
 						$str_code2,
@@ -116,7 +120,8 @@ while ($data = fgetcsv ($handle, 65636,";")) {
 						$num_amount,
 						$str_group,
 						$pricelist_id,
-                                                $str_unit)";
+                                                $str_unit,
+                                                $expiration)";
 						
 	$result = mysql_query($query3) or die($query3."<br>");
 
@@ -133,7 +138,7 @@ $eid = 2;
 
 unlink ($nameoffile);
 
-$query4 = "UPDATE price SET creation=now() where id=$attributes[price_id]";
+$query4 = "UPDATE price SET creation=now() where id={$attributes['price_id']}";
 
 $qry_updateprice = mysql_query($query4) or die($query4);
 
