@@ -19,7 +19,7 @@ if (isset($attributes['id']) and $attributes['id'] > 0 and isset($attributes['st
                   .$and." 
               WHERE id = {$attributes['id']}";	
 	
-	$qry_updzakazstatus = mysql_query($query) or die($query);
+	$qry_updzakazstatus = mysql_query($query) or die($query); 
     
     $query2 = "INSERT INTO zakaz_history 
 		                   (id,
@@ -33,5 +33,7 @@ if (isset($attributes['id']) and $attributes['id'] > 0 and isset($attributes['st
                              {$user['id']})";
                              
      $qry_zakazhistory = mysql_query($query2) or die($query2);
+     
+     echo "$query<br>";
 }                             
 ?>

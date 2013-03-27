@@ -1,10 +1,13 @@
 <?php 
 
-if (!isset($user["id"])) {
-    $user_for_select = 0;
+if ($user['role'] == 2) {
+    $user_for_select = '';
 } else {
-    $user_for_select = $user["id"];
+    $user_for_select = "a.user_id={$user['id']} AND";
 }
+$status = "AND a.status < 6";
+
+if($attributes['act']=='arch_zakazuser') $status = "AND a.status = 6";
 
 //$user_for_select = $user["id"];
 
@@ -18,10 +21,10 @@ $query = "SELECT DISTINCT a.id,
           FROM arch_zakaz AS a,
                arch_goods AS g,
                price AS p
-          WHERE a.user_id=$user_for_select AND 
+          WHERE  $user_for_select 
                 a.id=g.zakaz AND 
                 p.id=g.price_id
-AND a.status < 6
+                $status
           ORDER BY weekday,
                    a.id DESC";
 

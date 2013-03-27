@@ -377,7 +377,9 @@ switch ($attributes[act]) {
         include ("main/dsp_header.php");
         include ("main/dsp_selector_1.php");	
 	include ("main/qry_archzakazlist.php");
-	include ("as/dsp_archzakaz.php");
+        include 'main/qry_zakazweek.php';
+//	include ("as/dsp_archzakaz.php");
+        include 'main/dsp_archzakazweek.php';
         include ("main/dsp_footer.php");
 	include ("main/qry_disconnect.php");
 	break;
@@ -415,9 +417,11 @@ switch ($attributes[act]) {
     case "arch_decline":	
         $title = "Архив отменённых заказов"; 
         include ("main/dsp_header.php");
-        include ("main/dsp_selector_1.php");	
+        include ("main/dsp_selector_1.php");
+        include 'main/qry_zakazweek.php';
 	include ("main/qry_allcompanyzakaz.php");
-	include ("main/dsp_order_list.php");
+//	include ("main/dsp_order_list.php");
+        include 'main/dsp_archzakazweek.php';
         include ("main/dsp_footer.php");
 	include ("main/qry_disconnect.php");
 	break;
