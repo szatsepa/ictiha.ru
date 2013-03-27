@@ -59,9 +59,9 @@ if (isset($attributes['id'])) {
 
 if($user['role'] == 2){
     
-    mysql_data_seek($qry_archzakaz, 0);
+        mysql_data_seek($qry_archzakaz, 0);
     
-    $uid = $archorder['user_id'];
+        $uid = $archorder['user_id'];
     
     if(!$uid){
         

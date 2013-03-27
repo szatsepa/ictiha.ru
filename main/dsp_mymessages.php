@@ -5,6 +5,8 @@
         
         $("#msg_tab").css({'width':'100%','border':'none'});
         
+        $("#user_msg").hide();
+        
         var msg_id;
         
         if($("#_act").val()=='msg') {
@@ -13,32 +15,47 @@
             $("#btn_archmsg").text("Архив сообщений");
         }
         
-        $("input.button").css({'cursor':'pointer'}).click(function(event){
-            
-            $("#user_msg").css('display', 'block');
-            
-            $("#sender").empty();
+        $("input.button").css({'cursor':'pointer'}).click(function(){
             
             msg_id = $($(this).parent().parent()).attr('id').substr(1);
-            
+
             var uid = $($(this).parent().parent()).children('td.dat:eq(0)').attr('id');
-            
+
             var out = {'msg':$($(this).parent().parent()).attr('id').substr(1),'uid':uid};
-            
+
             var sender = $($(this).parent().parent()).children('td.dat:eq(1)').text();
             
-            $("#sender").append("<strong><p>"+sender+"</p></strong>");
+            if($(this).attr('title')=='Ответить'){
+                
+                $("#user_msg").show();
 
-            $("#sender p").attr('id', uid);
-            
-            $("#out_msg").attr('placeholder', $($(this).parent().parent()).children('td.dat:eq(2)').text()).focus();
+                $("#msg_table").hide();
 
-            
-            
-//        console.log("sender - "+sender+" recipient - "+$($(this).parent().parent()).children('td.dat:eq(1)').text()+" message "+$($(this).parent().parent()).children('td.dat:eq(2)').text());
-//        console.log($("#sender").text());
+                $("#sender").empty();
 
+                $("#sender").append("<strong><p>"+sender+"</p></strong>");
+
+                $("#sender p").attr('id', uid);
+
+                $("#out_msg").attr('placeholder', $($(this).parent().parent()).children('td.dat:eq(2)').text()).focus();
+            }else{
+                $.ajax({
+                    url:'../main/act_delmessage.php',
+                    type:'post',
+                    dataType:'json',
+                    data:{'id':msg_id},
+                    success:function(data){
+                        if(data['ok']==1){
+                            $("#r"+msg_id).remove();
+                        }
+                    },
+                    error:function(data){
+                        console.log(data['responseText']);
+                    }
+                });
+            }       
         });
+        
         $("table.dat th").addClass('dat');
         $("table.dat th:eq(0)").css('width','5%');
         $("table.dat th:eq(1)").css('width', '30%');
@@ -56,6 +73,13 @@
                 markMessage();
             }
         });
+        
+        $("#back").mousedown(function(){
+            
+            $("#user_msg").hide();
+            
+            $("#msg_table").show();
+        });
          
          function markMessage(){
              
@@ -70,7 +94,9 @@
                 success:function(data){
                    if(data['ok']==1){
                        
-                        $("#user_msg").css('display', 'none');
+                        $("#user_msg").hide();
+            
+                        $("#msg_table").show();
              
                         $("#out_msg").val('');
                         
@@ -100,7 +126,7 @@
                 <th>
                   Сообщение  
                 </th>
-                <th>
+                <th <?php if($attributes['act']!='msg')echo "colspan='2'"; ?>>
                     
                 </th>
             </tr>
@@ -110,8 +136,16 @@
             $num = 1;
             if($messages){
                 foreach ($messages as $value) {
+                    $message = utf8_to_cp1251($value['message']);
+                    $message = substr($message, 0,81);
+                    $message = cp1251_to_utf8($message);
                     echo "<tr id='r{$value['id']}'>";
-                    echo "<td id='{$value['uid']}'>$num</td><td>{$value['sender']}</td><td>{$value['message']}</td><td><input type='button' value='&gt;&gt;' class='button' title='Ответить'></td>";
+                    if($attributes['act'] == 'msg'){
+                        echo "<td id='{$value['uid']}'>$num</td><td>{$value['sender']}</td><td>$message...</td><td><input type='button' value='&gt;&gt;' class='button' title='Ответить'></td>";
+                    }else{
+                        echo "<td id='{$value['uid']}'>$num</td><td>{$value['sender']}</td><td>$message...</td><td><input type='button' value='&gt;&gt;' class='button' title='Ответить'></td><td><input type='button' value='&Chi;' class='button' title='Удалить'></td>";
+                    }
+                    
                     echo "</tr>";
                     $num++;
                 }
@@ -123,8 +157,8 @@
 </div>
 <div id="user_msg" style="display: none">
 <span id="sender"></span>
-        <p><textarea  cols="97" rows="6" wrap="soft"  id="out_msg"></textarea></p>
-        <p><input id="submit" type="button" value="Отправить"></p>
+    <p><textarea  cols="148" rows="12" wrap="soft"  id="out_msg"></textarea></p>
+        <p><input id="submit" type="button" value="Отправить">&nbsp;&nbsp;&nbsp;<input id="back" type="button" value="Назад"></p>
         <input type="hidden" id="uid" value="<?php echo $user['id'];?>">
     
     
