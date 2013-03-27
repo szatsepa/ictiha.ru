@@ -15,8 +15,7 @@ if (isset($attributes['id']) and $attributes['id'] > 0 and isset($attributes['st
     
 	
 	$query = "UPDATE arch_zakaz 
-              SET status  = {$attributes['status']},
-              `time`= Now()"
+              SET status  = {$attributes['status']}"
                   .$and." 
               WHERE id = {$attributes['id']}";	
 	

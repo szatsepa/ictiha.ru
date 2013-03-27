@@ -39,7 +39,19 @@ if (isset($_SESSION['auth']) and !isset($attributes['out'])) {
 		if ($user['role'] == 2 OR $user['role'] == 3 OR $user['role'] == 4 OR $user['role'] == 5 OR $user['role'] > 6) {  
 			header ("location:index.php?act=logout");
 		}
-	}
+	}else{
+            if($user['role']==1 OR $user['role']==6){
+                header ("location:/as/index.php");
+            }
+        }
+        
+        if($user['role']==2 and !isset($attributes['act'])){
+            header ("location:index.php?act=supplier");
+        }
+        
+        if($user['role']==5 and !isset($attributes['act'])){
+            header ("location:index.php?act=logout");
+        }
 	
 } else {
         

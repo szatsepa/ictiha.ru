@@ -1,7 +1,7 @@
 <div id="description">
 <!--content -->
 	<div class="cont">        
-	
+	<input type="hidden" id="role" value="<?php echo $user['role'];?>">
 <!--left_side модуль изображения товара -->
 		<div class="left_side">
                     <div id = "prewiev">

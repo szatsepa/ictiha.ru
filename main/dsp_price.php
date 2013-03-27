@@ -139,27 +139,33 @@
                 document.write(data['responseText']);
             }
         });
-        $("#add_cart").mousedown(function(){
+//        блокируем кнопку для всех кроме заказчика
+        
             
-            if($("#auth").val() == 'yes'){
-                var out = {'uid':$("#uid").val(),'pid':$("#pid").val(),'mobile':$("#mobile").val(),'amount':1,'discount':0,'aid':$("#it_id").val()};
-                $.ajax({
-                    url:'../main/add_cart_1.php',
-                    type:'post',
-                    dataType:'json',
-                    data:out,
-                    success:function(data){
-//                        console.log(data);
-                        alert("Товар в количестве 1шт. добавлен в корзину!");
-                        document.location.href = "index.php?act=single_price&pricelist_id="+$("#pid").val();
-                    },
-                    error:function(data){
-                        document.write(data['responseText']);
-                    }
-                });
-            }else{
-                alert("Зарегистрирйтесь пожалуйста - прежде, чем делать заказ!");
-            }
+        
+        
+        $("#add_cart").mousedown(function(){
+//            if(){}
+                if($("#auth").val() == 'yes' && $("#role").val()==3){
+                    var out = {'uid':$("#uid").val(),'pid':$("#pid").val(),'mobile':$("#mobile").val(),'amount':1,'discount':0,'aid':$("#it_id").val()};
+                    $.ajax({
+                        url:'../main/add_cart_1.php',
+                        type:'post',
+                        dataType:'json',
+                        data:out,
+                        success:function(data){
+    //                        console.log(data);
+                            alert("Товар в количестве 1шт. добавлен в корзину!");
+                            document.location.href = "index.php?act=single_price&pricelist_id="+$("#pid").val();
+                        },
+                        error:function(data){
+                            document.write(data['responseText']);
+                        }
+                    });
+                }else{
+                    alert("Зарегистрирйтесь пожалуйста как пользователь, прежде чем делать заказ!");
+                }
+            
             
             return false;
         }).css('cursor','pointer');
@@ -660,12 +666,11 @@ if ($attributes['act'] == "single_item") {
     
     }
     
-    echo "<input type='hidden' id='pid' value='{$attributes['pricelist_id']}'/>
-    <input type='hidden' id='it_id' value='$item_id'/>
-    <input type='hidden' id='it_barcode' value='$barcode'/>
-    <input type='hidden' id='uid' value='{$user['id']}'/>
-    <input type='hidden' id='art' value='$artikul'/>
-    <input type='hidden' id='mobile' value='$mobile'/>";
+    echo "<input type='hidden' id='it_id' value='$item_id'/>
+            <input type='hidden' id='it_barcode' value='$barcode'/>
+            <input type='hidden' id='uid' value='{$user['id']}'/>
+            <input type='hidden' id='art' value='$artikul'/>
+            <input type='hidden' id='mobile' value='$mobile'/>";
 	
 	// Выводим описание товара и картинку если есть штрих-код
 //	tovar($barcode);

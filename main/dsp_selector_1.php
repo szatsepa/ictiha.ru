@@ -203,7 +203,7 @@
             <?php } 						
             if ($attributes['act'] == 'supplier') { ?> 
                 <button class="btn_main" id="btn_arch_done">Архив&nbsp;поставок</button>&nbsp;
-                <button class="btn_main" id="btn_arch_decline">Отменённые&nbsp;заказы</button>&nbsp;
+                <button class="btn_main" id="btn_arch_decline">Отменённые&nbsp;заказы</button>&nbsp; 
                 <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
             <?php }
             if($attributes['act'] == 'kabinet'){
