@@ -49,7 +49,7 @@
 			</tr>
                 <tr>
                     <td>
-                        <fieldset>
+                        <fieldset class="fs">
                         <?php
                             echo $prices->_getAlphabet();
                         ?>

@@ -7,12 +7,11 @@ $cnt = count($stores);
 
 if($cnt != 0){
 
-echo '<select name="stid" class="common">';
+echo '<select name="stid" id="select_st" class="common">';
+echo  "<option size='32' value='0'>Выберите витрину</option>";  
 
-$i = 0;
-foreach ($stores as $key => $value) {
+foreach ($stores as  $value) {
 
-        $selected = "";
           
         $name = $value['name'];
             
@@ -20,12 +19,9 @@ foreach ($stores as $key => $value) {
         
         if(isset ($attributes['st_select']) && $attributes['st_select'] == "select" && $attributes['stid'] == $value['id']){
          echo  "<option size='32' value='".$value["id"]."' selected>".$name."</option>";
-        }else if(!isset ($attributes[st_select]) && $i == 0){
-         echo  "<option size='32' value='".$value["id"]."' selected >".$name."</option>";   
-        }  else {
+        }else {
            echo  "<option size='32' value='".$value["id"]."' >".$name."</option>";  
         }
-		$i++;
     }
  ?>
 </select>  

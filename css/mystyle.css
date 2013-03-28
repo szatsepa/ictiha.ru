@@ -153,7 +153,11 @@ div.scrollingtext{
         color:#000f00;
 }
 fieldset.fs{
-    border-color: #efefef;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+/*    border-color: #efefef;*/
 }
 .footer
 {       position: relative;

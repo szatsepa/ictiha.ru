@@ -1,9 +1,58 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        $("#advert_tab").css({'font-size':'1.0em'});
+        $("#advert_tab tr").css({'border-bottom':'1px solid #ccc','border-top':'1px solid #ccc'});
+        var st = 0;
+        
+        $("#select_st").mouseup(function(){
+            if(st == 1){
+                $("#st_select").attr('action', 'index.php?act=advert').submit();
+            }
+            
+            st++;
+            
+            if(st == 2) st = 0;
+            
+        });
+        
+        var com = 0;
+        
+        $("#select_com").mouseup(function(){
+            if(com == 1){
+                $("#com_select").attr('action', 'index.php?act=advert').submit();
+            }
+            
+            com++;
+            
+            if(com == 2) com = 0;
+            
+        });
+        
+         $("#back_btn").click(function(){
+             
+             document.location = "index.php?act=advert";
+         });
+        
+        $("#status").change(function(){
+            
+            var check = 0;
+            if($("#status").attr('checked')) check = 1;
+            
+            $.ajax({
+                url:'add_check_com.php',
+                type:'post',
+                dataType:'json',
+                data:{'status':check,'company_id':$("#cid").val()},
+                error:function(data){
+                    console.log(data['responseText']);
+                }
+            });
+            
+        });
+    });
+</script>
 <?php
-
-/*
- * created by arcady.1254@gmail.com
- */
-
 $text_array = array("200X270 или с соотношением сторон 2:3","200X540 или с соотношением сторон 2:5","470X100 или с соотношением сторон 5:1","700X100 или с соотношением сторон 7:1","200X270 или с соотношением сторон 2:3");
 
 $role = intval($_SESSION['user']['role']);
@@ -12,137 +61,128 @@ $com_id = intval($_SESSION['user']['company_id']);
 
 $stores = qry_select_storefront($role, $com_id);
 
-$companies_array = array();
-
 //print_r($attributes);
 //echo "<br>";
-//print_r($img_array);
-//echo "<br>";
-
 ?>
-
-<table border="1" width="100%">
-    
-    <tr>
-        <td>
-            <table border="1">
-                <tr>
-                
-                    <td align="center">
-                        <?php
-                        if(!isset($attributes['stid'])){ ?>
-                        &nbsp;&nbsp;&nbsp;
-                        <form action="#" method="post">
+<table id="advert_tab" border="0" width="100%">
+    <thead></thead>
+    <tbody>
+        <tr>
+<?php
+if(!isset($attributes['stid'])){
+?>          <td>
+                <form id="st_select" method="post">
                  <?php
 include("dsp_storefront_select.php");
 ?>
-                            <input type="hidden" name="st_select" value="select"/>
-                            <input type="submit" value="Выбрать"/>
-                        </form>
-                        &nbsp;&nbsp;&nbsp;
-                        <?php }else{
-                            echo "<p>";
+                    <input type="hidden" name="st_select" value="select"/>
+<!--                    <input type="submit" value="Выбрать"/>-->
+                </form>
+            </td>
+            
+<?php }else{
+                            echo "<td><p id='st_name'><strong>";
  foreach ($stores as $value) {
      if($attributes['stid'] == $value['id'])         echo $value['name'];
  }
-                            echo "</p>"; }?>
-                    </td>
-        
-    <?php   
-//    если выбрана витрина то делаем выборку привязаних к ней компаний из таблицы рекламодателей
+                            echo "</strong></p></td>";
+     
+     include 'qry_companies_advert.php';
+     
+     $companies = array();
+     
+     while ($row = mysql_fetch_assoc($qry_companies)){
+         array_push($companies, $row);
+     }
+
+
+    $is_com = count($companies);
+     
+    if(count($companies)>0) mysql_data_seek($qry_companies, 0);
     
-        if(isset ($attributes['stid'])){
-            
-            if(!isset($attributes['company_id'])){
-            
-            include 'qry_companies_advert.php';        
+//print_r($companies);
+//echo "<br>";
+                            
+                            }
+                            
+ if(isset($attributes['stid']) && !isset($attributes['company_id'])){
+             
+        if($is_com > 0){
 
-            while ($var = mysql_fetch_assoc($qry_companies)){
-
-                array_push($companies_array, $var);    
-            }
-
-            $is_com = count($companies_array);
-
-            if($is_com > 0){
-
-            mysql_data_seek($qry_companies, 0);
-
-    ?>
+                
+                ?>
             <td>
-                <form action="#" method="post">
-                    <?php 
-                    include 'dsp_companyselect.php';
+                <form id="com_select" method="post">
+                    <select name="company_id" id="select_com" class="common">
+                        <?php
+                        echo "<option value='0'>Выберите компанию</option>";
+                        while ($row_select = mysql_fetch_assoc($qry_companies)) {
+                            
+                            $name = $row_select['name'];
+
+                            $name = substr($name, 0, 28);
+
+                            if ($row_select["id"] == $attributes['company_id']){ ?>
+                                <option value="<?php echo $row_select["id"];?>" selected><?php echo $name;?></option>";        
+                        <?php }else{?>
+                                <option value="<?php echo $row_select['id'];?>"><?php echo $name;?></option> 
+                            <?php }
+                        }
                     ?>
-                    <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
-                    <input type="submit" value="Выбрать"/>
-                </form>
-                &nbsp;&nbsp;&nbsp;
+                    </select>
+                    <input type="hidden" name="stid" id="stid" value="<?php echo $attributes['stid'];?>"/>
+                    
+                </form>                
             </td>
-            <?php }
-            ?>
-            <td>Добавить компанию:
+            <td>
                 <form action="index.php?act=advcom" method="post">
-                    <input type="hidden" name="company_id" value="<?php echo $attributes['company_id'];?>"/>
-                    <input type="checkbox" name="status" value="1" <?php echo $com_check;?>/>
-                    <input required type="text" name="name" value="<?php echo $company_name;?>"/>
-                    <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
-                    <input type="submit" value="Добавить"/> 
-            </form>
+                    Или добавте компанию:
+                    
+                        <input type="hidden" name="company_id" id="cid" value="<?php echo $attributes['company_id'];?>"/>                        
+                        <input required type="text" name="name" value=""/>
+                        <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
+                        <input type="submit" value="Добавить"/> 
+                
+              </form>
             </td>
             <?php
-            }else{ ?>
-        <td>
-            <p>Компания: <?php echo $company_name;?></p>
-            
-            <p>
-              <form action="index.php?act=ddcom" method="post">
-                    <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
-                    <input type="hidden" name="company_id" value="<?php echo $attributes['company_id'];?>"/>
-                    <input type="submit" value="&nbspУдалить"/> 
-                </form>  
-            </p>
-        </td>   
-        <?php } ?>
-</tr>
-        </table>
-        </td>
-    </tr>
      
-    
-   <?php
-   
-   if(isset ($attributes['company_id'])){
-   include 'qry_baners_st.php';    
-       ?>
-    <tr>
-        <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;Для показа рекламных баннеров компании на сайте витрины поставте галочку в чекбоксе. <br/>
+            }
+ } else if(isset ($attributes['company_id'])){
+     if($check == 1) $checked = 'checked';
+                echo '<input type="hidden" id="cid" value="'.$attributes['company_id'].'"/> ';
+                            echo "<td><p id='st_name'><small>Активировать:</small><input type='checkbox' id='status' value='1' $checked>&nbsp;&nbsp;<strong>";
+ foreach ($companies as $value) {
+     if($attributes['company_id'] == $value['id'])         echo $value['name'];
+ }
+                            echo "</strong></p></td>"; 
+                            
+                            }
+                            ?>
+            <td align="center">
+                <input type="button" id="back_btn" value="Вернутся">
+            </td>
+            <?php
+                            
+ if(isset($attributes['stid']) && isset($attributes['company_id'])){
+     include 'qry_baners_st.php'; 
+     ?>
+     <tr>
+        <td colspan="3">
+            &nbsp;&nbsp;&nbsp;&nbsp;Для показа рекламных баннеров компании на сайте витрины в чекбоксе должна стоять галочка. <br/>
             &nbsp;&nbsp;&nbsp;&nbsp;Размеры загружаемых файлов не должены превышать 64К.
         </td>
     </tr>
-    <?php
-       
-       for($i = 0; $i < 5; $i++){  
-           
-         if($img_array[$i]['status'] == 1){
-             
-             $checked = 'checked="checked"';
-             $st = 1;
-             
-         } else {
-             
-             $checked = '';
-             $st = 0;
-         } 
-                    
+     <?php
+    for($i = 0; $i < 5; $i++){  
+                            
        ?>
    
    
      
     <tr>
         
-        <td>
+        <td colspan="3">
             <table border="0">
                 
                 <tr valign="bottom">
@@ -227,7 +267,7 @@ include("dsp_storefront_select.php");
         </td>
     </tr>
      <tr>
-        <td>
+        <td colspan="3">
             &nbsp;&nbsp;&nbsp;&nbsp;Размер изображения "Баннер <?php $b = ($i+1); echo $b;?>" должен быть в пределах <?php echo $text_array[$i];?>
         </td>
     </tr>
@@ -235,36 +275,9 @@ include("dsp_storefront_select.php");
     <?php
     
        }
-   }
-   
-}
-   ?>
-<tr>
-        <td>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-    </tr>
-<?php if(count($img_array) != 0){ ?>
-
-<!--    <tr align="center" valign="bottom">
-        <td>
-            <table>
-                <tr align="center" valign="bottom">
-                    <td>
-                       <form action="index.php?act=view_adv" method="post">
-                <input type="hidden" name="company_id" value="<?php echo $attributes['company_id'];?>"/>
-                <input type="hidden" name="stid" value="<?php echo $attributes['stid'];?>"/>
-                <input type="submit" value="Посмотреть рекламу"/>
-            </form>
-                    </td>
-                </tr>
+ }                           
+                            ?>
             
-                </table>
-        </td>
-    </tr>-->
-
-
-<?php } ?>
-
- </table>     
-
+        </tr>        
+    </tbody>
+</table>

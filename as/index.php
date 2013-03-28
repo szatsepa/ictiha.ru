@@ -286,11 +286,11 @@ switch ($attributes['act']) {
 	
     // Реклама
     case "advert":
-        include 'qry_companies_advert.php';
-        include 'qry_baners_st.php';
+//        include 'qry_companies_advert.php';
+        
         include 'qry_select_storefront.php';
         include("dsp_header.php");
-        include 'dsp_advertisement_st.php';  
+        include 'dsp_advertisement.php';  
 	break;
     
     case 'ddcom':
