@@ -2,9 +2,7 @@
 if($user['role']!=2){
     
         $msg = $attributes['comments'];
-        
-        echo "$msg<br>";
-        
+                
         $query = "INSERT INTO `private_messages` (`sender`,`recipient`,`message`) VALUES ({$_SESSION['id']}, {$attributes['supplier']}, '$msg')";
 
         mysql_query($query);

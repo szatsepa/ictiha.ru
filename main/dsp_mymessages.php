@@ -7,10 +7,16 @@
         
         $("#user_msg").hide();
         
+        if($("#msg_tab tbody tr").length == 0){
+            
+            alert("Непрочитаных сообщений нет!");
+            document.location = "index.php?act=supplier";
+        }
+        
         var msg_id;
         
         if($("#_act").val()=='msg') {
-            console.log($("#btn_msg").attr('id'));
+            
             $("#btn_msg").attr('id', 'btn_archmsg');
             $("#btn_archmsg").text("Архив сообщений");
         }
@@ -33,11 +39,11 @@
 
                 $("#sender").empty();
 
-                $("#sender").append("<strong><p>"+sender+"</p></strong>");
+                $("#sender").append("<strong><p>"+sender+"</p></strong><p>"+$($(this).parent().parent()).children('td.dat:eq(2)').text()+"</p>");
 
                 $("#sender p").attr('id', uid);
 
-                $("#out_msg").attr('placeholder', $($(this).parent().parent()).children('td.dat:eq(2)').text()).focus();
+                $("#out_msg").focus();
             }else{
                 $.ajax({
                     url:'../main/act_delmessage.php',
@@ -97,10 +103,12 @@
                         $("#user_msg").hide();
             
                         $("#msg_table").show();
-             
-                        $("#out_msg").val('');
                         
                         $("#"+data['row']).remove();
+                        
+                        if($("#msg_tab tbody tr").length == 0){
+                            document.location = "index.php?act=supplier";
+                        }
                    } 
                 },
                 error:function(data){

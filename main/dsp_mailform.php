@@ -13,7 +13,7 @@
 //                 $("#select_supplier");
              },
              error:function(data){
-                 document.write(data['responseText']);
+                 console.log(data['responseText']);
              }
          });
          
@@ -23,11 +23,11 @@
                return false;
             }
             if($("#msg").val().length>0){
-                    var str_form = '<form action="index.php?act=sendmail" method="post" name="addform" id="send_form" enctype="multipart/form-data">';
-                    str_form += '<input type="hidden" name="comments" value="'+$("#msg").val()+'">';
-                    str_form += '<input type="hidden" name="supplier" value="'+$("#select_supplier option:selected").val()+'">';
-                    str_form += '</form>'
-                    document.write(str_form);
+//                    var str_form = '<form action="index.php?act=sendmail" method="post" name="addform" id="send_form" enctype="multipart/form-data">';
+//                    str_form += '<input type="hidden" name="comments" value="'+$("#msg").val()+'">';
+//                    str_form += '<input type="hidden" name="supplier" value="'+$("#select_supplier option:selected").val()+'">';
+//                    str_form += '</form>'
+//                    document.write(str_form);
                     $("#send_form").submit();
                 }else{
                     alert("Поле сообщеня не заполнено.");
@@ -37,10 +37,9 @@
 </script>
 <br />
 <div align="center">
+    <form action="index.php?act=sendmail" method="post" name="addform" id="send_form" enctype="multipart/form-data">
         <div>
-        <textarea cols="122" rows="12" wrap="soft" id="msg" name="comments">
-            <?php echo $msg;?>
-        </textarea>
+        <textarea cols="122" rows="12" wrap="soft" id="msg" name="comments"></textarea>
         </div>
         <div>
         <br>
@@ -53,6 +52,9 @@
         
         <div>
     
+        </div>
+<!--<br />
+<br />-->
+        </div>
+    </form>    
 </div>
-<br />
-<br />

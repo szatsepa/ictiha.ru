@@ -267,6 +267,7 @@ switch ($attributes[act]) {
 	
     case "zakaz_accept":
 	$title = "";
+        include ("main/dsp_header.php");
         include ("main/act_updzakazstatus.php");
 	include ("main/act_tosupplier.php");
 	break;

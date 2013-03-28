@@ -60,7 +60,7 @@
 			<p id = "p_expiration">
                            Срок годности: <?php echo $about['expiration'];?>
                         </p>
-                        <p id = "p_expiration">
+                        <p id = "p_expiration" style="width: 366px;">
                            Cайт поддержки: <a href="<?php echo $about['gost'];?>" target="_blank"><?php echo $about['gost'];?></a>
                         </p>
                         </div>

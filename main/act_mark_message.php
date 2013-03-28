@@ -15,10 +15,10 @@ $email = mysql_result($result, 0, 'email');
 $to  = $email.", arcady.1254@gmail.com, crazylag@mail.ru";
 
 // subject
-$subject = "На ваше сообщение";
+$subject = "Ответ на Ваше сообщение";
 	
 	// message
-$message = "Вы писали - '{$_POST['in_msg']}':\r\n\n\t{$_POST['out_msg']}\r\n";
+$message = "Вы писали - '{$_POST['in_msg']}':\r\n\nОтвет: -\t{$_POST['out_msg']}\r\n";
 
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 
