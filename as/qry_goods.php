@@ -16,7 +16,8 @@ if(!isset($attributes['search'])){
 				 short_description,
 				 ingridients, 
 				 specification, 
-				 gost 
+				 gost,
+                                 nds
 			FROM goods ".
 			$condition.
 	"	ORDER BY up_date";
@@ -26,7 +27,8 @@ if(!isset($attributes['search'])){
 				 short_description,
 				 ingridients, 
 				 specification, 
-				 gost
+				 gost,
+                                 nds
                             FROM `goods`
                             WHERE MATCH (`name`, `short_description`) 
                             AGAINST ('{$attributes['search']}') ORDER BY up_date DESC";

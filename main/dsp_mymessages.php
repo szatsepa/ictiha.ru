@@ -100,7 +100,7 @@
                 dataType:'json',
                 data:out,
                 success:function(data){
-                    
+                    console.log(data);
                    if(data['ok']==1){
                        
                         $("#user_msg").hide();
@@ -130,9 +130,8 @@
                     dataType:'json',
                     data:{'id':id},
                     success:function(data){
-                        
+                        console.log(data['msg']);
                        $("#sender").append("<strong><p>"+sender+"</p></strong><p>"+data['msg']+"</p>"); 
-                       
                        $("#sender p").attr('id', uid);
                     },
                     error:function(data){

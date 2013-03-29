@@ -481,20 +481,19 @@ while ($field_count < $num_fields - 1) {
 	++$field_count;
 }
 //print_r ($array_fields);
-//echo mysql_num_rows($qry_price)." => ROWS <br>";
 // Вывод прайс-листа"Срок годности","Кол-во(шт.)",
 
     
 
 if ($attributes['act'] <> 'edit_price') {     
     
-    $fields = array ("Артикул","Ш-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток (шт.)","Срок годности","Кол-во (шт.)","Скидка","&nbsp;");
+    $fields = array ("Артикул","Ш-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток (шт.)","Срок годности","Кол-во (шт.)","&nbsp;");
     
 } 
 
 if($attributes['act']== 'single_price'){
     
-    $fields = array ("Артикул","Ш-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток (шт.)","Срок годности","Кол-во (шт.)","Скидка","&nbsp;");
+    $fields = array ("Артикул","Ш-код","&nbsp;","Наименование","Страна","Емкость","Фасовка","Цена ед.","Цена кор.","Остаток (шт.)","Срок годности","Кол-во (шт.)","&nbsp;");
     
 }
 
@@ -546,7 +545,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
         
 		$bold    = '';
 		$ordered = '';
-		$skidka  = "0%";
+		$skidka  = "";
 		
         while ($field_count < $num_fields - 1) {	
     		$dat = mysql_result($qry_price,$row_count,$array_fields[$field_count]);
@@ -616,7 +615,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
     	
     	if ($attributes['act'] <> 'edit_price') {   	
         	echo "<td><input type='Text' maxlength='3' size='3' name='amount' value='$ordered' " . $disabled . " $bold></td>";
-        	echo "<td style='text-align:center;'> $skidka</td>";
+//        	echo "<td style='text-align:center;'> $skidka</td>";
         	echo "<td><input type='Submit' value='&gt;&gt;' " . $disabled . " $bold></td>";
         	if (isset($attributes['border'])) echo "<input type='Hidden' name='border' value='".$attributes['border']."'>";
         	if (isset($attributes['group'])) echo "<input type='Hidden' name='group' value='".$attributes['group']."'>";
@@ -634,7 +633,7 @@ if ($mobile == 'false' and ($status == 1 or ($status == 2 and $attributes['act']
 			// Удаленные через редактирование позиции -- не показываем управление
             if ($str_code2 == 'X') {
 			
-				echo "<td>&nbsp;</td>";
+				echo "<td>$dat</td>";
 			
 			} else {
 			// Здесь выводятся иконки действий

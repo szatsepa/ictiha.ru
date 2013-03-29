@@ -110,7 +110,7 @@ timerid = setInterval(timer,60000); /* запускаем таймер */
                                                                  
 				foreach ($arhorder_array as $row) { 
                                     
-                                    switch ($row[report]){
+                                    switch ($row['report']){
                                         case 0:
                                             $color = "blue";
                                             break;
@@ -122,7 +122,7 @@ timerid = setInterval(timer,60000); /* запускаем таймер */
                                     
 				if(($row["status"])== 5)$color = "brown";
                                 
-                                if($row[report] == 1)$label = "doc";
+                                if($row['report'] == 1)$label = "doc";
                                 
 					// Выводим только подтвержденные и отгруженные заказы
 					if ($row["status"] == 2 or $row["status"] == 5) {

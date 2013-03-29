@@ -7,7 +7,7 @@
 
  ?>
 <script type="text/javascript">
-    <!--
+   
 	$(document).ready(function(){
             
         $("#addrecord_tbl").css({'width':'1062px'});
@@ -29,8 +29,9 @@
         $('#addrecord_btn').click(function() {
 
             $("#addrecord_msg").append("");
-
-            $("#addrecord_msg").load('index.php',{'act':'addrecord',
+                        
+            if($("#str_group1").val()!='' || $("#str_group2").val()!=''){
+                 $("#addrecord_msg").load('index.php',{'act':'addrecord',
                                                 'str_code1':$("#str_code1").val(),
                                                 'str_barcode':$("#str_barcode").val(),
                                                 'str_name':$("#str_name").val(),
@@ -44,7 +45,12 @@
                                                 'str_group2':$("#str_group2").val(),
                                                 'expiration':$("#expiration").val(),
                                                 'pricelist_id':$("#pid").val()
-                                            }); 
+                                            });
+            }else{
+                alert("Выберите группу или введите новую!");
+            }
+
+            
 
             return false;
         }); 
@@ -67,7 +73,7 @@
         });
         
      });
-  -->  
+ 
 </script>
 
 <p id="addrecord_msg">&nbsp;</p>
