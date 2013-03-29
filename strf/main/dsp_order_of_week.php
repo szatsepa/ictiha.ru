@@ -11,7 +11,7 @@ while ($row = mysql_fetch_assoc($qry_zakazweek)) {
     
     // Ограничим вывод
     $counter = $order_count[$row["weekday"]];
-    if ($counter >= 5) continue;
+    if ($counter >= 9) continue;
     
     $dsp = '';
     
@@ -49,7 +49,7 @@ while ($row = mysql_fetch_assoc($qry_zakazweek)) {
 <?php
 foreach ($days as $day) {
 ?>
-<th  class='cart' style="width:10em;"><?php echo $day;?></th>
+<th  class='cart' style="width:10em;text-align: center;"><?php echo $day;?></th>
 <?php } ?>
 <tr>
 <?php
@@ -60,5 +60,5 @@ foreach ($zakaz as $dat) {
 </tr>
 </table>
     
-    <p><a href="index.php?act=all_orders&amp;stid=<?php echo $attributes[stid];?>" class="help" style="text-decoration:underline;">Архив заказов</a>&nbsp;&nbsp;</p>
+    <p><a href="index.php?act=all_orders&amp;stid=<?php echo $attributes['stid'];?>" class="help" style="text-decoration:underline;">Архив заказов</a>&nbsp;&nbsp;</p>
 </div>
