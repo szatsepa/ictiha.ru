@@ -5,11 +5,14 @@
         
         $("#msg_tab").css({'width':'100%','border':'none'});
         
-        $("#user_msg").hide();
+        $("#user_msg").hide().css({'width':'1062px'});
+        
+        $("#sp_msg").css({'width':'1062px'});
         
         if($("#msg_tab tbody tr").length == 0){
             
             alert("Непрочитаных сообщений нет!");
+            
             document.location = "index.php?act=supplier";
         }
         
@@ -39,11 +42,10 @@
 
                 $("#sender").empty();
 
-                $("#sender").append("<strong><p>"+sender+"</p></strong><p>"+$($(this).parent().parent()).children('td.dat:eq(2)').text()+"</p>");
-
-                $("#sender p").attr('id', uid);
+                getMessage(msg_id,sender,uid);
 
                 $("#out_msg").focus();
+                
             }else{
                 $.ajax({
                     url:'../main/act_delmessage.php',
@@ -98,6 +100,7 @@
                 dataType:'json',
                 data:out,
                 success:function(data){
+                    
                    if(data['ok']==1){
                        
                         $("#user_msg").hide();
@@ -117,6 +120,25 @@
 
             });
             return false;
+         }
+         
+         function getMessage(id, sender,uid){
+                
+                $.ajax({
+                    url:'main/qry_getmessage.php',
+                    type:'post',
+                    dataType:'json',
+                    data:{'id':id},
+                    success:function(data){
+                        
+                       $("#sender").append("<strong><p>"+sender+"</p></strong><p>"+data['msg']+"</p>"); 
+                       
+                       $("#sender p").attr('id', uid);
+                    },
+                    error:function(data){
+                        console.log(data['responseText']);
+                    }
+                });
          }
     });
 </script>
@@ -164,10 +186,11 @@
     </table>
 </div>
 <div id="user_msg" style="display: none">
-<span id="sender"></span>
-    <p><textarea  cols="148" rows="12" wrap="soft"  id="out_msg"></textarea></p>
+    <span id="sender"></span>
+    <span id="sp_msg">
+        <p><textarea  cols="148" rows="12" wrap="soft"  id="out_msg"></textarea></p>
         <p><input id="submit" type="button" value="Отправить">&nbsp;&nbsp;&nbsp;<input id="back" type="button" value="Назад"></p>
         <input type="hidden" id="uid" value="<?php echo $user['id'];?>">
-    
+    </span>    
     
 </div>

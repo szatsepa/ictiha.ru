@@ -67,7 +67,7 @@ foreach ($artikul_arr as $key => $value) {
 if ($total == 0) {
 //    echo"<tr><td colspan='9'>В корзине нет товаров</td><td colspan='2' align='right'>&nbsp;</td></tr>";
 }
-echo"<tr><td colspan='9'></td><td class='cart' colspan='2' align='right'>Итого: ".$total."руб. </td></tr>";
+echo"<tr><td colspan='4'></td><td class='cart' colspan='7' align='center'><strong>Итого: ".$total." руб. </strong></td></tr>";
 echo "</table>";
 
 if ($mobile != 'true') {?>
