@@ -6,7 +6,7 @@
 
 $company_id = intval($attributes['company_id']);
 
-$query = "SELECT c.id, c.name FROM `advert_company` AS c, `storefront_reklama` AS sr WHERE c.id = sr.company_id AND sr.storefront_id = {$attributes['stid']} GROUP BY c.id";
+$query = "SELECT c.id, c.name FROM `advert_company` AS c GROUP BY c.id";
 
 $qry_companies = mysql_query($query) or die($query);
 

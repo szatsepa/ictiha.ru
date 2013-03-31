@@ -23,25 +23,27 @@ class Prices{
         
         foreach ($rubrikator as $key => $value) {
             
-            $query = "SELECT p.`id`, p.`tags` FROM `price` AS p LEFT JOIN `companies` AS c ON p.`company_id` = c.`id` WHERE `rubrika` = '$key' LIMIT 0 , 1";
+            $query = "SELECT p.`id`, p.`comment` AS pricename, p.`tags` FROM `price` AS p LEFT JOIN `companies` AS c ON p.`company_id` = c.`id` WHERE `rubrika` = '$key' LIMIT 0 , 1";
             
             $result = mysql_query($query);
             
             if(mysql_num_rows($result) > 0){
-                $pid = mysql_result($result,0);
-                array_push($this->prices, $pid);
+                $pid = mysql_result($result,0,'id');
+                $tmp = array('id'=>$pid, 'pricename'=>  mysql_result($result, 0,'pricename'));
+                array_push($this->prices, $tmp);
             }
         }
         
         foreach ($this->prices as $value) {
             
-            $query = "SELECT p.`Id`, p.`str_code1`, p.`str_barcode`, p.`str_name` AS name, p.`str_volume`, p.`num_price_single` AS price, CONCAT(gp.`id`,'.',gp.`extention`) AS img FROM `pricelist` AS p LEFT JOIN `goods_pic` AS gp ON p.`str_barcode` = gp.`barcode` WHERE p.`pricelist_id` = '$value' AND gp.`pictype`=1 LIMIT 0,1";
+            $query = "SELECT p.`Id`, p.`str_code1`, p.`str_barcode`, p.`str_name` AS name, p.`str_volume`, p.`num_price_single` AS price, CONCAT(gp.`id`,'.',gp.`extention`) AS img FROM `pricelist` AS p LEFT JOIN `goods_pic` AS gp ON p.`str_barcode` = gp.`barcode` WHERE p.`pricelist_id` = '{$value['id']}' AND gp.`pictype`=1 LIMIT 0,1";
             
             $result = mysql_query($query);
             
             if(mysql_num_rows($result) > 0){
                 $row = mysql_fetch_assoc($result);
-                $row[price_id] = $value;
+                $row['price_id'] = $value['id'];
+                $row['pricename'] = $value['pricename'];
                 array_push($this->artikles, $row);
             }
         }
@@ -97,19 +99,31 @@ class Prices{
         
         $this->str_block = "<table id='art_block'><tbody>";
         
-//        $cnt = count($this->artikles);
+        $rows = ceil(count($this->artikles)/3);
         
-        for($i=1;$i<count($this->artikles);($i+=2)){
+        $cell = 0;
+                
+        for($i=0;$i<$rows;$i++){
             
-            $image = $this->artikles[($i-1)]['img'];
+            $this->str_block .= "<tr>";
             
-            if(!$image)$image="no_pic.jpg";
+            for($c = 0;$c < 3; $c++){
+                
+                $image = $this->artikles[$cell]['img'];
             
-            $image1 = $this->artikles[($i)]['img'];
+                if(!$image)$image="no_pic.jpg";           
+
+                $this->str_block .= "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[$cell]['price_id']}'><img src='images/goods/$image' alt='{$this->artikles[$cell]['pricename']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[$cell]['price_id']}'>{$this->artikles[$cell]['pricename']} - {$this->artikles[$cell]['price']} руб.</a></p></td>";            
             
-            if(!$image1)$image1="no_pic.jpg";
+                $cell++;
+                
+                if($cell == count($this->artikles))                    break;
+            }
             
-            $this->str_block .= "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i-1)]['price_id']}'><img src='images/goods/$image' alt='{$this->artikles[($i-1)]['name']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i-1)]['price_id']}'>{$this->artikles[($i-1)]['name']} - {$this->artikles[($i-1)]['price']} руб.</a></p></td><td><p><a href='index.php?act=single_price&amp;pricelist_id={$this->artikles[($i)]['price_id']}'><img src='images/goods/$image1' alt='{$this->artikles[($i)]['name']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[($i)]['price_id']}'>{$this->artikles[($i)]['name']} - {$this->artikles[($i)]['price']} руб.</a></p></td></tr>";            
+            
+            
+            $this->str_block .= "</tr>";
+           
         }
         
         $this->str_block .= "</tbody></table>";
@@ -117,7 +131,7 @@ class Prices{
         return $this->str_block;
     }
     
-} 
+}  
 
 class Companies{
     

@@ -76,7 +76,6 @@ if(!isset($attributes['stid'])){
 include("dsp_storefront_select.php");
 ?>
                     <input type="hidden" name="st_select" value="select"/>
-<!--                    <input type="submit" value="Выбрать"/>-->
                 </form>
             </td>
             
@@ -100,10 +99,7 @@ include("dsp_storefront_select.php");
      
     if(count($companies)>0) mysql_data_seek($qry_companies, 0);
     
-//print_r($companies);
-//echo "<br>";
-                            
-                            }
+        }
                             
  if(isset($attributes['stid']) && !isset($attributes['company_id'])){
              

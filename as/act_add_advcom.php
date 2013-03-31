@@ -9,13 +9,13 @@ $name = quote_smart($attributes['name']);
 
 $stid = intval($attributes['stid']);
 
-$status = 0;
+//$status = 0;
 
 if(isset ($attributes['status']) && $attributes['status'] == 1)$status = intval ($attributes['status']);
 
 if(!isset ($attributes['check'])){
     
-        $query = "INSERT INTO advert_company (name, status) VALUES ($name, $status)";
+        $query = "INSERT INTO advert_company (name) VALUES ($name)";
         
         $id = mysql_insert_id();
     
