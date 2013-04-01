@@ -91,7 +91,9 @@
          
          function markMessage(){
              
-              var out = {'sender':$("#uid").val(),'out_msg':$("#out_msg").val(),'recipient':$("#user_msg span p").attr('id'),'in_msg':$("#out_msg").attr('placeholder'),'msg_id':msg_id};
+            var out = {'sender':$("#uid").val(),'out_msg':$("#out_msg").val(),'recipient':$("#user_msg span p").attr('id'),'in_msg':$("#sender p:eq(1)").text(),'msg_id':msg_id};
+            
+//console.log("IN_MSG  "+$("#p_msg").text());
 
             $.ajax({
                 
@@ -100,7 +102,7 @@
                 dataType:'json',
                 data:out,
                 success:function(data){
-                    console.log(data);
+//                    console.log(data['in_msg']);
                    if(data['ok']==1){
                        
                         $("#user_msg").hide();
@@ -108,6 +110,8 @@
                         $("#msg_table").show();
                         
                         $("#"+data['row']).remove();
+                        
+                        $("#out_msg").val('');
                         
                         if($("#msg_tab tbody tr").length == 0){
                             document.location = "index.php?act=supplier";
@@ -130,9 +134,9 @@
                     dataType:'json',
                     data:{'id':id},
                     success:function(data){
-                        console.log(data['msg']);
+//                        console.log(data['msg']);
                        $("#sender").append("<strong><p>"+sender+"</p></strong><p>"+data['msg']+"</p>"); 
-                       $("#sender p").attr('id', uid);
+                       $("#sender p:eq(0)").attr('id', uid);
                     },
                     error:function(data){
                         console.log(data['responseText']);

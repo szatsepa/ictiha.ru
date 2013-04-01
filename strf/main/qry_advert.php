@@ -8,13 +8,13 @@ $stid = intval($attributes[stid]);
 $advert_array = array();
 
 
-$res = mysql_query("SELECT id FROM advert_company WHERE status = 1 ORDER BY id");
+$res = mysql_query("SELECT c.id FROM advert_company AS c,  storefront_reklama AS s WHERE c.status = 1 AND c.id = s.company_id AND s.storefront_id = $stid ORDER BY c.id");
 
 while ($row = mysql_fetch_assoc($res)){ 
     
     $tmp_arr = array();
     
-    $query = "SELECT * FROM storefront_reklama WHERE storefront_id = $stid AND company_id = $row[id] ORDER BY company_id";
+    $query = "SELECT `name`, `where_from`  FROM storefront_reklama WHERE storefront_id = $stid AND company_id = {$row['id']} ORDER BY company_id";
 
     $result = mysql_query($query) or die($query);
 
