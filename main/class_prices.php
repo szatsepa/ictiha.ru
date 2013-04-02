@@ -113,14 +113,14 @@ class Prices{
             
                 if(!$image)$image="no_pic.jpg";           
 
-                $this->str_block .= "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[$cell]['price_id']}'><img src='images/goods/$image' alt='{$this->artikles[$cell]['pricename']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[$cell]['price_id']}'>{$this->artikles[$cell]['pricename']} - {$this->artikles[$cell]['price']} руб.</a></p></td>";            
+                $this->str_block .= "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[$cell]['price_id']}'><img src='images/goods/$image' alt='{$this->artikles[$cell]['pricename']}' width='128'></a></p><p><a href='index.php?act=single_price&pricelist_id={$this->artikles[$cell]['price_id']}'>{$this->artikles[$cell]['pricename']}</a></p></td>";            
             
                 $cell++;
                 
                 if($cell == count($this->artikles))                    break;
             }
             
-            
+            if($rows == 5)                break;
             
             $this->str_block .= "</tr>";
            

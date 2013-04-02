@@ -12,7 +12,7 @@ $name = mysql_result($result, 0, 'name');
 
 $email = mysql_result($result, 0, 'email');
 
-$to  = $email.", arcady.1254@gmail.com, crazylag@mail.ru";
+$to  = $email.", crazylag@mail.ru";
 
 // subject
 $subject = "Ответ на Ваше сообщение";

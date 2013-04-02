@@ -12,8 +12,10 @@ if (preg_match('/(palm os|palm|hiptop|avantgo|plucker|xiino|blazer|elaine)/i',$u
 if (preg_match('/(windows ce; ppc;|windows ce; smartphone;|windows ce; iemobile)/i',$user_agent)) $mobile = 'true'; 
 if  (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|vodafone|o2|pocket|kindle|mobile|pda|psp|treo)/i',$user_agent)) $mobile = 'true'; 
 
-if (isset($attributes[mob])) {
+if (isset($attributes['mob'])) {
 	$mobile = 'true';
 }
+
+$mobile = 'false';
 
 ?>
