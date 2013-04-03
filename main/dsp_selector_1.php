@@ -5,7 +5,29 @@
 //            var snd;
             var dt = new Date();
             
-//            console.log(Date.parse(dt));
+            if($("body").width()<1062){
+            
+                    var b_scale = ($("body").width()/1100)+0.00;
+
+
+                $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
+                $("#content").css({"-moz-transform": "scale("+b_scale+")"});
+
+                if ($.browser.msie) {
+
+                        $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});	
+                        if ($.browser.version == 8.0) {
+                                $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
+                        }
+
+                }
+
+                if ($.browser.opera) {
+                        $("#content").css({"-o-transform": "scale("+b_scale+")"});
+                }
+
+                $("#content").css({'position':'absolute','left':0,'top':0});
+            }
             
              function getMessage(){
                     $.ajax({
