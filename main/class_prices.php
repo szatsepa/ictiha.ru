@@ -172,8 +172,10 @@ class Companies{
             
             for($ii = 0;$ii < 5; $ii++){
                 if(!file_exists($_SERVER["DOCUMENT_ROOT"]."/images/logos/".$this->companies[$cell]['logo'])){
+                    
                     $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$this->companies[$cell]['id']}'>{$this->companies[$cell]['name']}</a></td>"; 
                 }else{
+                    
                     $this->str_block .= "<td><a href='index.php?act=company_prices&company_id={$this->companies[$cell]['id']}'><img src='../main/act_prewiew.php?src=http://{$_SERVER['HTTP_HOST']}/images/logos/{$this->companies[$cell]['logo']}&width=42&height=42'/>{$this->companies[$cell]['name']}</a></td>";
                 }
                 

@@ -1,4 +1,3 @@
-<?php if ($mobile == 'false') { ?>
 <div id="primaryContentContainer">
     <div id="primaryContent">
         <div class="box" style="margin-top: -1em;">
@@ -34,7 +33,6 @@
                             <td colspan="2">&nbsp;</td>
                         </tr>
 			<tr>
-				<!-- td colspan=2 align="center"><strong>Компании:</strong></td -->
                             <td>
                                 <fieldset class="fs">
                                 <?php
@@ -46,7 +44,8 @@
 			</tr>
 
 			</table>
-			</tr>
+                        </td>
+                    </tr>
                 <tr>
                     <td>
                         <fieldset class="fs">
@@ -60,10 +59,10 @@
         </div>
     </div>
 </div>
-<?php } ?>
+
 <script type="text/javascript">
     $(document).ready(function(){
-        
+//        $("table tbody tr td").css({'border':'1px solid red'});
         $("td.rubrik_link").css({'font-size':'1.0em'});
     });
 </script>

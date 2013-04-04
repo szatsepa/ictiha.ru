@@ -17,6 +17,33 @@ header('Content-Type: text/html; charset=utf-8');
 	<script type="text/javascript" src="../js/toggle.js"></script>
 	<script type="text/javascript" src="../js/ui.core.js"></script>
 	<script type="text/javascript" src="../js/ui.tabs.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                 if($("body").width()<1062){
+            
+                        var b_scale = ($("body").width()/1062)+0.00;
+
+
+                    $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
+                    $("#content").css({"-moz-transform": "scale("+b_scale+")"});
+
+                    if ($.browser.msie) {
+
+                            $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});	
+                            if ($.browser.version == 8.0) {
+                                    $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
+                            }
+
+                    }
+
+                    if ($.browser.opera) {
+                            $("#content").css({"-o-transform": "scale("+b_scale+")"});
+                    }
+
+                    $("#content").css({'font-size':'10em'});
+                }
+            });
+        </script>
 </head>
 <?php 
 // to do вынести модуль обработки ошибок отдельно

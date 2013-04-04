@@ -159,12 +159,11 @@ fieldset.fs{
     border-top: 1px solid #ccc;
 /*    border-color: #efefef;*/
 }
-.footer
+div.footer
 {       position: relative;
         margin: 0 auto;
-/*	border-top: solid 1px #e5e5e5;*/
 	text-align: center;
 	padding: 1.5em 0em 1.5em 0em;
-        height: 21px;
+        height: 15px;
         width: 1062px;
 }
