@@ -1,5 +1,6 @@
-                    <div class="footer">
-                        <table id="t_footer">
+                    
+<!--                       <div class="footer"> -->
+                           <table id="t_footer">
                             <thead>
                                 
                             </thead>
@@ -13,7 +14,7 @@
                         </table>
                     </div>
 
-            </div>
+<!--            </div>-->
         </div>
     </body>
 </html>

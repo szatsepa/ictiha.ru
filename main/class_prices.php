@@ -76,7 +76,7 @@ class Prices{
             }
         }
        
-        $str_alphabet = "<table id='abc_table' width='100%'><tbody><tr>";
+        $str_alphabet = "<fieldset class='fs'><table id='abc_table' width='100%'><tbody><tr>";
         
         foreach ($bukvar_act as $key => $value) {
             if ($value == 1) {
@@ -86,7 +86,7 @@ class Prices{
             }
         }
         
-        $str_alphabet .= "</tr></tbody></table>";
+        $str_alphabet .= "</tr></tbody></table></fieldset>";
         
         return $str_alphabet;
     }
@@ -97,7 +97,7 @@ class Prices{
     
     function _getBlockArticles(){
         
-        $this->str_block = "<table id='art_block'><tbody>";
+        $this->str_block = "<fieldset class='fs'><table id='art_block'><tbody>";
         
         $rows = ceil(count($this->artikles)/3);
         
@@ -126,7 +126,7 @@ class Prices{
            
         }
         
-        $this->str_block .= "</tbody></table>";
+        $this->str_block .= "</tbody></table></fieldset>";
         
         return $this->str_block;
     }

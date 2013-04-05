@@ -2,7 +2,7 @@
 <div id="carts" style="position: relative;float: left;">
     <h3>Незавершенные заказы</h3>
 
-    <?php }
+    <?php 
     // Выводим все корзины для текущего пользователя
 
     $cart_count = 1;
@@ -19,6 +19,5 @@
             
             ++$cart_count;
     }
-
-    ?>
-</div>
+echo"</div>";
+    }?>

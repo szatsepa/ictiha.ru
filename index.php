@@ -150,8 +150,7 @@ switch ($attributes[act]) {
 	break;
     
     case "kabinet":
-	$title = "Личный кабинет";
-	
+	$title = "Личный кабинет";	
 	include ("main/qry_userfavprices.php");
         include ("main/qry_userfavgoods.php");
         include ("main/qry_archzakazlist.php");

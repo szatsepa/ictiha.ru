@@ -20,13 +20,11 @@
                         </tr>
                         <tr>
                             <td>
-<!--                                <fieldset class="fs">-->
                                 <?php
                                     $companies = new Companies();
 
                                     echo $companies->_getBlockCompanies();
                                 ?>
-<!--                                </fieldset>-->
                             </td>
                         </tr>
                         <tr>
@@ -34,12 +32,12 @@
                         </tr>
 			<tr>
                             <td>
-                                <fieldset class="fs">
+                                
                                 <?php
                                 $prices = new Prices(); 
                                 echo $prices->_getBlockArticles();
                             ?>
-                                </fieldset>
+                                
                             </td>
 			</tr>
 
@@ -48,11 +46,11 @@
                     </tr>
                 <tr>
                     <td>
-                        <fieldset class="fs">
+                        
                         <?php
                             echo $prices->_getAlphabet();
                         ?>
-                        </fieldset>
+                        
                     </td>
                 </tr>
             </table>
