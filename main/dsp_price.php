@@ -697,8 +697,9 @@ if ($attributes['act'] == "single_item") {
 // Выводим список товаров в мобильном прайсе
 if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['act'] == 'add_cart')  and $status == 1) {
     
-    echo "<br><table border='1' cellspacing='0' cellpadding='2' width='100%'>";
-    echo "<th>Товар</th><th>Скид.</th><th>Кол.</th>";
+    echo "<br><table border='1' cellspacing='0' cellpadding='2' width='100%'><thead>";
+    echo "<th>Товар</th><th>&nbsp;</th><th>Скид.</th><th>Кол.</th>";
+    echo "</thead><tbody>";
     echo "<form action='index.php?act=add_cart&amp;page=".$current_page.$urladd."' method='post'>";	
     echo "<input type='hidden' name='pricelist_id' value='".$attributes['pricelist_id']."'>";
     if (isset($attributes['border'])) echo "<input type='hidden' name='border' value='".$attributes['border']."'>";
@@ -710,11 +711,13 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
     	
     	$id 			= 	mysql_result($qry_price,$row_count,"id");
     	$artikul        =   mysql_result($qry_price,$row_count,"str_code1");
-        $str_code2      =   mysql_result($qry_price,$row_count,"str_code2");
+//        $str_code2      =   mysql_result($qry_price,$row_count,"str_code2");
+        $str_code2      = 'v';
         $name           =   mysql_result($qry_price,$row_count,"str_name");
         $volume         =   mysql_result($qry_price,$row_count,"str_volume");
         $package        =   mysql_result($qry_price,$row_count,"str_package");
         $price_single   =   mysql_result($qry_price,$row_count,"num_price_single");
+        $amount         =   mysql_result($qry_price, $row_count, 'num_amount');
         
         if ($authentication == "yes") {
             $amount  =   "(".mysql_result($qry_price,$row_count,"num_amount").")";    
@@ -731,16 +734,17 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
         }
 
         
-        echo "<tr>";    
-		echo "<input type='hidden' name='artikul$row_count' value='".$artikul."'>";
-		if ($ordered != '') {
-			echo "<input type='hidden' name='exist$row_count' value='".$ordered."'>";
-		}
+        echo "<tr>";  
+        
+        echo "<input type='hidden' name='artikul$row_count' value='".$artikul."'>";
+        if ($ordered != '') {
+                echo "<input type='hidden' name='exist$row_count' value='".$ordered."'>";
+        }
         // Выводим количество шт. в упаковке, чтобы товар принудительно был заказан упаковками 
         if ($str_code2 == '') {
             echo "<input type='hidden' name='package$row_count' value='".$package."'>";
         }
-        echo "<td$bold>$name; Ост. - $amount<br>Емк.$volume; Фас.$package; Цена $price_single</td>";
+        echo "<td$bold>$name;</td><td>Ост. - $amount<br>Емк.$volume; Фас.$package; Цена $price_single</td>";
         echo "<td$bold><input type='text' maxlength='6' size='3' name='discount$row_count' value='$skidka' " . $disabled . "  class='pr'></td>";
         echo "<td$bold><input type='text' maxlength='4' size='3' name='amount$row_count' value='$ordered' " . $disabled . " class='pr'></td>";
         echo "</tr>";
@@ -757,7 +761,7 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
 	echo "<input type='hidden' name='goods' value='".$row_count."'>";
 	
     echo "</form>";
-    echo "</table>";
+    echo "</tbody></table>";
     
     if ($num_rows == 0) echo "<p>Нет товаров для отображения</p>";
     

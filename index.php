@@ -12,7 +12,7 @@ if(!isset($attributes) || !is_array($attributes)) {
 	$attributes = array_merge($_GET,$_POST,$_COOKIE); 
 }
 
-//print_r($_SESSION);
+//print_r($_COOKIE);
 //echo "<br/>";
 include 'main/cp_to_utf.php';
 include ("main/qry_connect.php");

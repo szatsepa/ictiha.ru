@@ -1,33 +1,38 @@
 <script type="text/javascript">
-<!--
-        $(document).ready(function(){
+    $(document).ready(function(){
             
 //            var snd;
             var dt = new Date();
             
-            if($("body").width()<1062){
+        $.cookie('width', null, { expires: -7,path:'/' });
+       
+        $("#t_footer").css({'height': '13px','width': '100%','background-color':'#ffcc00'});
+        
+        if($("body").width()<1062){
             
-                    var b_scale = ($("body").width()/1100)+0.00;
+            var b_scale = ($("body").width()/1100)+0.00;
+            
+            $.cookie('width', $("body").width(), { expires: 7,path:'/' });
 
+            $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
+            $("#content").css({"-moz-transform": "scale("+b_scale+")"});
 
-                $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
-                $("#content").css({"-moz-transform": "scale("+b_scale+")"});
+            if ($.browser.msie) {
 
-                if ($.browser.msie) {
+                    $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});	
+                    if ($.browser.version == 8.0) {
+                            $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
+                    }
 
-                        $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});	
-                        if ($.browser.version == 8.0) {
-                                $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
-                        }
-
-                }
-
-                if ($.browser.opera) {
-                        $("#content").css({"-o-transform": "scale("+b_scale+")"});
-                }
-
-                $("#content").css({'position':'absolute','left':0,'top':0});
             }
+
+            if ($.browser.opera) {
+                    $("#content").css({"-o-transform": "scale("+b_scale+")"});
+            }
+            
+            $("html, body, table, input, select, option, p, a").css({'font-size':'1.0em'});
+//            console.log($("#content").css('font-size'));
+        }
             
              function getMessage(){
                     $.ajax({
@@ -72,7 +77,7 @@
 //            var win = {'authentication':'no','add_cart':'no','step1':'no','step2':'no','company_prices':'no','single_price':'no','single_item':'no','add_favprice':'no','kabinet':'no','supplier':'no','customers_list':'no','customer_delete':'no','customer_update':'no','customer_edit':'no','edit_price':'no','kotirovka':'no','view_archzakaz':'no','mailform':'no','sendmail':'no','complist':'no','arch_zakazuser':'no','otchet':'no','arch_done':'no','rubrika':'no','alltags':'no'}
             
             if($("#search").attr('action') != '#'){
-                $("input#entry.sendsubmit input#entry.sendsubmit:hover").css({"background": 'url("http://shop.po-mera.ru/design/search-none.png") no-repeat scroll center top transparent")'});
+                $("input#entry.sendsubmit input#entry.sendsubmit:hover").css({"background": 'url("http://lk.iqkvartira.ru/design/search-none.png") no-repeat scroll center top transparent")'});
             }
             
             $("#main_menu input:image").css({'top':'8px'});
@@ -101,9 +106,9 @@
 
             $("#second_btn").click(function(){
                 
-                $(this).attr({'href':'http://coop.po-mera.ru/'});
+                $(this).attr({'href':'http://lk.iqkvartira.ru'});
                 var newwindow=window.open($(this).attr('href'));
-                
+                return false;
             });
 
      if(role == 2){
@@ -161,35 +166,37 @@
                     cursor: 		'pointer' or any other CSS style			[default is 'pointer']
             */		
         }
+        
+        $("div.lb-1 a").attr('href', 'http://lk.iqkvartira.ru');
+        $("div.exitbutton a").attr('href','index.php?act=logout');
 
 });
--->
 </script>
 <div class="container">
     <input type="hidden" id="act" value="<?php echo $attributes['act'];?>">
     <input type="hidden" id="auth" value="<?php echo $authentication;?>">
     <input type="hidden" id="role" value="<?php echo $user['role'];?>">
-    <input type="hidden" id="uid" value="<?php echo $user['id'];?>">
+    <input type="hidden" id="uid" value="<?php echo $user['id'];?>"> 
     <div class="lb-1">
-        <a href="http://po-mera.ru/cabinet/">
-            <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_01.png">
+        <a href="http://lk.iqkvartira.ru/cabinet/">
+            <img src="http://lk.iqkvartira.ru/design/03_1_02_01.png">
         </a>
-        <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_02.png">
-        <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_03.png">
+        <img src="http://lk.iqkvartira.ru/design/03_1_02_02.png">
+        <img src="http://lk.iqkvartira.ru/design/03_1_02_03.png">
         <a href="/mail/">
-            <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_04.png">
+            <img src="http://lk.iqkvartira.ru/design/03_1_02_04.png">
         </a>
         <a href="http://org.po-mera.ru" alt="Сообщества">
-            <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_05.png">
+            <img src="http://lk.iqkvartira.ru/design/03_1_02_05.png">
         </a>
         <a href="http://idea.po-mera.ru/" alt="Идеи">
-            <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_07.png">
+            <img src="http://lk.iqkvartira.ru/design/03_1_02_07.png">
         </a>
-        <a href="http://shop.po-mera.ru/" alt="Магазин">
-            <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_08.png">
+        <a href="http://lk.iqkvartira.ru/" alt="Магазин">
+            <img src="http://lk.iqkvartira.ru/design/03_1_02_08.png">
         </a>
         <a href="http://blog.po-mera.ru/" alt="Блог">
-            <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_06.png">
+            <img src="http://lk.iqkvartira.ru/design/03_1_02_06.png">
         </a>
 
         <div class="searchwindow">
@@ -200,7 +207,7 @@
             </div>
             <div class="exitbutton">
                 <a href="index.php?act=logout">
-                    <img src="http://po-mera.ru/image_db/theme/1931528/03_1_02_10.png">
+                    <img src="http://lk.iqkvartira.ru/design/03_1_02_10.png">
                 </a>
             </div>
         </div>
