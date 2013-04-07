@@ -90,7 +90,7 @@
             dataType:'json',
             data:{'pid':$("#pid").val()},
             success:function(data){
-                console.log(data);
+//                console.log(data);
                 var first = data['data'].substr(0,1);
                 var second = data['data'].substr(1);
                 first = first.toUpperCase();
@@ -698,7 +698,7 @@ if ($attributes['act'] == "single_item") {
 if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['act'] == 'add_cart')  and $status == 1) {
     
     echo "<br><table border='1' cellspacing='0' cellpadding='2' width='100%'><thead>";
-    echo "<th>Товар</th><th>&nbsp;</th><th>Скид.</th><th>Кол.</th>";
+    echo "<th>Товар</th><th>&nbsp;</th><th>Кол.</th>";
     echo "</thead><tbody>";
     echo "<form action='index.php?act=add_cart&amp;page=".$current_page.$urladd."' method='post'>";	
     echo "<input type='hidden' name='pricelist_id' value='".$attributes['pricelist_id']."'>";
@@ -718,6 +718,7 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
         $package        =   mysql_result($qry_price,$row_count,"str_package");
         $price_single   =   mysql_result($qry_price,$row_count,"num_price_single");
         $amount         =   mysql_result($qry_price, $row_count, 'num_amount');
+        $expiration     =   mysql_result($qry_price, $row_count, 'expiration');
         
         if ($authentication == "yes") {
             $amount  =   "(".mysql_result($qry_price,$row_count,"num_amount").")";    
@@ -744,8 +745,9 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
         if ($str_code2 == '') {
             echo "<input type='hidden' name='package$row_count' value='".$package."'>";
         }
-        echo "<td$bold>$name;</td><td>Ост. - $amount<br>Емк.$volume; Фас.$package; Цена $price_single</td>";
-        echo "<td$bold><input type='text' maxlength='6' size='3' name='discount$row_count' value='$skidka' " . $disabled . "  class='pr'></td>";
+        echo "<td$bold><a href='index.php?act=single_item&amp;pricelist_id={$attributes['pricelist_id']}&amp;artikul=$artikul$urladd' id='$artikul'>$name;</a>";
+        echo "</td><td>Ост. - $amount; Емк.$volume; Фас.$package; Цена $price_single; Срок годности $expiration</td>";
+//        echo "<td$bold><input type='text' maxlength='6' size='3' name='discount$row_count' value='$skidka' " . $disabled . "  class='pr'></td>";
         echo "<td$bold><input type='text' maxlength='4' size='3' name='amount$row_count' value='$ordered' " . $disabled . " class='pr'></td>";
         echo "</tr>";
 
@@ -775,6 +777,7 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
 // Выводим единичный товар для мобилки
 
 if ($mobile == 'true' and $attributes['act'] == 'single_item'  and  $status == 1) {
+    
     while ($row_count < $row_end) {
     	
     	$id 			= 	mysql_result($qry_price,$row_count,$array_fields[0]);
@@ -786,9 +789,13 @@ if ($mobile == 'true' and $attributes['act'] == 'single_item'  and  $status == 1
     		$dat = mysql_result($qry_price,$row_count,$array_fields[$field_count]);
             
 			// To do Здесь внимательно проверить на мобиле!!!!!
-         	if ($field_count != 2) {
-    			echo "<b>".$fields[$field_count - 1].":</b> ".$dat."<br />";
-    		}
+                if($field_count != 2){ 
+                    if ($field_count == 3) {
+                        echo "<p><img src='../images/goods/$dat' alt='$dat' width='79'/></p>"; 
+                    }else{
+                        echo "<p><strong>{$fields[$field_count - 1]}: $dat.</p>";
+                    }
+                }
     		++$field_count;
     	}
     	
@@ -798,13 +805,13 @@ if ($mobile == 'true' and $attributes['act'] == 'single_item'  and  $status == 1
     		$disabled = 'disabled="disabled"';
     	}
     	
-        echo "<div class='head'>Заказ:</div>";
+//        echo "<div class='head'>Заказ:</div>";
     	echo "<table border=0><tr><td>Кол-во(шт.)</td><td><input type='Text' maxlength='4' size='4' name='amount' value='1' " . $disabled . " ><td/></tr>";
-    	echo "<tr><td>Скидка</td><td><input type='Text' maxlength='2' size='2' name='discount' value='0' " . $disabled . " ><td/></tr></table>";
-    	echo "<input type='Submit' value='Заказать' " . $disabled . " ><br />";
+//    	echo "<tr><td><input type='Text' maxlength='2' size='2' name='discount' value='0' " . $disabled . " ><td/></tr></table>";
+    	echo "<tr><td colspan='2'><p><input type='Submit' value='Заказать' " . $disabled . " ></p></td></tr>";
     	if (isset($attributes['border'])) echo "<input type='Hidden' name='border' value='".$attributes['border']."'>";
     	if (isset($attributes['group'])) echo "<input type='Hidden' name='group' value='".$attributes['group']."'>";
-    	echo "</tr></form>";
+    	echo "</table></form>";
     
     	++$row_count;
     }

@@ -1,7 +1,7 @@
 <?php
 //print_r($attributes);
 ////echo "<br>";
-if ($mobile == 'false') {
+if ($mobile == 'false' or $mobile == 'true') {
 
 	// Избавимся от "неправильных" значений
 	if (!is_numeric($attributes['amount'])) {

@@ -4,11 +4,14 @@
 //            var snd;
             var dt = new Date();
             
-        $.cookie('width', null, { expires: -7,path:'/' });
+//        $.cookie('width', null, { expires: -7,path:'/' });
        
         $("#t_footer").css({'height': '13px','width': '100%','background-color':'#ffcc00'});
         
+//        console.log($.cookie('width'));
+        
         if($("body").width()<1062){
+//        if($.cookie('width') < 1062){
             
             var b_scale = ($("body").width()/1100)+0.00;
             
@@ -222,17 +225,17 @@
             $path_msg = "mailform"; 
         }
         if($_SESSION['auth'] == 1){
-            if (($user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights)) and $mobile == 'false') { 
+            if (($user["role"] == 3) and $attributes[act] != 'kabinet' and (!in_array("kabinet",$rights))) { 
                 ?>
                 <button class="btn_main" id="btn_complist">Список&nbsp;компаний</button>&nbsp;
                 <button class="btn_main" id="btn_kabinet">Личный&nbsp;кабинет</button>&nbsp;
             <?php } 
-            if (($user["role"] == 2) and $attributes[act] != 'supplier' and (!in_array("supplier",$rights)) and $mobile == 'false') {
+            if (($user["role"] == 2) and $attributes[act] != 'supplier' and (!in_array("supplier",$rights))) {
                         ?>
                 <button class="btn_main" id="btn_supplier">Кабинет&nbsp;поставщика</button>&nbsp;
                 <button class="btn_main" id="btn_otchet">Отчеты</button>&nbsp;
             <?php }
-            if (($user["role"] == 5) and $attributes[act] != 'torg' and (!in_array("torg",$rights)) and $mobile == 'false') {?>
+            if (($user["role"] == 5) and $attributes[act] != 'torg' and (!in_array("torg",$rights))) {?>
                 <button class="btn_main" id="btn_torg">Кабинет&nbsp;торгового</button>&nbsp;
             <?php } 
             if ($attributes['act'] == 'kabinet' or $attributes['act'] == 'supplier') { ?> 
