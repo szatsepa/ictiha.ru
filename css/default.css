@@ -1,7 +1,7 @@
 /*
 	Design by Free CSS Templates
 	http://www.freecsstemplates.org
-	Released for free under a Creative Commons Attribution 2.5 License
+	Released for free under a Creative Commons Attribution 2.5 License 
 */
 
 /* Basic */
@@ -199,7 +199,9 @@ a:hover
 /* Content */
 
 #content
-{
+{       width: 1062px;
+/*        height: 100%;*/
+        margin: 0 auto;
 	padding-left: 2em;
 	padding-right: 2em;
 }
@@ -436,6 +438,7 @@ TD.rubrik_link {
 }
 
 /* Footer */
+
 #t_footer
 {
 	border-top: solid 1px #e5e5e5;
@@ -443,7 +446,7 @@ TD.rubrik_link {
 /*	padding: 0em 0em 1.5em 0em;*/
         height: 13px;
         width: 100%;
-        background-color: #e5e5e5;
+        background-color: #ffcc00;
 }
 
 /*#p_f{

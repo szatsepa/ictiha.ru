@@ -14,7 +14,7 @@ header('Content-Type: text/html; charset=utf-8');
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 <!-- таблицы стилей -->
-        <link rel="STYLESHEET" type="text/css" href="css/<?php echo $css_style; ?>">
+        <link rel="stylesheet" type="text/css" href="css/<?php echo $css_style; ?>">
         <link rel="stylesheet" media="screen,projection" type="text/css" href="css/slimbox2.css" />	
         <link rel="stylesheet" type="text/css" href="css/mystyle.css" />
         <link rel="stylesheet" type="text/css" href="css/default.css" />

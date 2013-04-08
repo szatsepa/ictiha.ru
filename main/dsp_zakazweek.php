@@ -57,7 +57,7 @@ while ($row = mysql_fetch_assoc($qry_zakazweek)) {
                 <?php
                 foreach ($days as $day) {
                 ?>
-                <th  class='cart' style="width:10em;"><?php echo $day;?></th>
+                <th  class='cart' style="width:10em;text-align: center;"><?php echo $day;?></th>
                 <?php } ?>
 
             </tr> 

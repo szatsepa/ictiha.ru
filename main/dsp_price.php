@@ -711,7 +711,7 @@ if ($mobile == 'true' and ($attributes['act'] == 'single_price' or $attributes['
     	
     	$id 			= 	mysql_result($qry_price,$row_count,"id");
     	$artikul        =   mysql_result($qry_price,$row_count,"str_code1");
-//        $str_code2      =   mysql_result($qry_price,$row_count,"str_code2");
+        $barcode      =   mysql_result($qry_price,$row_count,"str_barcode");
         $str_code2      = 'v';
         $name           =   mysql_result($qry_price,$row_count,"str_name");
         $volume         =   mysql_result($qry_price,$row_count,"str_volume");
@@ -780,20 +780,32 @@ if ($mobile == 'true' and $attributes['act'] == 'single_item'  and  $status == 1
     
     while ($row_count < $row_end) {
     	
-    	$id 			= 	mysql_result($qry_price,$row_count,$array_fields[0]);
+    	$id 			= 	mysql_result($qry_price,$row_count,"id");
+    	$artikul        =   mysql_result($qry_price,$row_count,"str_code1");
+        $barcode      =   mysql_result($qry_price,$row_count,"str_barcode");
+        $str_code2      = 'v';
+        $name           =   mysql_result($qry_price,$row_count,"str_name");
+        $volume         =   mysql_result($qry_price,$row_count,"str_volume");
+        $package        =   mysql_result($qry_price,$row_count,"str_package");
+        $price_single   =   mysql_result($qry_price,$row_count,"num_price_single");
+        $amount         =   mysql_result($qry_price, $row_count, 'num_amount');
+        $expiration     =   mysql_result($qry_price, $row_count, 'expiration');
+        
     	$field_count 	= 	1;
     	echo "<form action=index.php?act=add_cart&page=".$current_page.$urladd." method=post>";
     	echo "<input type='Hidden' name='id' value=".$id.">";
         echo "<input type='Hidden' name='pricelist_id' value=".$attributes['pricelist_id'].">";
+        echo "<input type='hidden' name='user_id' value='{$user['id']}'>";
+        echo "<input type='hidden' name='artikul' value='$artikul'>";
         while ($field_count < $num_fields - 1) {	
     		$dat = mysql_result($qry_price,$row_count,$array_fields[$field_count]);
             
 			// To do Здесь внимательно проверить на мобиле!!!!!
                 if($field_count != 2){ 
                     if ($field_count == 3) {
-                        echo "<p><img src='../images/goods/$dat' alt='$dat' width='79'/></p>"; 
+                        echo "<p><img src='../images/goods/$dat' alt='$dat' width='96'/></p>"; 
                     }else{
-                        echo "<p><strong>{$fields[$field_count - 1]}: $dat.</p>";
+                        echo "<p><strong>{$fields[$field_count - 1]}:</strong>&nbsp;&nbsp;&nbsp; $dat.</p>";
                     }
                 }
     		++$field_count;
@@ -806,9 +818,9 @@ if ($mobile == 'true' and $attributes['act'] == 'single_item'  and  $status == 1
     	}
     	
 //        echo "<div class='head'>Заказ:</div>";
-    	echo "<table border=0><tr><td>Кол-во(шт.)</td><td><input type='Text' maxlength='4' size='4' name='amount' value='1' " . $disabled . " ><td/></tr>";
+    	echo "<table border=0><tr><td><p><strong>Кол-во(шт.)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><input type='Text' maxlength='4' size='4' name='amount' value='1' " . $disabled . " ></p></td></tr>";
 //    	echo "<tr><td><input type='Text' maxlength='2' size='2' name='discount' value='0' " . $disabled . " ><td/></tr></table>";
-    	echo "<tr><td colspan='2'><p><input type='Submit' value='Заказать' " . $disabled . " ></p></td></tr>";
+    	echo "<tr><td colspan='2'><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='Submit' value='Заказать' " . $disabled . " ></p></td></tr>";
     	if (isset($attributes['border'])) echo "<input type='Hidden' name='border' value='".$attributes['border']."'>";
     	if (isset($attributes['group'])) echo "<input type='Hidden' name='group' value='".$attributes['group']."'>";
     	echo "</table></form>";

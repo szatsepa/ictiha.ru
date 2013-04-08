@@ -4,7 +4,7 @@
 //            var snd;
             var dt = new Date();
             
-//        $.cookie('width', null, { expires: -7,path:'/' });
+//        $.cookie('width', null, { expires: -1,path:'/' });
        
         $("#t_footer").css({'height': '13px','width': '100%','background-color':'#ffcc00'});
         
@@ -15,7 +15,7 @@
             
             var b_scale = ($("body").width()/1100)+0.00;
             
-            $.cookie('width', $("body").width(), { expires: 7,path:'/' });
+            $.cookie('width', $("body").width(), { expires: 1,path:'/' });
 
             $("#content").css({zoom: b_scale, transform: "scale("+b_scale+")", transformOrigin: "0 0"});
             $("#content").css({"-moz-transform": "scale("+b_scale+")"});

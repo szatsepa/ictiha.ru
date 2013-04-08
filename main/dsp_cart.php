@@ -25,7 +25,7 @@ while ($th < count($fields)) {
     if($mobile = 'false'){
        
 
-        if ($attributes['act'] == 'step2' or $attributes['act'] == 'step1') {
+        if ($attributes['act'] == 'step2' or $attributes['act'] == 'step1' or $attributes['act'] == 'kabinet') {
             echo "<th class='cart'>".$fields[$th]."</th>";
         }
 
