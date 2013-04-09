@@ -6,7 +6,7 @@
             
 //        $.cookie('width', null, { expires: -1,path:'/' });
        
-        $("#t_footer").css({'height': '13px','width': '100%','background-color':'#ffcc00'});
+        $("#t_footer").css({'height': '13px','width': '100%','background-color':'#ccc'});
         
 //        console.log($.cookie('width'));
         
@@ -80,7 +80,7 @@
 //            var win = {'authentication':'no','add_cart':'no','step1':'no','step2':'no','company_prices':'no','single_price':'no','single_item':'no','add_favprice':'no','kabinet':'no','supplier':'no','customers_list':'no','customer_delete':'no','customer_update':'no','customer_edit':'no','edit_price':'no','kotirovka':'no','view_archzakaz':'no','mailform':'no','sendmail':'no','complist':'no','arch_zakazuser':'no','otchet':'no','arch_done':'no','rubrika':'no','alltags':'no'}
             
             if($("#search").attr('action') != '#'){
-                $("input#entry.sendsubmit input#entry.sendsubmit:hover").css({"background": 'url("http://lk.iqkvartira.ru/design/search-none.png") no-repeat scroll center top transparent")'});
+                $("input#entry.sendsubmit input#entry.sendsubmit:hover").css({"background": 'url("http://shop.po-mera.ru/design/search-none.png") no-repeat scroll center top transparent")'});
             }
             
             $("#main_menu input:image").css({'top':'8px'});
@@ -109,7 +109,7 @@
 
             $("#second_btn").click(function(){
                 
-                $(this).attr({'href':'http://lk.iqkvartira.ru'});
+                $(this).attr({'href':'http://shop.po-mera.ru'});
                 var newwindow=window.open($(this).attr('href'));
                 return false;
             });
@@ -170,7 +170,7 @@
             */		
         }
         
-        $("div.lb-1 a").attr('href', 'http://lk.iqkvartira.ru');
+        $("div.lb-1 a").attr('href', 'http://shop.po-mera.ru');
         $("div.exitbutton a").attr('href','index.php?act=logout');
 
 });
@@ -181,25 +181,25 @@
     <input type="hidden" id="role" value="<?php echo $user['role'];?>">
     <input type="hidden" id="uid" value="<?php echo $user['id'];?>"> 
     <div class="lb-1">
-        <a href="http://lk.iqkvartira.ru/cabinet/">
-            <img src="http://lk.iqkvartira.ru/design/03_1_02_01.png">
+        <a href="http://shop.po-mera.ru/cabinet/">
+            <img src="http://shop.po-mera.ru/design/03_1_02_01.png">
         </a>
-        <img src="http://lk.iqkvartira.ru/design/03_1_02_02.png">
-        <img src="http://lk.iqkvartira.ru/design/03_1_02_03.png">
+        <img src="http://shop.po-mera.ru/design/03_1_02_02.png">
+        <img src="http://shop.po-mera.ru/design/03_1_02_03.png">
         <a href="/mail/">
-            <img src="http://lk.iqkvartira.ru/design/03_1_02_04.png">
+            <img src="http://shop.po-mera.ru/design/03_1_02_04.png">
         </a>
         <a href="http://org.po-mera.ru" alt="Сообщества">
-            <img src="http://lk.iqkvartira.ru/design/03_1_02_05.png">
+            <img src="http://shop.po-mera.ru/design/03_1_02_05.png">
         </a>
         <a href="http://idea.po-mera.ru/" alt="Идеи">
-            <img src="http://lk.iqkvartira.ru/design/03_1_02_07.png">
+            <img src="http://shop.po-mera.ru/design/03_1_02_07.png">
         </a>
-        <a href="http://lk.iqkvartira.ru/" alt="Магазин">
-            <img src="http://lk.iqkvartira.ru/design/03_1_02_08.png">
+        <a href="http://shop.po-mera.ru/" alt="Магазин">
+            <img src="http://shop.po-mera.ru/design/03_1_02_08.png">
         </a>
         <a href="http://blog.po-mera.ru/" alt="Блог">
-            <img src="http://lk.iqkvartira.ru/design/03_1_02_06.png">
+            <img src="http://shop.po-mera.ru/design/03_1_02_06.png">
         </a>
 
         <div class="searchwindow">
@@ -210,7 +210,7 @@
             </div>
             <div class="exitbutton">
                 <a href="index.php?act=logout">
-                    <img src="http://lk.iqkvartira.ru/design/03_1_02_10.png">
+                    <img src="http://shop.po-mera.ru/design/03_1_02_10.png">
                 </a>
             </div>
         </div>
