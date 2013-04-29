@@ -66,7 +66,7 @@ if (isset($attributes['id']) and $attributes['id'] > 0 and isset($attributes['st
         if($attributes['decline_comment']){
             $message  .= "<p>Отказался по причине - <strong>{$attributes['decline_comment']}</strong></p>";
         }
-        $message  .= "<p>С уважением администрация {$_SERVER['HOST_NAME']}.</p>";
+        $message  .= "<p>С уважением администрация {$_SERVER ['HTTP_HOST'] }.</p>";
         $message .=" </body></html>";
 
         // To send HTML mail, the Content-type header must be set
@@ -77,8 +77,8 @@ if (isset($attributes['id']) and $attributes['id'] > 0 and isset($attributes['st
 
         // Additional headers
         $headers .= "To: $email\r\n";
-        $headers .= "From: noreply@{$_SERVER['HOST_NAME']}" . "\r\n";
-        $headers .= "Bcc: operator@{$_SERVER['HOST_NAME']}\r\n";
+        $headers .= "From: noreply@{$_SERVER ['HTTP_HOST'] }" . "\r\n";
+        $headers .= "Bcc: operator@{$_SERVER ['HTTP_HOST'] }\r\n";
 		
                 // Mail it
         mail($to, $subject, $message, $headers);

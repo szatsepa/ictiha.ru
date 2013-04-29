@@ -1,21 +1,26 @@
-<?php if ($mobile == 'false') {
-    $company_inf = mysql_fetch_row($qry_company);
+<?php 
+if ($mobile == 'false') {
+    $company_inf = mysql_fetch_assoc($qry_company);
    
     $logos_root =  $document_root . '/images/logos/';
-    $picture    =  $logos_root."logo_".$attributes[company_id].".gif";
+    $picture    =  $logos_root."logo_".$attributes['company_id'].".gif";
    
 ?>
 <div align="center"><br />
 <table border="0" cellpadding="15" cellspacing="0">
     <tr>
-        <td valign="top"><?php if (file_exists($picture)) { ?><img src="images/logos/logo_<?php echo $attributes[company_id]; ?>.gif" border="0" alt=""><?php } ?></td>
-                <td valign="top" width="300"><strong style="font-size:12pt;"><?php echo $company_inf[1];?></strong><br /><br />
-                                                                         <strong>О компании:</strong><br /><br />
-                                                                         <div align="justify"><?php echo $company_inf[3];?></div><br /><br /><br />
+        <td valign="top"><?php if (file_exists($picture)) { ?><img src="images/logos/logo_<?php echo $attributes['company_id']; ?>.gif" border="0" alt=""><?php } ?></td>
+        <td valign="top" width="300"><strong id="t_name" style="font-size:12pt;"><?php echo $company_inf['name'];?></strong><br /><br />
+                                                                         
                                                                          <?php
                                                                          if ($authentication == "yes"){
+                                                                             ?>
+                                                                         <strong>О компании:</strong><br /><br />       
+                                                                         <div align="justify"><?php echo $company_inf['full_about'];?></div><br /><br /><br />
+                                                                         <?php
+                                                                         
                                                                                 echo "<strong>Визитка компании:</strong><br /><br />";
-                                                                                echo string2html($company_inf[2]);
+                                                                                echo string2html($company_inf['about']);
                                                                          }
                                                                          ?>
                 </td>
@@ -95,4 +100,9 @@ $company_inf = mysql_fetch_row($qry_company);
     }
 
  } ?>
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("head title").text($("#t_name").text());
+        console.log($("#t_name").text());
+    });
+</script>

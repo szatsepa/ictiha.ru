@@ -93,7 +93,7 @@ $output = str_replace ("<table>","<table cellspacing=0 cellpadding=4>.",$output)
 
 <?php
 // multiple recipients
-$to  = 'operator@'.$_SERVER['HOST_NAME'];
+$to  = 'operator@'.$_SERVER ['HTTP_HOST'] ;
 
 $demalert = '';
 
@@ -124,8 +124,8 @@ $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 
 // Additional headers
 $headers .= 'To: '.$attributes['email']."\r\n";
-$headers .= 'From: noreply@'.$_SERVER['HOST_NAME'] . "\r\n";
-$headers .= 'Bcc: operator@'.$_SERVER['HOST_NAME'].'\r\n';
+$headers .= 'From: noreply@'.$_SERVER ['HTTP_HOST']  . "\r\n";
+$headers .= 'Bcc: operator@'.$_SERVER ['HTTP_HOST'] .'\r\n';
 
 // Mail it
 mail($to, $subject, $message, $headers);

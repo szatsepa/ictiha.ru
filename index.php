@@ -506,7 +506,7 @@ switch ($attributes[act]) {
 	
 	// По умолчанию    
     default:
-	$title = "ПО \"МЕРА\"";
+	$title = "Магазин";
         include 'main/class_prices.php'; 
         include ("main/act_string2html.php");
 	include ("main/dsp_header.php");
