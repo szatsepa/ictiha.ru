@@ -25,7 +25,7 @@ $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/plain; charset=utf-8' . "\r\n";
 			
 	// Additional headers
-$headers .= 'From: noreply@shop.po-mera.ru \r\n';
+$headers .= 'From: noreply@'.$_SERVER['HOST_NAME'].' \r\n';
 	
 $out['post'] = $to."; ".$subject."; ".$message."; ".$headers;		
 	// Mail it

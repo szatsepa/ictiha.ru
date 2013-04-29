@@ -76,7 +76,7 @@ class DateSelect{
         $out_string = "<select class='common' name='$name' id='$id'> "; 
                 
                 for ($i=1;$i<32;++$i) { 
-                    if(date(d)==$i){
+                    if((date(d)+1)==$i){
                         $out_string .= " <option value='".sprintf("%02d",$i)."' selected>".sprintf("%02d",$i)."</option>";
                     }else{
                         $out_string .= " <option value='".sprintf("%02d",$i)."'>".sprintf("%02d",$i)."</option>";

@@ -3,7 +3,7 @@
 $company_name = mysql_result($qry_cart,0,"company_name");
 
 
-$to  = 'operator@shop.po-mera.ru';
+$to  = 'operator@'.$_SERVER['HOST_NAME'];
 
 // subject
 $subject = 'Заявка на заключение договора от пользователя '.$user["surname"]." ".$user["name"];
